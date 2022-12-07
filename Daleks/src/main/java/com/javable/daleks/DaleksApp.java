@@ -1,5 +1,6 @@
 package com.javable.daleks;
 
+import com.javable.daleks.controllers.MainController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -18,18 +19,18 @@ import java.io.IOException;
 */
 
 public class DaleksApp extends Application {
+    private static MainController mainController;
+    private static Stage mainStage;
+    public static Stage GetStage() { return mainStage; }
+    public static MainController GetMainController() { return mainController; }
+
     @Override
     public void start(Stage stage) throws IOException {
-        Scene scene = new Scene(
-                new FXMLLoader(DaleksApp.class.getResource("main-view.fxml")).load(),
-                Settings.WindowWidth,
-                Settings.WindowHeight);
-        //scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
-        scene.getRoot().setStyle("-fx-base:black");
-
-        stage.setTitle("Javable's Daleks");
-        stage.setScene(scene);
-        stage.show();
+        mainStage = stage;
+        MainController mainController = new MainController();
+        mainController.InitView();
+        mainStage.setTitle("Javable's Daleks");
+        mainStage.show();
     }
 
     public static void main(String[] args) {
