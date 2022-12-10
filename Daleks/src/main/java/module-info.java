@@ -11,4 +11,6 @@ module com.javable.daleks {
     exports com.javable.daleks;
     exports com.javable.daleks.controllers;
     opens com.javable.daleks.controllers to javafx.fxml;
+    exports com.javable.daleks.logic;
+    opens com.javable.daleks.logic to javafx.fxml;
 }

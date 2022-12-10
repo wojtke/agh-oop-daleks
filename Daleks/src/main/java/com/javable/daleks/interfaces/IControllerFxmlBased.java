@@ -1,13 +1,13 @@
 package com.javable.daleks.interfaces;
 
-import com.javable.daleks.logic.ViewHelper;
+import com.javable.daleks.logic.ViewManager;
 
 import java.io.IOException;
 
-public interface iController {
+public interface IControllerFxmlBased extends IController {
     String GetViewPath();
-    
+
     default void InitView() throws IOException {
-        ViewHelper.SetScene(GetViewPath());
+        ViewManager.SetScene(GetViewPath());
     }
 }

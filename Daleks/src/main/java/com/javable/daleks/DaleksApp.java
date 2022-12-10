@@ -27,7 +27,7 @@ public class DaleksApp extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         mainStage = stage;
-        MainController mainController = new MainController();
+        mainController = new MainController();
         mainController.InitView();
         mainStage.setTitle("Javable's Daleks");
         mainStage.show();

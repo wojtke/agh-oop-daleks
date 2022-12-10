@@ -1,11 +1,16 @@
 package com.javable.daleks.controllers;
 
+import com.javable.daleks.DaleksApp;
 import com.javable.daleks.Settings;
-import com.javable.daleks.interfaces.iController;
-import javafx.event.ActionEvent;
+import com.javable.daleks.interfaces.IController;
+import com.javable.daleks.interfaces.IControllerFxmlBased;
+import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
-public class GameOverController implements iController {
+import java.io.IOException;
+
+public class GameOverController implements IControllerFxmlBased {
+    @FXML
     public Label welcomeText;
 
     @Override
@@ -13,7 +18,7 @@ public class GameOverController implements iController {
         return Settings.GameOverView;
     }
 
-    public void ReturnToMenuBtn() { // ActionEvent actionEvent) {
-
+    public void ReturnToMenuBtn() throws IOException { // ActionEvent actionEvent) {
+        DaleksApp.GetMainController().InitView();
     }
 }
