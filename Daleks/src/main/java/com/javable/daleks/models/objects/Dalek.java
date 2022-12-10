@@ -2,6 +2,7 @@ package com.javable.daleks.models.objects;
 
 import com.javable.daleks.enums.EDirection;
 import com.javable.daleks.enums.EObjectType;
+import com.javable.daleks.logic.CollisionHandlerVisitor;
 import com.javable.daleks.models.Position;
 
 public class Dalek extends ObjectBase{
@@ -13,5 +14,10 @@ public class Dalek extends ObjectBase{
     @Override
     public boolean canMove(EDirection direction) {
         return true;
+    }
+
+    @Override
+    public void accept(CollisionHandlerVisitor visitor, ObjectBase other, boolean inWalk) {
+        visitor.handleDalekCollision(this, other, inWalk);
     }
 }

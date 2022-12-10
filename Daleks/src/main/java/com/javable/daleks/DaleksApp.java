@@ -1,5 +1,6 @@
 package com.javable.daleks;
 
+import com.javable.daleks.controllers.GameController;
 import com.javable.daleks.controllers.MainController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -27,8 +28,10 @@ public class DaleksApp extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         mainStage = stage;
-        mainController = new MainController();
-        mainController.InitView();
+//        mainController = new MainController();
+//        mainController.InitView();
+        GameController gc= new GameController();
+        gc.InitView();
         mainStage.setTitle("Javable's Daleks");
         mainStage.show();
     }

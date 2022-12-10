@@ -9,21 +9,26 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 public class ImageLoader {
-    private final Image PlayerImg, EmptyImg;
+    private final Image PlayerImg, EmptyImg, DalekImg, ScrapImg;
 
     // TODO reszta textur
 
     public ImageLoader() throws FileNotFoundException {
         PlayerImg = new Image(new FileInputStream(Settings.PlayerImage));
         EmptyImg = new Image(new FileInputStream(Settings.EmptyImage));
+        DalekImg = new Image(new FileInputStream(Settings.DalekImage));
+        ScrapImg = new Image(new FileInputStream(Settings.ScrapImage));
     }
 
     public Image ToImage(EObjectType type) {
         return switch (type) {
             case Empty -> EmptyImg;
             case Player -> PlayerImg;
+            case Dalek -> DalekImg;
+            case Scrap -> ScrapImg;
             default -> throw new NotImplementedError();
             // TODO reszta opcji
         };
     }
+
 }

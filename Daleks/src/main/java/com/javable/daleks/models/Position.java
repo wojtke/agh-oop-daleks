@@ -38,7 +38,8 @@ public class Position{
     }
 
     public void add(Position other) {
-        x += other.x; y += other.y;
+        x += other.x;
+        y += other.y;
     }
 
     public static Position ToVector(EDirection direction) {
@@ -52,5 +53,10 @@ public class Position{
             case Left -> new Position(-1, 0);
             case TopLeft -> new Position(-1, -1);
         };
+    }
+    public static Position Move(Position p, EDirection direction) {
+        Position result = new Position(p);
+        result.add(ToVector(direction));
+        return result;
     }
 }
