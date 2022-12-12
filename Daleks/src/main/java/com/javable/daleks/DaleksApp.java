@@ -1,10 +1,7 @@
 package com.javable.daleks;
 
-import com.javable.daleks.controllers.GameController;
 import com.javable.daleks.controllers.MainController;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -22,21 +19,25 @@ import java.io.IOException;
 public class DaleksApp extends Application {
     private static MainController mainController;
     private static Stage mainStage;
-    public static Stage GetStage() { return mainStage; }
-    public static MainController GetMainController() { return mainController; }
 
-    @Override
-    public void start(Stage stage) throws IOException {
-        mainStage = stage;
-//        mainController = new MainController();
-//        mainController.InitView();
-        GameController gc= new GameController();
-        gc.InitView();
-        mainStage.setTitle("Javable's Daleks");
-        mainStage.show();
+    public static Stage GetStage() {
+        return mainStage;
+    }
+
+    public static MainController GetMainController() {
+        return mainController;
     }
 
     public static void main(String[] args) {
         launch();
+    }
+
+    @Override
+    public void start(Stage stage) throws IOException {
+        mainStage = stage;
+        mainController = new MainController();
+        mainController.InitView();
+        mainStage.setTitle("Javable's Daleks");
+        mainStage.show();
     }
 }

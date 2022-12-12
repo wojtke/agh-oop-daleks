@@ -1,8 +1,5 @@
 package com.javable.daleks.models;
 
-import com.javable.daleks.Settings;
-import com.javable.daleks.enums.EDirection;
-import com.javable.daleks.enums.EObjectType;
 import com.javable.daleks.models.objects.Dalek;
 import com.javable.daleks.models.objects.ObjectBase;
 import com.javable.daleks.models.objects.Player;
@@ -11,76 +8,55 @@ import com.javable.daleks.models.objects.Scrap;
 import java.util.*;
 
 public class GameMap {
-    public final Player Player = new Player();
-    public final List<Dalek> Daleks = new ArrayList<>();
-    public final List<Scrap> Scrap = new ArrayList<>();
-    private final Map<Position, ObjectBase> OccupiedCells = new HashMap<Position, ObjectBase>(); // referencje do postaci na planszy
+    public final Player player;
+    public final List<Dalek> daleks = new ArrayList<>();
+    public final List<Scrap> scraps = new ArrayList<>();
+    private final Map<Position, ObjectBase> occupiedCells = new HashMap<>(); // referencje do postaci na planszy
+    public final int gridCount;
 
-    public GameMap() {
-        // TODO Przeniesc incjalizacje do osobnej klasy - np. MapGenerator
-        OccupiedCells.put(Player.position, Player);
-        for (int i = 0; i < Settings.DaleksCount; i++) {
-
-            Dalek dalek = new Dalek(new Position(i, 3));
-            Daleks.add(dalek);
-            OccupiedCells.put(dalek.position, dalek);
-        }
+    public GameMap(Player player, int gridCount) {
+        this.gridCount = gridCount;
+        this.player = player;
+        occupiedCells.put(player.position, player);
     }
-    public void AddDalek(Dalek newDalek){
-        if(OccupiedCells.containsKey(newDalek.position))
+
+    public boolean isInBounds(Position position) {
+        return position.x >= 0 && position.x < this.gridCount && position.y >= 0 && position.y < this.gridCount;
+    }
+
+    public boolean playerCanMoveTo(Position position) {
+        return isInBounds(position) && !occupiedCells.containsKey(position);
+    }
+
+    public void addDalek(Dalek newDalek) {
+        if (occupiedCells.containsKey(newDalek.position))
             return;
-        Daleks.add(newDalek);
-        OccupiedCells.put(newDalek.position, newDalek);
+        daleks.add(newDalek);
+        occupiedCells.put(newDalek.position, newDalek);
     }
-    public void AddScrap(Scrap newScrap){
-        if(OccupiedCells.containsKey(newScrap.position))
+
+    public void addScrap(Scrap newScrap) {
+        if (occupiedCells.containsKey(newScrap.position))
             return;
-        Scrap.add(newScrap);
-        OccupiedCells.put(newScrap.position, newScrap);
+        scraps.add(newScrap);
+        occupiedCells.put(newScrap.position, newScrap);
     }
 
-//    public List<Position> NextFrame(EDirection moveDirection) {
-//        // rusz gracza i daleks
-//        // zakładam, że ruch jest sprawdzony
-//        // info która komóka jest do aktualizacji
-//
-//        HashSet<Position> buffer = new HashSet<>(); // nie chcemy duplikatów
-//
-//        MoveObject(Player, moveDirection, buffer);
-//
-//        return buffer.stream().toList();    // Lista komórek do aktualizacji
-//    }
-
-//    private void MoveObject(ObjectBase object, EDirection move, HashSet<Position> buffer) {
-//        Position oldPosition = new Position(object.position);
-//
-//        buffer.add(oldPosition);
-//        object.move(move);
-//
-//        OccupiedCells.remove(oldPosition);
-//        OccupiedCells.put(object.position, object);
-//
-//        buffer.add(object.position);
-//    }
-    public void MoveObject(ObjectBase object, Position newPosition) {
+    public void moveObject(ObjectBase object, Position newPosition) {
         Position oldPosition = object.position;
         object.position = newPosition;
-        OccupiedCells.remove(oldPosition);
-        OccupiedCells.put(object.position, object);
+        occupiedCells.remove(oldPosition);
+        occupiedCells.put(object.position, object);
     }
-    public Optional<ObjectBase> GetObjectAtCell(Position position) {
-        return OccupiedCells.containsKey(position)
-                ? Optional.of(OccupiedCells.get(position))
+
+    public Optional<ObjectBase> getObjectAtCell(Position position) {
+        return occupiedCells.containsKey(position)
+                ? Optional.of(occupiedCells.get(position))
                 : Optional.empty();
     }
 
-    public static boolean IsInBounds(Position position) {
-        return position.x >= 0 && position.x < Settings.GridCount
-                && position.y >= 0 && position.y < Settings.GridCount;
-    }
-
     public void removeDalek(Dalek dalek) {
-        this.Daleks.remove(dalek);
-        this.OccupiedCells.remove(dalek.position);
+        this.daleks.remove(dalek);
+        this.occupiedCells.remove(dalek.position);
     }
 }

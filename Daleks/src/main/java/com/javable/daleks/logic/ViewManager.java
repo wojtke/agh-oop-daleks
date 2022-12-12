@@ -9,6 +9,7 @@ import java.io.IOException;
 
 public class ViewManager {
     public static void SetScene(String viewPath) throws IOException {
+
         Scene scene = new Scene(
                 new FXMLLoader(DaleksApp.class.getResource(viewPath)).load(),
                 Settings.WindowWidth,

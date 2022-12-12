@@ -3,7 +3,6 @@ package com.javable.daleks.logic;
 import com.javable.daleks.Settings;
 import com.javable.daleks.enums.EObjectType;
 import javafx.scene.image.Image;
-import kotlin.NotImplementedError;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -20,14 +19,12 @@ public class ImageLoader {
         ScrapImg = new Image(new FileInputStream(Settings.ScrapImage));
     }
 
-    public Image ToImage(EObjectType type) {
+    public Image getImage(EObjectType type) {
         return switch (type) {
             case Empty -> EmptyImg;
             case Player -> PlayerImg;
             case Dalek -> DalekImg;
             case Scrap -> ScrapImg;
-            default -> throw new NotImplementedError();
-            // TODO reszta opcji
         };
     }
 

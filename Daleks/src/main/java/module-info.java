@@ -6,6 +6,9 @@ module com.javable.daleks {
     requires com.dlsc.formsfx;
     requires org.kordamp.bootstrapfx.core;
     requires com.almasb.fxgl.all;
+    requires com.google.guice;
+    requires javax.inject;
+
 
     opens com.javable.daleks to javafx.fxml;
     exports com.javable.daleks;
@@ -13,4 +16,6 @@ module com.javable.daleks {
     opens com.javable.daleks.controllers to javafx.fxml;
     exports com.javable.daleks.logic;
     opens com.javable.daleks.logic to javafx.fxml;
+
+    exports com.javable.daleks.models;
 }

@@ -25,7 +25,8 @@ tasks.withType(JavaCompile) {
 
 application {
     mainModule = 'com.javable.daleks'
-    mainClass = 'com.javable.daleks.HelloApplication'
+    applicationDefaultJvmArgs = ['--add-opens', 'java.base/java.lang=ALL-UNNAMED']
+    mainClass = 'com.javable.daleks.DaleksApp'
 }
 
 javafx {
@@ -45,6 +46,8 @@ dependencies {
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
+
+    implementation group: 'com.google.inject', name: 'guice', version: '5.0.1'
 }
 
 test {

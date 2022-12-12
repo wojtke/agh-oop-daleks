@@ -7,7 +7,7 @@
 - Nowa klasa MoveHandler - obsługa poruszania się gracza oraz Dalekow
 - Nowa Klasa InputHandler - obsługa kliknięć na planszy, 
      kliknięcia poza sąsiednimi polami są ignorowane
-- Nowa klasa CollisionHandlerVisitor - obsługa kolizji przy urzyciu wzorca Visitor
+- Nowa klasa CollisionHandlerVisitor - obsługa kolizji przy użyciu wzorca Visitor
 - Po kolizji gracza z Dalekiem, gracz ginie
 - Daleki poruszają się w kierunku gracza
 - Gracz może poruszać się tylko po sąsiednich polach

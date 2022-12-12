@@ -1,8 +1,6 @@
 package com.javable.daleks.logic;
 
-import com.almasb.fxgl.dsl.components.OffscreenPauseComponent;
 import com.javable.daleks.controllers.GridManager;
-import com.javable.daleks.enums.EDirection;
 import com.javable.daleks.enums.EObjectType;
 import com.javable.daleks.models.GameMap;
 import com.javable.daleks.models.Position;
@@ -29,69 +27,50 @@ public class MoveHandler {
         o1.accept(collisionHandlerVisitor, o2, false);
         o2.accept(collisionHandlerVisitor, o1, true);
     }
-    private Position calculatePosition(Dalek dalek, Position playerPosition){
-        Position newPosition = new Position(dalek.position);
 
-        if (dalek.position.x < playerPosition.x) {
-            newPosition.add(Position.ToVector(EDirection.Right));
-        }
-        if (dalek.position.x > playerPosition.x) {
-            newPosition.add(Position.ToVector(EDirection.Left));
-        }
-        if (dalek.position.y < playerPosition.y) {
-            newPosition.add(Position.ToVector(EDirection.Bottom));
-        }
-        if (dalek.position.y > playerPosition.y) {
-            newPosition.add(Position.ToVector(EDirection.Top));
-        }
-        return newPosition;
-    }
-    public void MoveDaleks(Position playerPosition) {
+    public void moveDaleks(Position playerPosition) {
         ArrayList<Dalek> toMove = new ArrayList<>();
         // Move all daleks which can move
-        for (Dalek dalek : map.Daleks){
+        for (Dalek dalek : map.daleks) {
 
-            Position newPosition = calculatePosition(dalek, playerPosition);
-            Optional<ObjectBase> objectAtCell = map.GetObjectAtCell(newPosition);
+            Position newPosition = dalek.position.add(dalek.position.directionTo(playerPosition).toVector());
+            Optional<ObjectBase> objectAtCell = map.getObjectAtCell(newPosition);
 
-            if(objectAtCell.isPresent()){
-                if (objectAtCell.get().objectType == EObjectType.Player){
+            if (objectAtCell.isPresent()) {
+                if (objectAtCell.get().objectType == EObjectType.Player) {
                     handleCollision(dalek, objectAtCell.get());
                 }
                 toMove.add(dalek);
-            }
-            else{
-                map.MoveObject(dalek, newPosition);
+            } else {
+                map.moveObject(dalek, newPosition);
             }
         }
 
-        for (Dalek dalek : toMove){
+        for (Dalek dalek : toMove) {
 
-            Position newPosition = calculatePosition(dalek, playerPosition);
-            Optional<ObjectBase> objectAtCell = map.GetObjectAtCell(newPosition);
+            Position newPosition = dalek.position.add(dalek.position.directionTo(playerPosition).toVector());
+            Optional<ObjectBase> objectAtCell = map.getObjectAtCell(newPosition);
 
-            if(objectAtCell.isPresent()){
+            if (objectAtCell.isPresent()) {
                 handleCollision(dalek, objectAtCell.get());
-            }
-            else{
-                map.MoveObject(dalek, newPosition);
+            } else {
+                map.moveObject(dalek, newPosition);
             }
         }
     }
 
-    public void MovePlayer(Position newPosition) {
+    public void movePlayer(Position newPosition) {
 
-        if(!map.Player.canMove(newPosition))
+        if (!map.playerCanMoveTo(newPosition))
             return;
 
-        Optional<ObjectBase> objectAtCell = map.GetObjectAtCell(newPosition);
-        if(objectAtCell.isPresent()){
-            handleCollision(map.Player, objectAtCell.get());
+        Optional<ObjectBase> objectAtCell = map.getObjectAtCell(newPosition);
+        if (objectAtCell.isPresent()) {
+            handleCollision(map.player, objectAtCell.get());
+        } else {
+            map.moveObject(map.player, newPosition);
         }
-        else{
-            map.MoveObject(map.Player, newPosition);
-        }
-        MoveDaleks(map.Player.position);
+        moveDaleks(map.player.position);
         gridManager.repaint();
 
     }

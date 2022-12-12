@@ -1,18 +1,16 @@
 package com.javable.daleks.models;
 
 import com.javable.daleks.enums.EDirection;
+import javafx.geometry.Pos;
 
 import java.util.Objects;
 
-public class Position{
+public class Position {
     public int x, y;
 
     public Position(int x, int y) {
-        this.x = x; this.y = y;
-    }
-
-    public Position(Position position) {
-        this.x = position.x; this.y = position.y;
+        this.x = x;
+        this.y = y;
     }
 
     @Override
@@ -37,26 +35,24 @@ public class Position{
         return x == pos.x && y == pos.y;
     }
 
-    public void add(Position other) {
-        x += other.x;
-        y += other.y;
+    public Position add(Position other) {
+        return new Position(x + other.x, y + other.y);
     }
 
-    public static Position ToVector(EDirection direction) {
-        return switch (direction) {
-            case Top -> new Position(0, -1);
-            case TopRight -> new Position(1, -1);
-            case Right -> new Position(1, 0);
-            case BottomRight -> new Position(1, 1);
-            case Bottom -> new Position(0, 1);
-            case BottomLeft -> new Position(-1, 1);
-            case Left -> new Position(-1, 0);
-            case TopLeft -> new Position(-1, -1);
-        };
-    }
-    public static Position Move(Position p, EDirection direction) {
-        Position result = new Position(p);
-        result.add(ToVector(direction));
-        return result;
+    public EDirection directionTo(Position other) {
+        int dx = other.x - x;
+        int dy = other.y - y;
+        if (dx == 0 && dy == 0)
+            return null;
+        if (dx == 0) {
+            return dy > 0 ? EDirection.Bottom : EDirection.Top;
+        }
+        if (dy == 0) {
+            return dx > 0 ? EDirection.Right : EDirection.Left;
+        }
+        if (dx > 0) {
+            return dy > 0 ? EDirection.BottomRight : EDirection.TopRight;
+        }
+        return dy > 0 ? EDirection.BottomLeft : EDirection.TopLeft;
     }
 }
