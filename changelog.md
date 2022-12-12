@@ -1,5 +1,20 @@
 # Changelog
 
+## Commit 06 - Wojciech Jasiński
+- Dodano nowe tekstury
+- Walidacja danych wprowadzanych na ekranie startowym
+- Fix buga, w którym gracz mógł ruszać się poza swój zasięg
+
+## Commit 05 - Wojciech Jasiński
+- Nowa klasa RandomGameMapFactory tworząca mapkę
+- Parametry takie jak rozmiar mapy i ilość daleków wybierane w menu startowym
+- Dependency Injection z wykorzystaniem Guice - ustawienia mapki
+- Przełączanie widoków start->gra->gameOver
+- Fix poruszania się daleków w kierunku gracza
+- Metoda toVector przeniesiona do z Position do EDirection 
+- Inicjalizacja gridPane przeniesiona do gridManager
+
+
 ## Commit 04 - Aleksander Pytel
 
 - Wyswietlanie planszy przeniesione do klasy GridManager

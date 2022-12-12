@@ -25,7 +25,7 @@ public class GameMap {
     }
 
     public boolean playerCanMoveTo(Position position) {
-        return isInBounds(position) && !occupiedCells.containsKey(position);
+        return isInBounds(position) && !occupiedCells.containsKey(position) && player.canMove(position);
     }
 
     public void addDalek(Dalek newDalek) {

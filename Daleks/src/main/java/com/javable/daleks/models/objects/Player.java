@@ -4,6 +4,8 @@ import com.javable.daleks.enums.EObjectType;
 import com.javable.daleks.logic.CollisionHandlerVisitor;
 import com.javable.daleks.models.Position;
 
+import static java.lang.Math.abs;
+
 public class Player extends ObjectBase {
 
     private boolean isAlive = true;
@@ -12,10 +14,17 @@ public class Player extends ObjectBase {
         super(position, EObjectType.Player);
     }
 
+    public boolean canMove(Position newPosition) {
+        if(abs(newPosition.x - position.x) > 1 || abs(newPosition.y - position.y) > 1) {
+            return false;
+        }else if (newPosition==position) {
+            return false;
+        }
+        return true;
+    }
+
     public void kill() {
-        // TODO move to game over screen
         isAlive = false;
-        System.out.println("Player is dead");
     }
 
     @Override

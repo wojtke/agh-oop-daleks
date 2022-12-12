@@ -9,17 +9,10 @@ public class Settings  {
     public static final String
             MainView = "views/main-view.fxml",
             GameOverView = "views/game-over-view.fxml",
-            PlayerImage = "src/main/resources/com/javable/daleks/images/player.jpg",
-            DalekImage = "src/main/resources/com/javable/daleks/images/dalek.png",
+            PlayerImage = "src/main/resources/com/javable/daleks/images/mario.gif",
+            DalekImage = "src/main/resources/com/javable/daleks/images/goomba.gif",
 
-            ScrapImage = "src/main/resources/com/javable/daleks/images/scrap.jpg",
-            EmptyImage = "src/main/resources/com/javable/daleks/images/empty.jpg";
+            ScrapImage = "src/main/resources/com/javable/daleks/images/brick_wall.png",
+            EmptyImage = "src/main/resources/com/javable/daleks/images/tile.png";
 
-    // ustawienia
-    public static int
-            GridSize = 50,
-            GridCount = 10,
-            DaleksCount = 5,
-            StartX = 4,
-            StartY = 4;
 }
