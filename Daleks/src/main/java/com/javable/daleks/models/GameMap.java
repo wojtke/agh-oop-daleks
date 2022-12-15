@@ -28,6 +28,10 @@ public class GameMap {
         return isInBounds(position) && !occupiedCells.containsKey(position) && player.canMove(position);
     }
 
+    public boolean playerCanTeleportTo(Position position) {
+        return isInBounds(position) && !occupiedCells.containsKey(position);
+    }
+
     public void addDalek(Dalek newDalek) {
         if (occupiedCells.containsKey(newDalek.position))
             return;

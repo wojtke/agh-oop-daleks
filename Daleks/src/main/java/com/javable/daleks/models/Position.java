@@ -1,16 +1,15 @@
 package com.javable.daleks.models;
 
 import com.javable.daleks.enums.EDirection;
-import javafx.geometry.Pos;
 
 import java.util.Objects;
 
 public class Position {
-    public int x, y;
+    public final int x;
+    public final int y;
 
     public Position(int x, int y) {
-        this.x = x;
-        this.y = y;
+        this.x = x; this.y = y;
     }
 
     @Override
@@ -40,19 +39,16 @@ public class Position {
     }
 
     public EDirection directionTo(Position other) {
-        int dx = other.x - x;
-        int dy = other.y - y;
+        int dx = other.x - x, dy = other.y - y;
+
         if (dx == 0 && dy == 0)
             return null;
-        if (dx == 0) {
+        if (dx == 0)
             return dy > 0 ? EDirection.Bottom : EDirection.Top;
-        }
-        if (dy == 0) {
+        if (dy == 0)
             return dx > 0 ? EDirection.Right : EDirection.Left;
-        }
-        if (dx > 0) {
+        if (dx > 0)
             return dy > 0 ? EDirection.BottomRight : EDirection.TopRight;
-        }
         return dy > 0 ? EDirection.BottomLeft : EDirection.TopLeft;
     }
 }

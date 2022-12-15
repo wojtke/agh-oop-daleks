@@ -9,28 +9,24 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
 
 public class GameController implements IController {
     public final GridPane gameGrid;
     public final BorderPane borderPane;
-    private final com.javable.daleks.models.GameMap gameMap;
-    private final GridManager gridManager;
 
     @Inject
     public GameController(RandomGameMapFactory factory) throws FileNotFoundException {
-        gameMap = factory.create();
+        com.javable.daleks.models.GameMap gameMap = factory.create();
         gameGrid = new GridPane();
         borderPane = new BorderPane();
         borderPane.setCenter(gameGrid);
-        gridManager = new GridManager(gameGrid, gameMap);
+        GridManager gridManager = new GridManager(gameGrid, gameMap);
 
         MoveHandler moveHandler = new MoveHandler(gameMap, gridManager);
 
         InputHandler inputHandler = new InputHandler(moveHandler);
-        gameGrid.setOnMouseClicked(event -> {
-            inputHandler.clickGrid(this.gridManager, this.gameGrid, event.getTarget());
-        });
+        gameGrid.setOnMouseClicked(
+                event -> inputHandler.clickGrid(this.gameGrid, event.getTarget()));
     }
 
 
@@ -41,10 +37,5 @@ public class GameController implements IController {
                 Settings.WindowHeight);
         scene.getRoot().setStyle("-fx-base:black");
         ViewManager.SetScene(scene);
-    }
-
-    private void GameOver() throws IOException { //ActionEvent actionEvent) {
-        GameOverController gameOverController = new GameOverController();
-        gameOverController.InitView();
     }
 }

@@ -1,6 +1,5 @@
 package com.javable.daleks.models.objects;
 
-import com.javable.daleks.enums.EDirection;
 import com.javable.daleks.enums.EObjectType;
 import com.javable.daleks.logic.CollisionHandlerVisitor;
 import com.javable.daleks.models.Position;
@@ -9,10 +8,6 @@ public class Dalek extends ObjectBase {
 
     public Dalek(Position position) {
         super(position, EObjectType.Dalek);
-    }
-
-    public boolean canMove(EDirection direction) {
-        return true;
     }
 
     @Override

@@ -16,31 +16,28 @@
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
-   <ImageView fitHeight="150.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true">
-      <image>
-         <Image url="@../images/javables_daleks.png" />
-      </image>
-      <VBox.margin>
-         <Insets bottom="20.0" />
-      </VBox.margin>
-   </ImageView>
-   <GridPane maxWidth="300.0">
-     <columnConstraints>
-       <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-     </columnConstraints>
-     <rowConstraints>
-       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-         <RowConstraints />
-     </rowConstraints>
-      <children>
-         <Text fill="#acacac" strokeType="OUTSIDE" strokeWidth="0.0" text="Map size:  " textAlignment="CENTER" />
-         <TextField fx:id="map_size_input" text="15" GridPane.columnIndex="1" />
-         <TextField fx:id="daleks_count_input" text="5" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-         <Text fill="#acacac" strokeType="OUTSIDE" strokeWidth="0.0" text="Number of daleks:  " textAlignment="CENTER" GridPane.rowIndex="1" />
-      </children>
-   </GridPane>
+    <ImageView fitHeight="150.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true">
+        <VBox.margin>
+            <Insets bottom="20.0"/>
+        </VBox.margin>
+        <Image url="@../images/javables_daleks.png"/>
+    </ImageView>
+    <GridPane maxWidth="300.0">
+        <columnConstraints>
+            <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+            <RowConstraints/>
+        </rowConstraints>
+        <Text fill="#acacac" strokeType="OUTSIDE" strokeWidth="0.0" text="Map size:  " textAlignment="CENTER"/>
+        <TextField fx:id="map_size_input" text="15" GridPane.columnIndex="1"/>
+        <TextField fx:id="daleks_count_input" text="5" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+        <Text fill="#acacac" strokeType="OUTSIDE" strokeWidth="0.0" text="Number of daleks:  " textAlignment="CENTER"
+              GridPane.rowIndex="1"/>
+    </GridPane>
    <Text fx:id="error_text" fill="#d95454" strokeType="OUTSIDE" strokeWidth="0.0" />
     <Button onAction="#NewGameBtn" text="New Game" textAlignment="CENTER">
       <font>

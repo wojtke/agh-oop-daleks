@@ -19,11 +19,10 @@ public class CollisionHandlerVisitor {
 
 
     // inWalk - whether I walked into someone or someone walked into me
-    public static void handlePlayerCollision(Player player, ObjectBase other, boolean inWalk) {
+    public void handlePlayerCollision() {
         /*
         No matter what a player collides with he will die
          */
-        player.kill();
         try {
             ViewManager.SetScene(Settings.GameOverView);
         } catch (IOException e) {
@@ -43,9 +42,4 @@ public class CollisionHandlerVisitor {
         }
 
     }
-
-    public void handleScrapCollision(Scrap scrap, ObjectBase other, boolean inWalk) {
-        return;
-    }
-
 }

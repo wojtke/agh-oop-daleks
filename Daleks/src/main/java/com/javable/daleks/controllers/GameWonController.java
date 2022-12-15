@@ -8,7 +8,7 @@ import javafx.scene.image.Image;
 
 import java.io.IOException;
 
-public class GameOverController implements IControllerFxmlBased {
+public class GameWonController implements IControllerFxmlBased {
     @FXML
     public Image GameOvereImage;
 
@@ -21,4 +21,3 @@ public class GameOverController implements IControllerFxmlBased {
         DaleksApp.GetMainController().InitView();
     }
 }
-

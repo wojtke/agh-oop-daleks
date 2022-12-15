@@ -10,8 +10,6 @@ import java.io.FileNotFoundException;
 public class ImageLoader {
     private final Image PlayerImg, EmptyImg, DalekImg, ScrapImg;
 
-    // TODO reszta textur
-
     public ImageLoader() throws FileNotFoundException {
         PlayerImg = new Image(new FileInputStream(Settings.PlayerImage));
         EmptyImg = new Image(new FileInputStream(Settings.EmptyImage));
@@ -21,10 +19,10 @@ public class ImageLoader {
 
     public Image getImage(EObjectType type) {
         return switch (type) {
-            case Empty -> EmptyImg;
+            case Empty  -> EmptyImg;
             case Player -> PlayerImg;
-            case Dalek -> DalekImg;
-            case Scrap -> ScrapImg;
+            case Dalek  -> DalekImg;
+            case Scrap  -> ScrapImg;
         };
     }
 

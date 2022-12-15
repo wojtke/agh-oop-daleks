@@ -44,11 +44,13 @@ public class GridManager {
 
     public void repaint() {
         clear();
-        cells[map.player.position.x][map.player.position.y].setImage(imageLoader.getImage(EObjectType.Player));
+        cells[map.player.position.x][map.player.position.y]
+                .setImage(imageLoader.getImage(EObjectType.Player));
 
         for (EDirection direction : EDirection.values()) {
             Position playerPosition = map.player.position;
             Position newPosition = playerPosition.add(direction.toVector());
+
             if (map.isInBounds(newPosition) && map.getObjectAtCell(newPosition).isEmpty()) {
                 ImageView current = cells[newPosition.x][newPosition.y];
                 Effect effect = new ColorAdjust(1, 1, 0.5, 0.5);
@@ -56,13 +58,13 @@ public class GridManager {
             }
 
         }
-        for (Dalek dalek : map.daleks) {
-            cells[dalek.position.x][dalek.position.y].setImage(imageLoader.getImage(EObjectType.Dalek));
-        }
-        for (Scrap scrap : map.scraps) {
-            cells[scrap.position.x][scrap.position.y].setImage(imageLoader.getImage(EObjectType.Scrap));
-        }
+        for (Dalek dalek : map.daleks)
+            cells[dalek.position.x][dalek.position.y]
+                    .setImage(imageLoader.getImage(EObjectType.Dalek));
 
+        for (Scrap scrap : map.scraps)
+            cells[scrap.position.x][scrap.position.y]
+                    .setImage(imageLoader.getImage(EObjectType.Scrap));
     }
 
     public void clear() {
@@ -84,6 +86,7 @@ public class GridManager {
             for (int j = 0; j < map.gridCount; j++) {
                 if (i == 0)
                     gameGrid.getRowConstraints().add(new RowConstraints(gridSize));
+
                 cells[i][j] = new ImageView(imageLoader.getImage(EObjectType.Empty));
                 cells[i][j].setFitHeight(gridSize-1);
                 cells[i][j].setPreserveRatio(true);

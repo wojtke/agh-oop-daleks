@@ -21,22 +21,16 @@ public class MainController implements IControllerFxmlBased {
         int map_size = Integer.parseInt(map_size_input.getText());
         int daleks_count = Integer.parseInt(daleks_count_input.getText());
 
-        if (daleks_count < 1) {
+        if (daleks_count < 1)
             throw new IllegalArgumentException("Daleks count must be greater than 0");
-        }
 
-        if (map_size < 3) {
+        if (map_size < 3)
             throw new IllegalArgumentException("Map size must be greater than 2");
-        }
 
-        if (daleks_count > map_size * map_size - 1) {
+        if (daleks_count > map_size * map_size - 1)
             throw new IllegalArgumentException("Daleks count too large");
-        }
 
-        return new GameMapSettings(
-                map_size,
-                daleks_count
-        );
+        return new GameMapSettings(map_size, daleks_count);
     }
 
     @FXML

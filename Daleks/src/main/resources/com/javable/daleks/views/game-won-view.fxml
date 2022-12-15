@@ -7,7 +7,7 @@
 <?import javafx.scene.image.Image?>
 
 <VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.javable.daleks.controllers.GameOverController">
+      fx:controller="com.javable.daleks.controllers.GameWonController">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
     </padding>
@@ -16,7 +16,7 @@
         <VBox.margin>
             <Insets bottom="20.0"/>
         </VBox.margin>
-        <Image fx:id="GameOvereImage" url="@../images/game_over.png"/>
+        <Image fx:id="GameOvereImage" url="@../images/you_won.png"/>
     </ImageView>
     <Button text="Return to menu" onAction="#ReturnToMenuBtn"/>
 </VBox>
