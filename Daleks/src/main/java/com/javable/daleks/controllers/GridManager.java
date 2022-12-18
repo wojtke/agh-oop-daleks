@@ -21,7 +21,6 @@ import javafx.scene.layout.RowConstraints;
 import java.io.FileNotFoundException;
 
 public class GridManager {
-
     private final ImageLoader imageLoader = new ImageLoader();
     private final ImageView[][] cells;
     private final GameMap map;
@@ -44,14 +43,14 @@ public class GridManager {
 
     public void repaint() {
         clear();
-        cells[map.player.position.x][map.player.position.y]
-                .setImage(imageLoader.getImage(EObjectType.Player));
+        cells[map.player.Position.x][map.player.Position.y]
+                .setImage(imageLoader.GetImage(EObjectType.PLAYER));
 
         for (EDirection direction : EDirection.values()) {
-            Position playerPosition = map.player.position;
+            Position playerPosition = map.player.Position;
             Position newPosition = playerPosition.add(direction.toVector());
 
-            if (map.isInBounds(newPosition) && map.getObjectAtCell(newPosition).isEmpty()) {
+            if (map.isInBounds(newPosition) && map.GetObjectAtCell(newPosition).isEmpty()) {
                 ImageView current = cells[newPosition.x][newPosition.y];
                 Effect effect = new ColorAdjust(1, 1, 0.5, 0.5);
                 current.setEffect(effect);
@@ -59,18 +58,18 @@ public class GridManager {
 
         }
         for (Dalek dalek : map.daleks)
-            cells[dalek.position.x][dalek.position.y]
-                    .setImage(imageLoader.getImage(EObjectType.Dalek));
+            cells[dalek.Position.x][dalek.Position.y]
+                    .setImage(imageLoader.GetImage(EObjectType.DALEK));
 
         for (Scrap scrap : map.scraps)
-            cells[scrap.position.x][scrap.position.y]
-                    .setImage(imageLoader.getImage(EObjectType.Scrap));
+            cells[scrap.Position.x][scrap.Position.y]
+                    .setImage(imageLoader.GetImage(EObjectType.SCRAP));
     }
 
     public void clear() {
         for (int i = 0; i < map.gridCount; i++) {
             for (int j = 0; j < map.gridCount; j++) {
-                cells[i][j].setImage(imageLoader.getImage(EObjectType.Empty));
+                cells[i][j].setImage(imageLoader.GetImage(EObjectType.EMPTY));
                 cells[i][j].setEffect(null);
             }
         }
@@ -87,7 +86,7 @@ public class GridManager {
                 if (i == 0)
                     gameGrid.getRowConstraints().add(new RowConstraints(gridSize));
 
-                cells[i][j] = new ImageView(imageLoader.getImage(EObjectType.Empty));
+                cells[i][j] = new ImageView(imageLoader.GetImage(EObjectType.EMPTY));
                 cells[i][j].setFitHeight(gridSize-1);
                 cells[i][j].setPreserveRatio(true);
                 gameGrid.add(cells[i][j], i, j);

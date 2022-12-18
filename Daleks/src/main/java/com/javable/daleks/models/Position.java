@@ -12,6 +12,10 @@ public class Position {
         this.x = x; this.y = y;
     }
 
+    public Position(int range) {
+        x = (int) (Math.random() * range); this.y = (int) (Math.random() * range);
+    }
+
     @Override
     public String toString() {
         return '[' + x + ", " + y + ']';
@@ -44,11 +48,11 @@ public class Position {
         if (dx == 0 && dy == 0)
             return null;
         if (dx == 0)
-            return dy > 0 ? EDirection.Bottom : EDirection.Top;
+            return dy > 0 ? EDirection.BOTTOM : EDirection.TOP;
         if (dy == 0)
-            return dx > 0 ? EDirection.Right : EDirection.Left;
+            return dx > 0 ? EDirection.RIGHT : EDirection.LEFT;
         if (dx > 0)
-            return dy > 0 ? EDirection.BottomRight : EDirection.TopRight;
-        return dy > 0 ? EDirection.BottomLeft : EDirection.TopLeft;
+            return dy > 0 ? EDirection.BOTTOM_RIGHT : EDirection.TOP_RIGHT;
+        return dy > 0 ? EDirection.BOTTOM_LEFT : EDirection.TOP_LEFT;
     }
 }

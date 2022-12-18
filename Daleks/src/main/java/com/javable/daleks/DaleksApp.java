@@ -21,15 +21,15 @@ import java.io.IOException;
 */
 
 public class DaleksApp extends Application {
-    private static MainController mainController;
-    private static Stage mainStage;
+    private static MainController MainController;
+    private static Stage MainStage;
 
     public static Stage GetStage() {
-        return mainStage;
+        return MainStage;
     }
 
     public static MainController GetMainController() {
-        return mainController;
+        return MainController;
     }
 
     public static void main(String[] args) {
@@ -38,10 +38,10 @@ public class DaleksApp extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        mainStage = stage;
-        mainController = new MainController();
-        mainController.InitView();
-        mainStage.setTitle("Javable's Daleks");
-        mainStage.show();
+        MainStage = stage;
+        MainController = new MainController();
+        MainController.InitView();
+        MainStage.setTitle("Javable's Daleks");
+        MainStage.show();
     }
 }

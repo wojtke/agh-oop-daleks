@@ -17,7 +17,7 @@ public class GameMap {
     public GameMap(Player player, int gridCount) {
         this.gridCount = gridCount;
         this.player = player;
-        occupiedCells.put(player.position, player);
+        occupiedCells.put(player.Position, player);
     }
 
     public boolean isInBounds(Position position) {
@@ -25,42 +25,40 @@ public class GameMap {
     }
 
     public boolean playerCanMoveTo(Position position) {
-        return isInBounds(position) && !occupiedCells.containsKey(position) && player.canMove(position);
+        return IsCellEmptyAndValid(position) && player.CanMove(position);
     }
 
-    public boolean playerCanTeleportTo(Position position) {
+    public boolean IsCellEmptyAndValid(Position position) {
         return isInBounds(position) && !occupiedCells.containsKey(position);
     }
 
-    public void addDalek(Dalek newDalek) {
-        if (occupiedCells.containsKey(newDalek.position))
-            return;
+    public void AddDalek(Dalek newDalek) {
         daleks.add(newDalek);
-        occupiedCells.put(newDalek.position, newDalek);
+        occupiedCells.put(newDalek.Position, newDalek);
     }
 
-    public void addScrap(Scrap newScrap) {
-        if (occupiedCells.containsKey(newScrap.position))
+    public void AddScrap(Scrap newScrap) {
+        if (occupiedCells.containsKey(newScrap.Position))
             return;
         scraps.add(newScrap);
-        occupiedCells.put(newScrap.position, newScrap);
+        occupiedCells.put(newScrap.Position, newScrap);
     }
 
-    public void moveObject(ObjectBase object, Position newPosition) {
-        Position oldPosition = object.position;
-        object.position = newPosition;
+    public void MoveObject(ObjectBase object, Position newPosition) {
+        Position oldPosition = object.Position;
+        object.Position = newPosition;
         occupiedCells.remove(oldPosition);
-        occupiedCells.put(object.position, object);
+        occupiedCells.put(object.Position, object);
     }
 
-    public Optional<ObjectBase> getObjectAtCell(Position position) {
+    public Optional<ObjectBase> GetObjectAtCell(Position position) {
         return occupiedCells.containsKey(position)
                 ? Optional.of(occupiedCells.get(position))
                 : Optional.empty();
     }
 
-    public void removeDalek(Dalek dalek) {
+    public void RemoveDalek(Dalek dalek) {
         this.daleks.remove(dalek);
-        this.occupiedCells.remove(dalek.position);
+        this.occupiedCells.remove(dalek.Position);
     }
 }

@@ -33,12 +33,12 @@
             <RowConstraints/>
         </rowConstraints>
         <Text fill="#acacac" strokeType="OUTSIDE" strokeWidth="0.0" text="Map size:  " textAlignment="CENTER"/>
-        <TextField fx:id="map_size_input" text="15" GridPane.columnIndex="1"/>
-        <TextField fx:id="daleks_count_input" text="5" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+        <TextField fx:id="mapSizeInput" text="15" GridPane.columnIndex="1"/>
+        <TextField fx:id="daleksCountInput" text="5" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
         <Text fill="#acacac" strokeType="OUTSIDE" strokeWidth="0.0" text="Number of daleks:  " textAlignment="CENTER"
               GridPane.rowIndex="1"/>
     </GridPane>
-   <Text fx:id="error_text" fill="#d95454" strokeType="OUTSIDE" strokeWidth="0.0" />
+   <Text fx:id="errorText" fill="#d95454" strokeType="OUTSIDE" strokeWidth="0.0" />
     <Button onAction="#NewGameBtn" text="New Game" textAlignment="CENTER">
       <font>
          <Font size="14.0" />

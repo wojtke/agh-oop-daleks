@@ -15,27 +15,28 @@ public class RandomGameMapFactory {
 
     @Inject
     public RandomGameMapFactory(GameMapSettings settings) {
-        this.gridCount = settings.GridCount;
-        this.daleksCount = settings.DaleksCount;
-        this.playerStartPosition = settings.PlayerStartPosition;
+        this.gridCount = settings.GetGridCount();
+        this.daleksCount = settings.GetDaleksCount();
+        this.playerStartPosition = settings.GetPlayerStartPosition();
 
     }
 
-    public GameMap create() {
+    public GameMap Create() {
         Player player = new Player(playerStartPosition);
         GameMap gameMap = new GameMap(player, gridCount);
-        addDaleks(gameMap, daleksCount);
+        AddDaleks(gameMap, daleksCount);
 
         return gameMap;
     }
 
-    public void addDaleks(GameMap gameMap, int count) {
+    public void AddDaleks(GameMap gameMap, int count) {
+        Position position;
         for (int i = 0; i < count; i++) {
-            Position position = new Position(
-                    (int) (Math.random() * this.gridCount),
-                    (int) (Math.random() * this.gridCount)
-            );
-            gameMap.addDalek(new Dalek(position));
+            do
+                position = new Position(gridCount);
+            while (!gameMap.IsCellEmptyAndValid(position));
+
+            gameMap.AddDalek(new Dalek(position));
         }
     }
 

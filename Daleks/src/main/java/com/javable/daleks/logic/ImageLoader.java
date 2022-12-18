@@ -8,21 +8,21 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 public class ImageLoader {
-    private final Image PlayerImg, EmptyImg, DalekImg, ScrapImg;
+    private final Image playerImg, emptyImg, dalekImg, scrapImg;
 
     public ImageLoader() throws FileNotFoundException {
-        PlayerImg = new Image(new FileInputStream(Settings.PlayerImage));
-        EmptyImg = new Image(new FileInputStream(Settings.EmptyImage));
-        DalekImg = new Image(new FileInputStream(Settings.DalekImage));
-        ScrapImg = new Image(new FileInputStream(Settings.ScrapImage));
+        playerImg = new Image(new FileInputStream(Settings.PlayerImage));
+        emptyImg = new Image(new FileInputStream(Settings.EmptyImage));
+        dalekImg = new Image(new FileInputStream(Settings.DalekImage));
+        scrapImg = new Image(new FileInputStream(Settings.ScrapImage));
     }
 
-    public Image getImage(EObjectType type) {
+    public Image GetImage(EObjectType type) {
         return switch (type) {
-            case Empty  -> EmptyImg;
-            case Player -> PlayerImg;
-            case Dalek  -> DalekImg;
-            case Scrap  -> ScrapImg;
+            case EMPTY -> emptyImg;
+            case PLAYER -> playerImg;
+            case DALEK -> dalekImg;
+            case SCRAP -> scrapImg;
         };
     }
 

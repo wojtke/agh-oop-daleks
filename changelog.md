@@ -1,5 +1,12 @@
 # Changelog
 
+## Commit 08 - Mateusz Cyganek - Poprawa kolizji, Poprawa Inicjalizacji gry, Poprawki
+
+-   Poprawy nazw
+-   Losowy wektor
+-   Poprawa mechanizmu kolizji
+-   Walidacja dodawania nowego daleka przy starcie gry
+
 ## Commit 07 - Mateusz Cyganek - Obsługiwanie wygranej/przegranej, Teleportacja, Poprawki
 
 -   Poprawa widoku przegranej

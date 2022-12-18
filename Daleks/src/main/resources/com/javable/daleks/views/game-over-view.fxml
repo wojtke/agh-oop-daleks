@@ -16,7 +16,7 @@
         <VBox.margin>
             <Insets bottom="20.0"/>
         </VBox.margin>
-        <Image fx:id="GameOvereImage" url="@../images/game_over.png"/>
+        <Image fx:id="GameOverImage" url="@../images/game_over.png"/>
     </ImageView>
     <Button text="Return to menu" onAction="#ReturnToMenuBtn"/>
 </VBox>

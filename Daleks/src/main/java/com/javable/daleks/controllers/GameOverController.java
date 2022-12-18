@@ -10,7 +10,7 @@ import java.io.IOException;
 
 public class GameOverController implements IControllerFxmlBased {
     @FXML
-    public Image GameOvereImage;
+    public Image GameOverImage;
 
     @Override
     public String GetViewPath() {

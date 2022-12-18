@@ -1,7 +1,9 @@
 package com.javable.daleks.models.objects;
 
+import com.javable.daleks.Settings;
 import com.javable.daleks.enums.EObjectType;
-import com.javable.daleks.logic.CollisionHandlerVisitor;
+import com.javable.daleks.logic.ViewManager;
+import com.javable.daleks.models.GameMap;
 import com.javable.daleks.models.Position;
 
 import static java.lang.Math.abs;
@@ -9,18 +11,18 @@ import static java.lang.Math.abs;
 public class Player extends ObjectBase {
 
     public Player(Position position) {
-        super(position, EObjectType.Player);
+        super(position, EObjectType.PLAYER);
     }
 
-    public boolean canMove(Position newPosition) {
-        if(abs(newPosition.x - position.x) > 1 || abs(newPosition.y - position.y) > 1)
+    public boolean CanMove(Position newPosition) {
+        if(abs(newPosition.x - Position.x) > 1 || abs(newPosition.y - Position.y) > 1)
             return false;
 
-        return newPosition != position;
+        return newPosition != Position;
     }
 
     @Override
-    public void accept(CollisionHandlerVisitor visitor, ObjectBase other, boolean inWalk) {
-        visitor.handlePlayerCollision();
+    public void Collide(GameMap map, ObjectBase other, boolean inWalk) {
+        ViewManager.SetScene(Settings.GameOverView);
     }
 }

@@ -4,19 +4,30 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 
 public class GameMapSettings extends AbstractModule {
+    private final int gridCount;
+    private final int daleksCount;
+    private final Position playerStartPosition;
 
-    public GameMapSettings(int GridCount, int DaleksCount) {
-        this.GridCount = GridCount;
-        this.DaleksCount = DaleksCount;
-        this.PlayerStartPosition = new Position(GridCount / 2, GridCount / 2);
+    public GameMapSettings(int gridCount, int daleksCount) {
+        this.gridCount = gridCount;
+        this.daleksCount = daleksCount;
+        playerStartPosition = new Position(gridCount / 2, gridCount / 2);
     }
 
-    public final int GridCount;
-    public final int DaleksCount;
-    public final Position PlayerStartPosition;
-
     @Provides
-    public GameMapSettings provideGameMapSettings() {
+    public GameMapSettings ProvideGameMapSettings() {
         return this;
+    }
+
+    public int GetGridCount() {
+        return gridCount;
+    }
+
+    public int GetDaleksCount() {
+        return daleksCount;
+    }
+
+    public Position GetPlayerStartPosition() {
+        return playerStartPosition;
     }
 }

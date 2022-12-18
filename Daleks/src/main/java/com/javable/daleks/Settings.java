@@ -12,8 +12,6 @@ public class Settings  {
             GameWonView = "views/game-won-view.fxml",
             PlayerImage = "src/main/resources/com/javable/daleks/images/mario.gif",
             DalekImage = "src/main/resources/com/javable/daleks/images/goomba.gif",
-
             ScrapImage = "src/main/resources/com/javable/daleks/images/brick_wall.png",
             EmptyImage = "src/main/resources/com/javable/daleks/images/tile.png";
-
 }
