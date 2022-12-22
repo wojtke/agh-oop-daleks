@@ -2,13 +2,12 @@ package com.javable.daleks.logic;
 
 import com.javable.daleks.Settings;
 import com.javable.daleks.controllers.GridManager;
-import com.javable.daleks.enums.EObjectType;
 import com.javable.daleks.models.GameMap;
 import com.javable.daleks.models.Position;
 import com.javable.daleks.models.objects.Dalek;
 import com.javable.daleks.models.objects.ObjectBase;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Optional;
 
 public class MoveHandler {
@@ -17,7 +16,8 @@ public class MoveHandler {
     private final GridManager gridManager;
 
     public MoveHandler(GameMap map, GridManager gridManager) {
-        this.map = map; this.gridManager = gridManager;
+        this.map = map;
+        this.gridManager = gridManager;
     }
 
     private void HandleCollision(ObjectBase o1, ObjectBase o2) {
@@ -25,30 +25,22 @@ public class MoveHandler {
         o2.Collide(map, o1, true);
     }
 
-    public void MoveDaleks(Position playerPosition) { // TODO rozdzielić na mniejsze metody
-        ArrayList<Dalek> toMove = new ArrayList<>();
-        // Move all daleks which can move
+    public void MoveDaleks(Position playerPosition) {
+        HashMap<Dalek, Position> daleksToMove = new HashMap<>();
+
         for (Dalek dalek : map.daleks) {
-
             Position newPosition = dalek.Position.add(dalek.Position.directionTo(playerPosition).toVector());
-            Optional<ObjectBase> objectAtCell = map.GetObjectAtCell(newPosition);
-
-            if (objectAtCell.isPresent()) {
-                if (objectAtCell.get().ObjectType == EObjectType.PLAYER)
-                    HandleCollision(dalek, objectAtCell.get());
-                toMove.add(dalek);
-            } else
-                map.MoveObject(dalek, newPosition);
+            map.GetObjectAtCell(newPosition).ifPresentOrElse(
+                    object -> daleksToMove.put(dalek, newPosition),
+                    () -> map.MoveObject(dalek, newPosition)
+            );
         }
-
-        for (Dalek dalek : toMove) {
-            Position newPosition = dalek.Position.add(dalek.Position.directionTo(playerPosition).toVector());
-            Optional<ObjectBase> objectAtCell = map.GetObjectAtCell(newPosition);
-
-            if (objectAtCell.isPresent())
-                HandleCollision(dalek, objectAtCell.get());
-            else
-                map.MoveObject(dalek, newPosition);
+        for (Dalek dalek : daleksToMove.keySet()) {
+            Position newPosition = daleksToMove.get(dalek);
+            map.GetObjectAtCell(newPosition).ifPresentOrElse(
+                    object -> HandleCollision(dalek, object),
+                    () -> map.MoveObject(dalek, newPosition)
+            );
         }
     }
 

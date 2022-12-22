@@ -9,11 +9,13 @@ public class Position {
     public final int y;
 
     public Position(int x, int y) {
-        this.x = x; this.y = y;
+        this.x = x;
+        this.y = y;
     }
 
     public Position(int range) {
-        x = (int) (Math.random() * range); this.y = (int) (Math.random() * range);
+        x = (int) (Math.random() * range);
+        this.y = (int) (Math.random() * range);
     }
 
     @Override
@@ -46,7 +48,8 @@ public class Position {
         int dx = other.x - x, dy = other.y - y;
 
         if (dx == 0 && dy == 0)
-            return null;
+            throw new IllegalArgumentException("Cannot calculate direction to self");
+
         if (dx == 0)
             return dy > 0 ? EDirection.BOTTOM : EDirection.TOP;
         if (dy == 0)

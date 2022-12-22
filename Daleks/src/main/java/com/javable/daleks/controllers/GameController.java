@@ -11,8 +11,8 @@ import javafx.scene.layout.GridPane;
 import java.io.FileNotFoundException;
 
 public class GameController implements IController {
-    public final GridPane GameGrid;
-    public final BorderPane BorderPane;
+    private final GridPane GameGrid;
+    private final BorderPane BorderPane;
 
     @Inject
     public GameController(RandomGameMapFactory factory) throws FileNotFoundException {
