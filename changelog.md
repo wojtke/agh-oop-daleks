@@ -1,5 +1,11 @@
 # Changelog
 
+## Commit 09 - Wojciech Jasiński
+
+- Zmiany w metodzie MoveDaleks
+- Hermetyzacja pól w GameControler
+- directionTo rzuca wyjątek, gdy chcemy kierunek do samego siebie
+
 ## Commit 08 - Mateusz Cyganek - Poprawa kolizji, Poprawa Inicjalizacji gry, Poprawki
 
 -   Poprawy nazw
