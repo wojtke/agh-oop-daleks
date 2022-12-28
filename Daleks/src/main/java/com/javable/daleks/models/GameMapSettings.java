@@ -7,10 +7,12 @@ public class GameMapSettings extends AbstractModule {
     private final int gridCount;
     private final int daleksCount;
     private final Position playerStartPosition;
+    private final String levelName;
 
-    public GameMapSettings(int gridCount, int daleksCount) {
+    public GameMapSettings(int gridCount, int daleksCount, String levelName) {
         this.gridCount = gridCount;
         this.daleksCount = daleksCount;
+        this.levelName = levelName;
         playerStartPosition = new Position(gridCount / 2, gridCount / 2);
     }
 
@@ -29,5 +31,9 @@ public class GameMapSettings extends AbstractModule {
 
     public Position GetPlayerStartPosition() {
         return playerStartPosition;
+    }
+
+    public String GetLevelName() {
+        return levelName;
     }
 }

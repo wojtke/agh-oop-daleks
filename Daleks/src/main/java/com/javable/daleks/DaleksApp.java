@@ -1,14 +1,26 @@
 package com.javable.daleks;
 
 import com.javable.daleks.controllers.MainController;
+import com.javable.daleks.models.GameMapSettings;
+import com.javable.daleks.service.ServiceManager;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
 
-/* TODO Milestone 1:
+/* TODO Milestone 2:
+    - Pobieranie poziomów
+    - Wysyłanie nowych poziomów
+    - Wybór poziomu z usuwaniem
+    - Json serializer
+*/
 
+/* DONE Milestone 2:
+    - ServiceManager komunikujący się z serwisem
+    - Endpoint GetLevels
+    - Endpoint UploadLevel
+    - Endpoint DeleteLevel
 */
 
 /* DONE Milestone 1:
@@ -33,6 +45,12 @@ public class DaleksApp extends Application {
     }
 
     public static void main(String[] args) {
+        ServiceManager service = new ServiceManager();
+        // TODO przykłądowe wywołąnia, do usunięcia
+        service.GetAllLevels();
+        service.UploadLevel(new GameMapSettings(10, 22, "test4"));
+        service.DeleteLevel("test4");
+
         launch();
     }
 

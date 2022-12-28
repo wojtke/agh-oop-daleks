@@ -1,0 +1,120 @@
+package com.javable.daleks.service;
+
+import com.javable.daleks.Settings;
+import com.javable.daleks.enums.ERequestMethod;
+import com.javable.daleks.models.GameMapSettings;
+import com.javable.daleks.models.JsonResult;
+import javafx.util.Pair;
+
+import java.io.*;
+import java.net.*;
+import java.nio.charset.StandardCharsets;
+import java.util.*;
+
+public class ServiceManager {
+    public List<GameMapSettings> GetAllLevels() {
+        List<GameMapSettings> levels = new ArrayList<>();
+
+        try {
+            HttpURLConnection http = GetConnection(Settings.GetLevels, ERequestMethod.GET);
+            String json = GetResponse(http);
+            System.out.println(json);
+        }
+        catch (Exception ex) {
+            throw new RuntimeException(ex);
+        }
+
+        // TODO parse json array to list of GameMapSettings objects
+       return levels;
+    }
+
+    public JsonResult UploadLevel(GameMapSettings level) {
+        try {
+            HttpURLConnection http = GetConnection(Settings.PostLevel, ERequestMethod.POST);
+
+            List<Pair<String, String>> body = List.of(
+                    new Pair<>("lvName", level.GetLevelName()),
+                    new Pair<>("gridCount", Integer.toString(level.GetGridCount())),
+                    new Pair<>("daleksCount",Integer.toString(level.GetDaleksCount()))
+            );
+            WritePostFormData(http, body);
+
+            String json = GetResponse(http);
+            System.out.println(json);
+        }
+        catch (Exception ex) {
+            throw new RuntimeException(ex);
+        }
+
+        // TODO parse json result
+        return new JsonResult(0, "");
+    }
+
+    public JsonResult DeleteLevel(String levelName) {
+        try {
+            HttpURLConnection http = GetConnection(Settings.DeleteLevel, ERequestMethod.POST);
+
+            List<Pair<String, String>> body = List.of(
+                    new Pair<>("lvName", levelName)
+            );
+            WritePostFormData(http, body);
+
+            String json = GetResponse(http);
+            System.out.println(json);
+        }
+        catch (Exception ex) {
+            throw new RuntimeException(ex);
+        }
+
+        // TODO parse json result
+        return new JsonResult(0, "");
+    }
+
+    private void WritePostFormData(HttpURLConnection http, List<Pair<String, String>> body) throws IOException {
+        String boundary = UUID.randomUUID().toString();
+        byte[] boundaryBytes = ("--" + boundary + "\r\n").getBytes(StandardCharsets.UTF_8);
+        byte[] finishBoundaryBytes = ("--" + boundary + "--").getBytes(StandardCharsets.UTF_8);
+        http.setRequestProperty("Content-Type", "multipart/form-data; charset=UTF-8; boundary=" + boundary);
+        http.setChunkedStreamingMode(0);
+
+        OutputStream out = http.getOutputStream();
+
+        for (Pair<String, String> formDataPart : body) {
+            out.write(boundaryBytes);
+            SendField(out, formDataPart.getKey(), formDataPart.getValue());
+        }
+
+        out.write(boundaryBytes);
+        out.write(finishBoundaryBytes);
+    }
+
+    private HttpURLConnection GetConnection(String endpoint, ERequestMethod method) throws IOException {
+        URL url = new URL(Settings.ServiceUrl + endpoint);
+        HttpURLConnection http = (HttpURLConnection) url.openConnection();
+        http.setRequestMethod(method.toString());
+
+        if (method == ERequestMethod.POST)
+            http.setDoOutput(true);
+
+        return http;
+    }
+
+    private void SendField(OutputStream out, String name, String field) throws IOException {
+        String o = "Content-Disposition: form-data; name=\""
+                + URLEncoder.encode(name, StandardCharsets.UTF_8) + "\"\r\n\r\n";
+        out.write(o.getBytes(StandardCharsets.UTF_8));
+        out.write(URLEncoder.encode(field, StandardCharsets.UTF_8).getBytes(StandardCharsets.UTF_8));
+        out.write("\r\n".getBytes(StandardCharsets.UTF_8));
+    }
+
+    private String GetResponse(HttpURLConnection connection) throws IOException {
+        String line;
+        StringBuilder json = new StringBuilder();
+        BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+
+        while ((line = reader.readLine()) != null)
+            json.append(line);
+
+        return json.toString();
+    }
+}

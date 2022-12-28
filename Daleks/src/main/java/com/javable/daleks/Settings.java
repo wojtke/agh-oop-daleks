@@ -10,8 +10,14 @@ public class Settings  {
             MainView = "views/main-view.fxml",
             GameOverView = "views/game-over-view.fxml",
             GameWonView = "views/game-won-view.fxml",
+
             PlayerImage = "src/main/resources/com/javable/daleks/images/mario.gif",
             DalekImage = "src/main/resources/com/javable/daleks/images/goomba.gif",
             ScrapImage = "src/main/resources/com/javable/daleks/images/brick_wall.png",
-            EmptyImage = "src/main/resources/com/javable/daleks/images/tile.png";
+            EmptyImage = "src/main/resources/com/javable/daleks/images/tile.png",
+
+            ServiceUrl = "https://klorlik.pl/javable", // "http://localhost/javable"
+            GetLevels = "/levels.php",
+            PostLevel = "/upload.php",
+            DeleteLevel = "/delete.php";
 }

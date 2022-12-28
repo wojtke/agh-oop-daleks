@@ -1,10 +1,16 @@
 # Changelog
 
+## Commit 08 - Mateusz Cyganek - API, ServiceManager
+
+-   Implementacja i uruchomienie API na prytwanym serwerze
+-   Dodane enpointy API: Levels, Upload, Delete
+-   ServiceManager z metodami implementującymi API
+
 ## Commit 09 - Wojciech Jasiński
 
-- Zmiany w metodzie MoveDaleks
-- Hermetyzacja pól w GameControler
-- directionTo rzuca wyjątek, gdy chcemy kierunek do samego siebie
+-   Zmiany w metodzie MoveDaleks
+-   Hermetyzacja pól w GameControler
+-   directionTo rzuca wyjątek, gdy chcemy kierunek do samego siebie
 
 ## Commit 08 - Mateusz Cyganek - Poprawa kolizji, Poprawa Inicjalizacji gry, Poprawki
 

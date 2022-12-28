@@ -16,7 +16,7 @@ public class MainController implements IControllerFxmlBased {
     @FXML
     private Text errorText;
 
-    private GameMapSettings parseInput() { // TODO do Optional<GameSettings> zamiast throw: errorText.setText()
+    private GameMapSettings parseInput() { // TODO zastąpić exception pustym optionallem i setText
         int map_size = Integer.parseInt(mapSizeInput.getText());
         int daleks_count = Integer.parseInt(daleksCountInput.getText());
 
@@ -29,7 +29,7 @@ public class MainController implements IControllerFxmlBased {
         if (daleks_count > map_size * map_size - 1)
             throw new IllegalArgumentException("Daleks count too large");
 
-        return new GameMapSettings(map_size, daleks_count);
+        return new GameMapSettings(map_size, daleks_count, "name_placeholder"); // TODO wymagać imienia
     }
 
     @FXML
