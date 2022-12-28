@@ -1,12 +1,15 @@
 package com.javable.daleks.enums;
 
 public enum ERequestMethod {
-    GET, POST;
+    GET("GET"), POST("POST");
+
+    ERequestMethod(String value) {
+        this.value = value;
+    }
+
+    private final String value;
 
     public String toString() {
-        return switch (this) {
-            case GET -> "GET";
-            case POST -> "POST";
-        };
+        return value;
     }
 }

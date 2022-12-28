@@ -45,11 +45,11 @@ public class DaleksApp extends Application {
     }
 
     public static void main(String[] args) {
-        ServiceManager service = new ServiceManager();
-        // TODO przykłądowe wywołąnia, do usunięcia
-        service.GetAllLevels();
-        service.UploadLevel(new GameMapSettings(10, 22, "test4"));
-        service.DeleteLevel("test4");
+        // TODO przykłądowe wywołania, do usunięcia
+        //ServiceManager service = new ServiceManager();
+        //service.GetAllLevels();
+        //service.UploadLevel(new GameMapSettings(10, 22, "test4"));
+        //service.DeleteLevel("test4");
 
         launch();
     }
