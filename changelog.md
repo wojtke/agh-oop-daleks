@@ -1,6 +1,10 @@
 # Changelog
 
-## Commit 08 - Mateusz Cyganek - API, ServiceManager
+## Commit 11 - Mateusz Cyganek - Serializacja JSON
+
+-   Serializacja pobranych json'ów do obiektów projketu
+
+## Commit 10 - Mateusz Cyganek - API, ServiceManager
 
 -   Implementacja i uruchomienie API na prytwanym serwerze
 -   Dodane enpointy API: Levels, Upload, Delete

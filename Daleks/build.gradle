@@ -48,6 +48,8 @@ dependencies {
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
 
     implementation group: 'com.google.inject', name: 'guice', version: '5.0.1'
+    implementation group: 'org.json', name: 'json', version: '20220924'
+
 }
 
 test {

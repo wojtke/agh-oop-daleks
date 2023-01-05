@@ -5,11 +5,20 @@ import com.javable.daleks.enums.ERequestMethod;
 import com.javable.daleks.models.GameMapSettings;
 import com.javable.daleks.models.JsonResult;
 import javafx.util.Pair;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
-import java.io.*;
-import java.net.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 public class ServiceManager {
     public List<GameMapSettings> GetAllLevels() {
@@ -17,18 +26,21 @@ public class ServiceManager {
 
         try {
             HttpURLConnection http = GetConnection(Settings.GetLevels, ERequestMethod.GET);
-            String json = GetResponse(http);
-            System.out.println(json);
+            JSONArray jsonArray = new JSONArray(GetResponse(http));
+
+            for (int i = 0; i < jsonArray.length(); i++)
+                levels.add(new GameMapSettings(jsonArray.getJSONObject(i)));
         }
         catch (Exception ex) {
             throw new RuntimeException(ex);
         }
 
-        // TODO parse json array to list of GameMapSettings objects
        return levels;
     }
 
     public JsonResult UploadLevel(GameMapSettings level) {
+        JsonResult jsonResult;
+
         try {
             HttpURLConnection http = GetConnection(Settings.PostLevel, ERequestMethod.POST);
 
@@ -39,18 +51,18 @@ public class ServiceManager {
             );
             WritePostFormData(http, body);
 
-            String json = GetResponse(http);
-            System.out.println(json);
+            jsonResult = new JsonResult(new JSONObject(GetResponse(http)));
         }
         catch (Exception ex) {
             throw new RuntimeException(ex);
         }
 
-        // TODO parse json result
-        return new JsonResult(0, "");
+        return jsonResult;
     }
 
     public JsonResult DeleteLevel(String levelName) {
+        JsonResult jsonResult;
+
         try {
             HttpURLConnection http = GetConnection(Settings.DeleteLevel, ERequestMethod.POST);
 
@@ -59,15 +71,13 @@ public class ServiceManager {
             );
             WritePostFormData(http, body);
 
-            String json = GetResponse(http);
-            System.out.println(json);
+            jsonResult = new JsonResult(new JSONObject(GetResponse(http)));
         }
         catch (Exception ex) {
             throw new RuntimeException(ex);
         }
 
-        // TODO parse json result
-        return new JsonResult(0, "");
+        return jsonResult;
     }
 
     private void WritePostFormData(HttpURLConnection http, List<Pair<String, String>> body) throws IOException {

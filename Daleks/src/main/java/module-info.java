@@ -7,6 +7,7 @@ module com.javable.daleks {
     requires org.kordamp.bootstrapfx.core;
     requires com.almasb.fxgl.all;
     requires com.google.guice;
+    requires org.json;
 
 
     opens com.javable.daleks to javafx.fxml;

@@ -1,8 +1,6 @@
 package com.javable.daleks;
 
 import com.javable.daleks.controllers.MainController;
-import com.javable.daleks.models.GameMapSettings;
-import com.javable.daleks.service.ServiceManager;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -47,9 +45,9 @@ public class DaleksApp extends Application {
     public static void main(String[] args) {
         // TODO przykłądowe wywołania, do usunięcia
         //ServiceManager service = new ServiceManager();
-        //service.GetAllLevels();
-        //service.UploadLevel(new GameMapSettings(10, 22, "test4"));
-        //service.DeleteLevel("test4");
+        //List<GameMapSettings> levels = service.GetAllLevels();
+        //JsonResult uploadResult = service.UploadLevel(new GameMapSettings(10, 22, "test4"));
+        //JsonResult deleteResult = service.DeleteLevel("test4");
 
         launch();
     }
