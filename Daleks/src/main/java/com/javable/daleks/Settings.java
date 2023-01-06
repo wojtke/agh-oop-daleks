@@ -10,6 +10,7 @@ public class Settings  {
             MainView = "views/main-view.fxml",
             GameOverView = "views/game-over-view.fxml",
             GameWonView = "views/game-won-view.fxml",
+            LevelSelectView = "views/level-select-view.fxml",
 
             PlayerImage = "src/main/resources/com/javable/daleks/images/mario.gif",
             DalekImage = "src/main/resources/com/javable/daleks/images/goomba.gif",

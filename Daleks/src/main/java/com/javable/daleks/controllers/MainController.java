@@ -4,6 +4,7 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.javable.daleks.Settings;
 import com.javable.daleks.interfaces.IControllerFxmlBased;
+import com.javable.daleks.logic.ViewManager;
 import com.javable.daleks.models.GameMapSettings;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
@@ -47,5 +48,9 @@ public class MainController implements IControllerFxmlBased {
     @Override
     public String GetViewPath() {
         return Settings.MainView;
+    }
+
+    public void LevelSelectBtn() {
+        ViewManager.SetScene(Settings.LevelSelectView);
     }
 }

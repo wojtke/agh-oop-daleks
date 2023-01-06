@@ -16,20 +16,20 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 public class ServiceManager {
-    public List<GameMapSettings> GetAllLevels() {
-        List<GameMapSettings> levels = new ArrayList<>();
+    public GameMapSettings[] GetAllLevels() {
+        GameMapSettings[] levels;
 
         try {
             HttpURLConnection http = GetConnection(Settings.GetLevels, ERequestMethod.GET);
             JSONArray jsonArray = new JSONArray(GetResponse(http));
+            levels = new GameMapSettings[jsonArray.length()];
 
             for (int i = 0; i < jsonArray.length(); i++)
-                levels.add(new GameMapSettings(jsonArray.getJSONObject(i)));
+                levels[i] = new GameMapSettings(jsonArray.getJSONObject(i));
         }
         catch (Exception ex) {
             throw new RuntimeException(ex);

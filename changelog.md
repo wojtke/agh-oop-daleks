@@ -3,6 +3,7 @@
 ## Commit 11 - Mateusz Cyganek - Serializacja JSON
 
 -   Serializacja pobranych json'ów do obiektów projketu
+-   Nowy pusty widok wyboru poziomu
 
 ## Commit 10 - Mateusz Cyganek - API, ServiceManager
 
