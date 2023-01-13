@@ -9,6 +9,7 @@ import com.javable.daleks.service.ServiceManager;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -19,6 +20,7 @@ public class LevelSelectController implements IControllerFxmlBased{
 
     //TODO: Dodać wyszukiwanie po nazwie poziomu/parametrach
     private ObservableList<GameMapSettings> levels;
+    private FilteredList<GameMapSettings> filteredLevels;
     private final ServiceManager serviceManager;
 
     public LevelSelectController() {
@@ -27,6 +29,7 @@ public class LevelSelectController implements IControllerFxmlBased{
         levels = FXCollections.observableArrayList(
                 serviceManager.GetAllLevels()
         );
+
     }
 
     @FXML
@@ -71,11 +74,33 @@ public class LevelSelectController implements IControllerFxmlBased{
 
     @FXML
     private void onInputChanged() {
+
+        filteredLevels = levels.filtered(l -> true);
+
+        try{
+            int mapSize = Integer.parseInt(mapSizeInput.getText());
+            filteredLevels = filteredLevels.filtered(l -> l.getGridCount() == mapSize);
+        } catch (NumberFormatException ignored) {}
+
+        try{
+            int daleksCount = Integer.parseInt(daleksCountInput.getText());
+            filteredLevels = filteredLevels.filtered(l -> l.getDaleksCount() == daleksCount);
+        } catch (NumberFormatException ignored) {}
+
+        filteredLevels = filteredLevels.filtered(l -> l.getLevelName().contains(levelNameInput.getText()));
+
+        this.levelTable.setItems(filteredLevels);
+
         addButton.setDisable(
-                levelNameInput.getText().isBlank() ||
-                mapSizeInput.getText().isBlank() ||
-                daleksCountInput.getText().isBlank()
+                !filteredLevels.isEmpty() &&(
+                        levelNameInput.getText().isBlank() ||
+                        mapSizeInput.getText().isBlank() ||
+                        daleksCountInput.getText().isBlank()
+                )
         );
+
+        addButton.setText(filteredLevels.isEmpty() ? "Generate" : "Add");
+
     }
 
     @FXML
@@ -110,7 +135,6 @@ public class LevelSelectController implements IControllerFxmlBased{
 
         //TODO: Dodać obsługę tego co zwraca serviceManager.DeleteLevel
     }
-
     @FXML
     public void backButtonClicked() {
         ViewManager.SetScene(Settings.MainView);

@@ -1,5 +1,9 @@
 # Changelog
 
+## Commit 13 - Aleksander Pytel - Wyszukiwanie poziomow
+-   Możliwość filtrowania poziomów
+-   Poprawa widoku poziomów
+
 ## Commit 12 - Wojciech Jasiński - Lista poziomów z serwera
 -   Lista poziomów do wybrania
 -   Dodanie nowego poziomu

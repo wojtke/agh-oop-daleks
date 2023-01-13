@@ -36,9 +36,9 @@
    </TableView>
    <HBox prefWidth="302.0" spacing="5.0">
       <children>
-         <TextField fx:id="levelNameInput" onKeyTyped="#onInputChanged" />
-         <TextField fx:id="mapSizeInput" onKeyTyped="#onInputChanged" />
-         <TextField fx:id="daleksCountInput" onKeyTyped="#onInputChanged" />
+         <TextField fx:id="levelNameInput" promptText="Level name" onKeyTyped="#onInputChanged" />
+         <TextField fx:id="mapSizeInput" promptText="Map size" onKeyTyped="#onInputChanged" />
+         <TextField fx:id="daleksCountInput" promptText="Daleks count" onKeyTyped="#onInputChanged" />
       </children>
       <VBox.margin>
          <Insets />
@@ -47,7 +47,7 @@
    <HBox alignment="CENTER" prefWidth="302.0" spacing="10.0">
       <children>
          <Button fx:id="addButton" alignment="CENTER" mnemonicParsing="false" onAction="#addButtonClicked" prefWidth="80.0" text="Add" textAlignment="CENTER" />
-         <Button fx:id="removeButton" mnemonicParsing="false" onAction="#removeButtonClicked" prefWidth="80.0" text="Remove" />
+          <Button fx:id="removeButton" mnemonicParsing="false" onAction="#removeButtonClicked" prefWidth="80.0" text="Remove" />
       </children>
    </HBox>
    <Separator prefWidth="200.0" />
