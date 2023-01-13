@@ -29,19 +29,19 @@ public class GameMapSettings extends AbstractModule {
         return this;
     }
 
-    public int GetGridCount() {
+    public int getGridCount() {
         return gridCount;
     }
 
-    public int GetDaleksCount() {
+    public int getDaleksCount() {
         return daleksCount;
     }
 
-    public Position GetPlayerStartPosition() {
+    public Position getPlayerStartPosition() {
         return playerStartPosition;
     }
 
-    public String GetLevelName() {
+    public String getLevelName() {
         return levelName;
     }
 }

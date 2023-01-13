@@ -45,9 +45,9 @@ public class ServiceManager {
             HttpURLConnection http = GetConnection(Settings.PostLevel, ERequestMethod.POST);
 
             List<Pair<String, String>> body = List.of(
-                    new Pair<>("lvName", level.GetLevelName()),
-                    new Pair<>("gridCount", Integer.toString(level.GetGridCount())),
-                    new Pair<>("daleksCount",Integer.toString(level.GetDaleksCount()))
+                    new Pair<>("lvName", level.getLevelName()),
+                    new Pair<>("gridCount", Integer.toString(level.getGridCount())),
+                    new Pair<>("daleksCount",Integer.toString(level.getDaleksCount()))
             );
             WritePostFormData(http, body);
 

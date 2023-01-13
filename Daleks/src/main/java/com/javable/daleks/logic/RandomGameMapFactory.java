@@ -15,9 +15,9 @@ public class RandomGameMapFactory {
 
     @Inject
     public RandomGameMapFactory(GameMapSettings settings) {
-        this.gridCount = settings.GetGridCount();
-        this.daleksCount = settings.GetDaleksCount();
-        this.playerStartPosition = settings.GetPlayerStartPosition();
+        this.gridCount = settings.getGridCount();
+        this.daleksCount = settings.getDaleksCount();
+        this.playerStartPosition = settings.getPlayerStartPosition();
 
     }
 

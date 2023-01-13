@@ -20,4 +20,6 @@ module com.javable.daleks {
 
     exports com.javable.daleks.models.objects;
     exports com.javable.daleks.enums;
+    exports com.javable.daleks.interfaces;
+    opens com.javable.daleks.interfaces to javafx.fxml;
 }
