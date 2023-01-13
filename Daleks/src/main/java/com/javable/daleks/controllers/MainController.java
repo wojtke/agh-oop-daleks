@@ -37,12 +37,16 @@ public class MainController implements IControllerFxmlBased {
     protected void NewGameBtn() {
         try {
             GameMapSettings settings = parseInput();
-            Injector injector = Guice.createInjector(settings);
-            GameController gameController = injector.getInstance(GameController.class);
-            gameController.InitView();
+            startGame(settings);
         } catch (IllegalArgumentException e) {
             errorText.setText(e.getMessage());
         }
+    }
+
+    public void startGame(GameMapSettings settings) {
+        Injector injector = Guice.createInjector(settings);
+        GameController gameController = injector.getInstance(GameController.class);
+        gameController.InitView();
     }
 
     @Override

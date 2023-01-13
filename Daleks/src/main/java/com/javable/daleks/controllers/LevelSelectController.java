@@ -1,5 +1,6 @@
 package com.javable.daleks.controllers;
 
+import com.javable.daleks.DaleksApp;
 import com.javable.daleks.Settings;
 import com.javable.daleks.interfaces.IControllerFxmlBased;
 import com.javable.daleks.logic.ViewManager;
@@ -16,8 +17,10 @@ import javafx.util.converter.IntegerStringConverter;
 
 public class LevelSelectController implements IControllerFxmlBased{
     private ObservableList<GameMapSettings> levels;
+    private ServiceManager serviceManager;
+
     public LevelSelectController() {
-        ServiceManager serviceManager = new ServiceManager();
+        serviceManager = new ServiceManager();
 
         levels = FXCollections.observableArrayList(
                 serviceManager.GetAllLevels()
@@ -32,6 +35,9 @@ public class LevelSelectController implements IControllerFxmlBased{
     private TableColumn<GameMapSettings, Integer>  mapSizeCol, daleksCountCol;
     @FXML
     private TextField levelNameInput, mapSizeInput, daleksCountInput;
+
+    @FXML
+    private Button addButton, removeButton, playButton, backButton;
     @FXML
     public void initialize() {
         levelNameCol.setCellValueFactory(new PropertyValueFactory<>("levelName"));
@@ -43,27 +49,69 @@ public class LevelSelectController implements IControllerFxmlBased{
         daleksCountCol.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
 
         levelTable.setItems(levels);
+
+        levelTable.getSelectionModel().clearSelection();
+        onSelectionChanged();
+        onInputChanged();
+    }
+
+    @FXML
+    private void onSelectionChanged() {
+        GameMapSettings selectedLevel = levelTable.getSelectionModel().getSelectedItem();
+        if (selectedLevel != null) {
+            removeButton.setDisable(false);
+            playButton.setDisable(false);
+        } else {
+            removeButton.setDisable(true);
+            playButton.setDisable(true);
+        }
+    }
+
+    @FXML
+    private void onInputChanged() {
+        addButton.setDisable(
+                levelNameInput.getText().isBlank() ||
+                mapSizeInput.getText().isBlank() ||
+                daleksCountInput.getText().isBlank()
+        );
     }
 
     @FXML
     private void addButtonClicked() {
+
         GameMapSettings newLevel = new GameMapSettings(
                 Integer.parseInt(mapSizeInput.getText()),
                 Integer.parseInt(daleksCountInput.getText()),
                 levelNameInput.getText()
         );
+        serviceManager.UploadLevel(newLevel);
         levels.add(newLevel);
+
+        levelNameInput.clear();
+        mapSizeInput.clear();
+        daleksCountInput.clear();
+        levelTable.getSelectionModel().clearSelection();
+        addButton.setDisable(true);
     }
 
     @FXML
     private void removeButtonClicked() {
         GameMapSettings selectedLevel = levelTable.getSelectionModel().getSelectedItem();
+        serviceManager.DeleteLevel(selectedLevel.getLevelName());
         levels.remove(selectedLevel);
+
+        levelTable.getSelectionModel().clearSelection();
     }
 
     @FXML
-    public void GoBackButton() {
+    public void backButtonClicked() {
         ViewManager.SetScene(Settings.MainView);
+    }
+
+    @FXML
+    public void playButtonClicked() {
+        GameMapSettings selectedLevel = levelTable.getSelectionModel().getSelectedItem();
+        DaleksApp.GetMainController().startGame(selectedLevel);
     }
 
     @Override
