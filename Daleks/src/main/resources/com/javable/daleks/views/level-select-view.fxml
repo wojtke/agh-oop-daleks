@@ -1,37 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox alignment="CENTER" spacing="10.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.javable.daleks.controllers.LevelSelectController">
+<VBox alignment="CENTER" fillWidth="false" spacing="10.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.javable.daleks.controllers.LevelSelectController">
     <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+        <Insets bottom="20.0" left="50.0" right="50.0" top="20.0" />
     </padding>
-    <GridPane maxWidth="300.0">
-        <columnConstraints>
-            <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-        </columnConstraints>
-        <rowConstraints>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-            <RowConstraints/>
-        </rowConstraints>
-    </GridPane>
+   <TableView fx:id="levelTable" maxWidth="-Infinity" prefWidth="302.0">
+     <columns>
+        <TableColumn fx:id="levelNameCol" maxWidth="120.0" minWidth="0.0" prefWidth="100.0" resizable="false" text="Level Name" />
+        <TableColumn fx:id="mapSizeCol" maxWidth="120.0" minWidth="0.0" prefWidth="100.0" resizable="false" text="Map Size" />
+        <TableColumn fx:id="daleksCountCol" maxWidth="120.0" minWidth="0.0" prefWidth="100.0" resizable="false" text="Daleks Count" />
+     </columns>
+      <columnResizePolicy>
+         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+      </columnResizePolicy>
+      <VBox.margin>
+         <Insets />
+      </VBox.margin>
+   </TableView>
+   <HBox maxWidth="302.0" spacing="5.0">
+      <children>
+         <TextField fx:id="levelNameInput" />
+         <TextField fx:id="mapSizeInput" />
+         <TextField fx:id="daleksCountInput" />
+         <Button alignment="CENTER" mnemonicParsing="false" onMouseClicked="#addButtonClicked" prefWidth="88.0" text="+" textAlignment="CENTER" />
+      </children>
+   </HBox>
+   <Separator prefWidth="200.0" />
+   <HBox alignment="CENTER">
+      <children>
+         <Button mnemonicParsing="false" onMouseClicked="#GoBackButton" text="Back" />
+      </children>
+   </HBox>
     <Text fx:id="errorText" fill="#d95454" strokeType="OUTSIDE" strokeWidth="0.0" />
-    <Button onAction="#GoBackBtn" text="Go Back" textAlignment="CENTER">
-        <font>
-            <Font size="14.0" />
-        </font>
-    </Button>
 </VBox>
