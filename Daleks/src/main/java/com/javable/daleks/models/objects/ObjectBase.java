@@ -1,28 +1,17 @@
 package com.javable.daleks.models.objects;
 
-import com.javable.daleks.enums.eDirection;
-import kotlin.NotImplementedError;
+import com.javable.daleks.enums.EObjectType;
+import com.javable.daleks.models.GameMap;
+import com.javable.daleks.models.Position;
 
 public abstract class ObjectBase {
+    public final EObjectType ObjectType;
+    public Position Position;
 
-    private final int _id;
-    private int positionX, positionY;
-
-    public ObjectBase(int id, int x, int y)
-    { _id = id; positionX = x; positionY = y;}
-
-    public boolean canMove(eDirection direction) {
-        // TODO canMove(eDirection direction)
-        throw new NotImplementedError();
+    public ObjectBase(Position position, EObjectType type) {
+        this.Position = position;
+        ObjectType = type;
     }
 
-    public void move(eDirection direction) {
-        // TODO move(eDirection direction)
-        throw new NotImplementedError();
-    }
-
-    @Override
-    public String toString() {
-        return String.format("[%s ID: %o - %o, %o]", this.getClass().getSimpleName(), _id, positionX, positionY);
-    }
+    public abstract void Collide(GameMap map, ObjectBase other, boolean inWalk);
 }
