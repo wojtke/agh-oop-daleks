@@ -7,7 +7,6 @@ import com.javable.daleks.logic.ViewManager;
 import com.javable.daleks.models.GameMapSettings;
 import com.javable.daleks.models.JsonResult;
 import com.javable.daleks.service.ServiceManager;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -15,11 +14,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.text.Text;
 import javafx.util.converter.IntegerStringConverter;
 
 public class LevelSelectController implements IControllerFxmlBased{
 
-    //TODO: Dodać wyszukiwanie po nazwie poziomu/parametrach
+
     private ObservableList<GameMapSettings> levels;
     private FilteredList<GameMapSettings> filteredLevels;
     private final ServiceManager serviceManager;
@@ -41,7 +41,8 @@ public class LevelSelectController implements IControllerFxmlBased{
     private TableColumn<GameMapSettings, Integer>  mapSizeCol, daleksCountCol;
     @FXML
     private TextField levelNameInput, mapSizeInput, daleksCountInput;
-
+    @FXML
+    private Text errorText;
     @FXML
     private Button addButton, removeButton, playButton, backButton;
     @FXML
@@ -116,12 +117,9 @@ public class LevelSelectController implements IControllerFxmlBased{
 
         JsonResult response = serviceManager.UploadLevel(newLevel);
         if(response.Code != 0){
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("Error while uploading level");
-            alert.setContentText(response.Description);
-            alert.showAndWait();
+            errorText.setText(response.Description);
         } else {
+            errorText.setText("");
             levels.add(newLevel);
             levelNameInput.clear();
             mapSizeInput.clear();
@@ -139,12 +137,9 @@ public class LevelSelectController implements IControllerFxmlBased{
 
         JsonResult response = serviceManager.DeleteLevel(selectedLevel.getLevelName());
         if(response.Code != 0){
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("Error while removing level");
-            alert.setContentText(response.Description);
-            alert.showAndWait();
+            errorText.setText(response.Description);
         } else {
+            errorText.setText("");
             levels.remove(selectedLevel);
         }
         levelTable.getSelectionModel().clearSelection();

@@ -40,6 +40,7 @@
          <TextField fx:id="mapSizeInput" promptText="Map size" onKeyTyped="#onInputChanged" />
          <TextField fx:id="daleksCountInput" promptText="Daleks count" onKeyTyped="#onInputChanged" />
       </children>
+       <Text fx:id="errorText" fill="#d95454" strokeType="OUTSIDE" strokeWidth="0.0" />
       <VBox.margin>
          <Insets />
       </VBox.margin>
