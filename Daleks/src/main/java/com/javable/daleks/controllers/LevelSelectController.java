@@ -5,6 +5,7 @@ import com.javable.daleks.Settings;
 import com.javable.daleks.interfaces.IControllerFxmlBased;
 import com.javable.daleks.logic.ViewManager;
 import com.javable.daleks.models.GameMapSettings;
+import com.javable.daleks.models.JsonResult;
 import com.javable.daleks.service.ServiceManager;
 
 import javafx.collections.FXCollections;
@@ -91,15 +92,15 @@ public class LevelSelectController implements IControllerFxmlBased{
 
         this.levelTable.setItems(filteredLevels);
 
+        boolean isInputValid =
+                !levelNameInput.getText().isBlank() &&
+                        !mapSizeInput.getText().isBlank() &&
+                        !daleksCountInput.getText().isBlank();
         addButton.setDisable(
-                !filteredLevels.isEmpty() &&(
-                        levelNameInput.getText().isBlank() ||
-                        mapSizeInput.getText().isBlank() ||
-                        daleksCountInput.getText().isBlank()
-                )
+                !filteredLevels.isEmpty() && !isInputValid
         );
 
-        addButton.setText(filteredLevels.isEmpty() ? "Generate" : "Add");
+        addButton.setText(filteredLevels.isEmpty() && !isInputValid ? "Generate" : "Add");
 
     }
 
@@ -113,27 +114,41 @@ public class LevelSelectController implements IControllerFxmlBased{
         );
         //TODO: Jakaś prosta walidacja by się przydała
 
-        serviceManager.UploadLevel(newLevel);
-        levels.add(newLevel);
+        JsonResult response = serviceManager.UploadLevel(newLevel);
+        if(response.Code != 0){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Error while uploading level");
+            alert.setContentText(response.Description);
+            alert.showAndWait();
+        } else {
+            levels.add(newLevel);
+            levelNameInput.clear();
+            mapSizeInput.clear();
+            daleksCountInput.clear();
+        }
 
-        levelNameInput.clear();
-        mapSizeInput.clear();
-        daleksCountInput.clear();
-        levelTable.getSelectionModel().clearSelection();
-        addButton.setDisable(true);
 
-        //TODO: Dodać obsługę tego co zwraca serviceManager.UploadLevel
+        this.onInputChanged();
+
     }
 
     @FXML
     private void removeButtonClicked() {
         GameMapSettings selectedLevel = levelTable.getSelectionModel().getSelectedItem();
-        serviceManager.DeleteLevel(selectedLevel.getLevelName());
-        levels.remove(selectedLevel);
 
+        JsonResult response = serviceManager.DeleteLevel(selectedLevel.getLevelName());
+        if(response.Code != 0){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Error while removing level");
+            alert.setContentText(response.Description);
+            alert.showAndWait();
+        } else {
+            levels.remove(selectedLevel);
+        }
         levelTable.getSelectionModel().clearSelection();
-
-        //TODO: Dodać obsługę tego co zwraca serviceManager.DeleteLevel
+        onInputChanged();
     }
     @FXML
     public void backButtonClicked() {
