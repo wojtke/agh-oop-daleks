@@ -8,13 +8,15 @@ import java.io.IOException;
 
 
 /* TODO Milestone 2:
+    - Przeszukiwanie poziomów po parametrach
+    - Konfiguracja mapy z konkretnymi pozycjami startowymi
+*/
+
+/* DONE Milestone 2:
     - Pobieranie poziomów
     - Wysyłanie nowych poziomów
     - Wybór poziomu z usuwaniem
     - Json serializer
-*/
-
-/* DONE Milestone 2:
     - ServiceManager komunikujący się z serwisem
     - Endpoint GetLevels
     - Endpoint UploadLevel

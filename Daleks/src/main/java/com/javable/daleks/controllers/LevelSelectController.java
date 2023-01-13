@@ -16,8 +16,10 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.util.converter.IntegerStringConverter;
 
 public class LevelSelectController implements IControllerFxmlBased{
+
+    //TODO: Dodać wyszukiwanie po nazwie poziomu/parametrach
     private ObservableList<GameMapSettings> levels;
-    private ServiceManager serviceManager;
+    private final ServiceManager serviceManager;
 
     public LevelSelectController() {
         serviceManager = new ServiceManager();
@@ -84,6 +86,8 @@ public class LevelSelectController implements IControllerFxmlBased{
                 Integer.parseInt(daleksCountInput.getText()),
                 levelNameInput.getText()
         );
+        //TODO: Jakaś prosta walidacja by się przydała
+
         serviceManager.UploadLevel(newLevel);
         levels.add(newLevel);
 
@@ -92,6 +96,8 @@ public class LevelSelectController implements IControllerFxmlBased{
         daleksCountInput.clear();
         levelTable.getSelectionModel().clearSelection();
         addButton.setDisable(true);
+
+        //TODO: Dodać obsługę tego co zwraca serviceManager.UploadLevel
     }
 
     @FXML
@@ -101,6 +107,8 @@ public class LevelSelectController implements IControllerFxmlBased{
         levels.remove(selectedLevel);
 
         levelTable.getSelectionModel().clearSelection();
+
+        //TODO: Dodać obsługę tego co zwraca serviceManager.DeleteLevel
     }
 
     @FXML

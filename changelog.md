@@ -1,5 +1,10 @@
 # Changelog
 
+## Commit 12 - Wojciech Jasiński - Lista poziomów z serwera
+-   Lista poziomów do wybrania
+-   Dodanie nowego poziomu
+-   Usunięcie poziomu
+
 ## Commit 11 - Mateusz Cyganek - Serializacja JSON
 
 -   Serializacja pobranych json'ów do obiektów projketu
