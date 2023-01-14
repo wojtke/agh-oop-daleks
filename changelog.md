@@ -1,7 +1,12 @@
 # Changelog
 
+## Commit 15 - Aleksander Pytel - Dzialajace PowerUpy
+-   Dodanie teleportera
+  - Dodanie attractora
+
 ## Commit 14 - Aleksander Pytel - Wprowadzanie powerupów
 -   Poprawa wyświetlania obiektów - kożystamy z BaseObject i getImage
+-   GameMap przechowuje listę ObjectBase zamiast listy poszczegolnych klas bazowych
 -   Zmiana sposobu rozwiązywania kolizji - teraz są metody do kolizji z konkretnym obiektem
 
 
