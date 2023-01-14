@@ -25,7 +25,7 @@ public class GameMapSettings extends AbstractModule {
     }
 
     @Provides
-    public GameMapSettings ProvideGameMapSettings() {
+    public GameMapSettings provideGameMapSettings() {
         return this;
     }
 

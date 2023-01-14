@@ -34,7 +34,7 @@ public class MainController implements IControllerFxmlBased {
     }
 
     @FXML
-    protected void NewGameBtn() {
+    protected void newGameBtn() {
         try {
             GameMapSettings settings = parseInput();
             startGame(settings);
@@ -46,15 +46,15 @@ public class MainController implements IControllerFxmlBased {
     public void startGame(GameMapSettings settings) {
         Injector injector = Guice.createInjector(settings);
         GameController gameController = injector.getInstance(GameController.class);
-        gameController.InitView();
+        gameController.initView();
     }
 
     @Override
-    public String GetViewPath() {
+    public String getViewPath() {
         return Settings.MainView;
     }
 
-    public void LevelSelectBtn() {
-        ViewManager.SetScene(Settings.LevelSelectView);
+    public void levelSelectBtn() {
+        ViewManager.setScene(Settings.LevelSelectView);
     }
 }

@@ -21,22 +21,22 @@ public class RandomGameMapFactory {
 
     }
 
-    public GameMap Create() {
+    public GameMap create() {
         Player player = new Player(playerStartPosition);
         GameMap gameMap = new GameMap(player, gridCount);
-        AddDaleks(gameMap, daleksCount);
+        addDaleks(gameMap, daleksCount);
 
         return gameMap;
     }
 
-    public void AddDaleks(GameMap gameMap, int count) {
+    public void addDaleks(GameMap gameMap, int count) {
         Position position;
         for (int i = 0; i < count; i++) {
             do
                 position = new Position(gridCount);
-            while (!gameMap.IsCellEmptyAndValid(position));
+            while (!gameMap.isCellEmptyAndValid(position));
 
-            gameMap.AddDalek(new Dalek(position));
+            gameMap.addDalek(new Dalek(position));
         }
     }
 

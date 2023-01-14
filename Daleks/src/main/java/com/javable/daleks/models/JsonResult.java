@@ -3,11 +3,11 @@ package com.javable.daleks.models;
 import org.json.JSONObject;
 
 public class JsonResult {
-    public final int Code;
-    public final String Description;
+    public final int code;
+    public final String description;
 
     public JsonResult(JSONObject jsonObject) {
-        Code = jsonObject.getInt("code");
-        Description = jsonObject.getString("description");
+        code = jsonObject.getInt("code");
+        description = jsonObject.getString("description");
     }
 }

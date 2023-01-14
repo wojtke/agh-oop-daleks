@@ -19,8 +19,8 @@ import java.io.IOException;
     - Json serializer
     - ServiceManager komunikujący się z serwisem
     - Endpoint GetLevels
-    - Endpoint UploadLevel
-    - Endpoint DeleteLevel
+    - Endpoint uploadLevel
+    - Endpoint deleteLevel
 */
 
 /* DONE Milestone 1:
@@ -33,33 +33,33 @@ import java.io.IOException;
 */
 
 public class DaleksApp extends Application {
-    private static MainController MainController;
-    private static Stage MainStage;
+    private static MainController mainController;
+    private static Stage mainStage;
 
-    public static Stage GetStage() {
-        return MainStage;
+    public static Stage getStage() {
+        return mainStage;
     }
 
-    public static MainController GetMainController() {
-        return MainController;
+    public static MainController getMainController() {
+        return mainController;
     }
 
     public static void main(String[] args) {
         // TODO przykłądowe wywołania, do usunięcia
         //ServiceManager service = new ServiceManager();
-        //List<GameMapSettings> levels = service.GetAllLevels();
-        //JsonResult uploadResult = service.UploadLevel(new GameMapSettings(10, 22, "test4"));
-        //JsonResult deleteResult = service.DeleteLevel("test4");
+        //List<GameMapSettings> levels = service.getAllLevels();
+        //JsonResult uploadResult = service.uploadLevel(new GameMapSettings(10, 22, "test4"));
+        //JsonResult deleteResult = service.deleteLevel("test4");
 
         launch();
     }
 
     @Override
     public void start(Stage stage) throws IOException {
-        MainStage = stage;
-        MainController = new MainController();
-        MainController.InitView();
-        MainStage.setTitle("Javable's Daleks");
-        MainStage.show();
+        mainStage = stage;
+        mainController = new MainController();
+        mainController.initView();
+        mainStage.setTitle("Javable's Daleks");
+        mainStage.show();
     }
 }

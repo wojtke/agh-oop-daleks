@@ -28,7 +28,7 @@ public class LevelSelectController implements IControllerFxmlBased{
         serviceManager = new ServiceManager();
 
         levels = FXCollections.observableArrayList(
-                serviceManager.GetAllLevels()
+                serviceManager.getAllLevels()
         );
 
     }
@@ -115,9 +115,9 @@ public class LevelSelectController implements IControllerFxmlBased{
         );
         //TODO: Jakaś prosta walidacja by się przydała
 
-        JsonResult response = serviceManager.UploadLevel(newLevel);
-        if(response.Code != 0){
-            errorText.setText(response.Description);
+        JsonResult response = serviceManager.uploadLevel(newLevel);
+        if(response.code != 0){
+            errorText.setText(response.description);
         } else {
             errorText.setText("");
             levels.add(newLevel);
@@ -135,9 +135,9 @@ public class LevelSelectController implements IControllerFxmlBased{
     private void removeButtonClicked() {
         GameMapSettings selectedLevel = levelTable.getSelectionModel().getSelectedItem();
 
-        JsonResult response = serviceManager.DeleteLevel(selectedLevel.getLevelName());
-        if(response.Code != 0){
-            errorText.setText(response.Description);
+        JsonResult response = serviceManager.deleteLevel(selectedLevel.getLevelName());
+        if(response.code != 0){
+            errorText.setText(response.description);
         } else {
             errorText.setText("");
             levels.remove(selectedLevel);
@@ -147,17 +147,17 @@ public class LevelSelectController implements IControllerFxmlBased{
     }
     @FXML
     public void backButtonClicked() {
-        ViewManager.SetScene(Settings.MainView);
+        ViewManager.setScene(Settings.MainView);
     }
 
     @FXML
     public void playButtonClicked() {
         GameMapSettings selectedLevel = levelTable.getSelectionModel().getSelectedItem();
-        DaleksApp.GetMainController().startGame(selectedLevel);
+        DaleksApp.getMainController().startGame(selectedLevel);
     }
 
     @Override
-    public String GetViewPath() {
+    public String getViewPath() {
         return Settings.LevelSelectView;
     }
 }

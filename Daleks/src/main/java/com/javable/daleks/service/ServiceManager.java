@@ -20,12 +20,12 @@ import java.util.List;
 import java.util.UUID;
 
 public class ServiceManager {
-    public GameMapSettings[] GetAllLevels() {
+    public GameMapSettings[] getAllLevels() {
         GameMapSettings[] levels;
 
         try {
-            HttpURLConnection http = GetConnection(Settings.GetLevels, ERequestMethod.GET);
-            JSONArray jsonArray = new JSONArray(GetResponse(http));
+            HttpURLConnection http = getConnection(Settings.GetLevels, ERequestMethod.GET);
+            JSONArray jsonArray = new JSONArray(getResponse(http));
             levels = new GameMapSettings[jsonArray.length()];
 
             for (int i = 0; i < jsonArray.length(); i++)
@@ -38,20 +38,20 @@ public class ServiceManager {
        return levels;
     }
 
-    public JsonResult UploadLevel(GameMapSettings level) {
+    public JsonResult uploadLevel(GameMapSettings level) {
         JsonResult jsonResult;
 
         try {
-            HttpURLConnection http = GetConnection(Settings.PostLevel, ERequestMethod.POST);
+            HttpURLConnection http = getConnection(Settings.PostLevel, ERequestMethod.POST);
 
             List<Pair<String, String>> body = List.of(
                     new Pair<>("lvName", level.getLevelName()),
                     new Pair<>("gridCount", Integer.toString(level.getGridCount())),
                     new Pair<>("daleksCount",Integer.toString(level.getDaleksCount()))
             );
-            WritePostFormData(http, body);
+            writePostFormData(http, body);
 
-            jsonResult = new JsonResult(new JSONObject(GetResponse(http)));
+            jsonResult = new JsonResult(new JSONObject(getResponse(http)));
         }
         catch (Exception ex) {
             throw new RuntimeException(ex);
@@ -60,18 +60,18 @@ public class ServiceManager {
         return jsonResult;
     }
 
-    public JsonResult DeleteLevel(String levelName) {
+    public JsonResult deleteLevel(String levelName) {
         JsonResult jsonResult;
 
         try {
-            HttpURLConnection http = GetConnection(Settings.DeleteLevel, ERequestMethod.POST);
+            HttpURLConnection http = getConnection(Settings.DeleteLevel, ERequestMethod.POST);
 
             List<Pair<String, String>> body = List.of(
                     new Pair<>("lvName", levelName)
             );
-            WritePostFormData(http, body);
+            writePostFormData(http, body);
 
-            jsonResult = new JsonResult(new JSONObject(GetResponse(http)));
+            jsonResult = new JsonResult(new JSONObject(getResponse(http)));
         }
         catch (Exception ex) {
             throw new RuntimeException(ex);
@@ -80,7 +80,7 @@ public class ServiceManager {
         return jsonResult;
     }
 
-    private void WritePostFormData(HttpURLConnection http, List<Pair<String, String>> body) throws IOException {
+    private void writePostFormData(HttpURLConnection http, List<Pair<String, String>> body) throws IOException {
         String boundary = UUID.randomUUID().toString();
         byte[] boundaryBytes = ("--" + boundary + "\r\n").getBytes(StandardCharsets.UTF_8);
         byte[] finishBoundaryBytes = ("--" + boundary + "--").getBytes(StandardCharsets.UTF_8);
@@ -91,14 +91,14 @@ public class ServiceManager {
 
         for (Pair<String, String> formDataPart : body) {
             out.write(boundaryBytes);
-            SendField(out, formDataPart.getKey(), formDataPart.getValue());
+            sendField(out, formDataPart.getKey(), formDataPart.getValue());
         }
 
         out.write(boundaryBytes);
         out.write(finishBoundaryBytes);
     }
 
-    private HttpURLConnection GetConnection(String endpoint, ERequestMethod method) throws IOException {
+    private HttpURLConnection getConnection(String endpoint, ERequestMethod method) throws IOException {
         URL url = new URL(Settings.ServiceUrl + endpoint);
         HttpURLConnection http = (HttpURLConnection) url.openConnection();
         http.setRequestMethod(method.toString());
@@ -109,7 +109,7 @@ public class ServiceManager {
         return http;
     }
 
-    private void SendField(OutputStream out, String name, String field) throws IOException {
+    private void sendField(OutputStream out, String name, String field) throws IOException {
         String o = "Content-Disposition: form-data; name=\""
                 + URLEncoder.encode(name, StandardCharsets.UTF_8) + "\"\r\n\r\n";
         out.write(o.getBytes(StandardCharsets.UTF_8));
@@ -117,7 +117,7 @@ public class ServiceManager {
         out.write("\r\n".getBytes(StandardCharsets.UTF_8));
     }
 
-    private String GetResponse(HttpURLConnection connection) throws IOException {
+    private String getResponse(HttpURLConnection connection) throws IOException {
         String line;
         StringBuilder json = new StringBuilder();
         BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));

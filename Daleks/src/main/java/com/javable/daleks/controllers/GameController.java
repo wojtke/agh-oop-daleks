@@ -11,31 +11,30 @@ import javafx.scene.layout.GridPane;
 import java.io.FileNotFoundException;
 
 public class GameController implements IController {
-    private final GridPane GameGrid;
-    private final BorderPane BorderPane;
+    private final GridPane gameGrid;
+    private final BorderPane borderPane;
 
     @Inject
     public GameController(RandomGameMapFactory factory) throws FileNotFoundException {
-        com.javable.daleks.models.GameMap gameMap = factory.Create();
-        GameGrid = new GridPane();
-        BorderPane = new BorderPane();
-        BorderPane.setCenter(GameGrid);
-        GridManager gridManager = new GridManager(GameGrid, gameMap);
+        com.javable.daleks.models.GameMap gameMap = factory.create();
+        gameGrid = new GridPane();
+        borderPane = new BorderPane();
+        borderPane.setCenter(gameGrid);
+        GridManager gridManager = new GridManager(gameGrid, gameMap);
 
         MoveHandler moveHandler = new MoveHandler(gameMap, gridManager);
 
         InputHandler inputHandler = new InputHandler(moveHandler);
-        GameGrid.setOnMouseClicked(
-                event -> inputHandler.ClickGrid(this.GameGrid, event.getTarget()));
+        gameGrid.setOnMouseClicked(
+                event -> inputHandler.clickGrid(this.gameGrid, event.getTarget()));
     }
 
 
-    @Override
-    public void InitView() {
-        Scene scene = new Scene(BorderPane,
+    public void initView() {
+        Scene scene = new Scene(borderPane,
                 Settings.WindowWidth,
                 Settings.WindowHeight);
         scene.getRoot().setStyle("-fx-base:black");
-        ViewManager.SetScene(scene);
+        ViewManager.setScene(scene);
     }
 }

@@ -1,17 +1,21 @@
 package com.javable.daleks.models.objects;
 
-import com.javable.daleks.enums.EObjectType;
+import com.javable.daleks.logic.ImageLoader;
 import com.javable.daleks.models.GameMap;
 import com.javable.daleks.models.Position;
+import javafx.scene.image.Image;
 
 public abstract class ObjectBase {
-    public final EObjectType ObjectType;
-    public Position Position;
+    public Position position;
 
-    public ObjectBase(Position position, EObjectType type) {
-        this.Position = position;
-        ObjectType = type;
+    public ObjectBase(Position position) {
+        this.position = position;
     }
 
-    public abstract void Collide(GameMap map, ObjectBase other, boolean inWalk);
+    public abstract Image getImage(ImageLoader loader);
+    public abstract void createCollision(GameMap map, ObjectBase other, boolean inWalk);
+    public abstract void collide(GameMap map, Player other, boolean inWalk);
+    public abstract void collide(GameMap map, Scrap other, boolean inWalk);
+    public abstract void collide(GameMap map, Dalek other, boolean inWalk);
+    public abstract void collide(GameMap map, PowerUp other, boolean inWalk);
 }

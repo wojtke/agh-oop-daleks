@@ -1,7 +1,6 @@
 package com.javable.daleks.logic;
 
 import com.javable.daleks.Settings;
-import com.javable.daleks.enums.EObjectType;
 import javafx.scene.image.Image;
 
 import java.io.FileInputStream;
@@ -16,14 +15,26 @@ public class ImageLoader {
         dalekImg = new Image(new FileInputStream(Settings.DalekImage));
         scrapImg = new Image(new FileInputStream(Settings.ScrapImage));
     }
-
-    public Image GetImage(EObjectType type) {
-        return switch (type) {
-            case EMPTY -> emptyImg;
-            case PLAYER -> playerImg;
-            case DALEK -> dalekImg;
-            case SCRAP -> scrapImg;
-        };
+//
+//    public Image GetImage(EObjectType type) {
+//        return switch (type) {
+//            case EMPTY -> emptyImg;
+//            case PLAYER -> playerImg;
+//            case DALEK -> dalekImg;
+//            case SCRAP -> scrapImg;
+//        };
+//    }
+    public Image getPlayerImage() {
+        return playerImg;
+    }
+    public Image getEmptyImage() {
+        return emptyImg;
+    }
+    public Image getDalekImage() {
+        return dalekImg;
+    }
+    public Image getScrapImage() {
+        return scrapImg;
     }
 
 }

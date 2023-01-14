@@ -5,9 +5,9 @@ import com.javable.daleks.logic.ViewManager;
 import java.io.IOException;
 
 public interface IControllerFxmlBased extends IController {
-    String GetViewPath();
+    String getViewPath();
 
-    default void InitView() throws IOException {
-        ViewManager.SetScene(GetViewPath());
+    default void initView() throws IOException {
+        ViewManager.setScene(getViewPath());
     }
 }

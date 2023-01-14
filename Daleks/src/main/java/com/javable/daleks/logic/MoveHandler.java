@@ -20,54 +20,54 @@ public class MoveHandler {
         this.gridManager = gridManager;
     }
 
-    private void HandleCollision(ObjectBase o1, ObjectBase o2) {
-        o1.Collide(map, o2, false); // object o1 walked into object o2
-        o2.Collide(map, o1, true);
+    private void handleCollision(ObjectBase o1, ObjectBase o2) {
+        o1.createCollision(map, o2, true);
+        o2.createCollision(map, o1, false);
     }
 
-    public void MoveDaleks(Position playerPosition) {
+    public void moveDaleks(Position playerPosition) {
         HashMap<Dalek, Position> daleksToMove = new HashMap<>();
 
         for (Dalek dalek : map.daleks) {
-            Position newPosition = dalek.Position.add(dalek.Position.directionTo(playerPosition).toVector());
-            map.GetObjectAtCell(newPosition).ifPresentOrElse(
+            Position newPosition = dalek.position.add(dalek.position.directionTo(playerPosition).toVector());
+            map.getObjectAtCell(newPosition).ifPresentOrElse(
                     object -> daleksToMove.put(dalek, newPosition),
-                    () -> map.MoveObject(dalek, newPosition)
+                    () -> map.moveObject(dalek, newPosition)
             );
         }
         for (Dalek dalek : daleksToMove.keySet()) {
             Position newPosition = daleksToMove.get(dalek);
-            map.GetObjectAtCell(newPosition).ifPresentOrElse(
-                    object -> HandleCollision(dalek, object),
-                    () -> map.MoveObject(dalek, newPosition)
+            map.getObjectAtCell(newPosition).ifPresentOrElse(
+                    object -> handleCollision(dalek, object),
+                    () -> map.moveObject(dalek, newPosition)
             );
         }
     }
 
-    public void MovePlayer(Position newPosition) {
-        if (newPosition.equals(map.player.Position)) // teleport
+    public void movePlayer(Position newPosition) {
+        if (newPosition.equals(map.player.position)) // teleport
             do
                 newPosition = new Position(map.gridCount);
-            while (!map.IsCellEmptyAndValid(newPosition));
+            while (!map.isCellEmptyAndValid(newPosition));
         else if (!map.playerCanMoveTo(newPosition))
             return;
 
-        Optional<ObjectBase> objectAtCell = map.GetObjectAtCell(newPosition);
+        Optional<ObjectBase> objectAtCell = map.getObjectAtCell(newPosition);
 
         if (objectAtCell.isPresent())
-            HandleCollision(map.player, objectAtCell.get());
+            handleCollision(map.player, objectAtCell.get());
         else
-            map.MoveObject(map.player, newPosition);
+            map.moveObject(map.player, newPosition);
 
-        MoveDaleks(map.player.Position);
+        moveDaleks(map.player.position);
 
-        if (!CheckIfWon())
+        if (!checkIfWon())
             gridManager.repaint();
     }
 
-    public boolean CheckIfWon() {
+    public boolean checkIfWon() {
         if (map.daleks.isEmpty()) {
-            ViewManager.SetScene(Settings.GameWonView);
+            ViewManager.setScene(Settings.GameWonView);
             return true;
         }
         return false;
