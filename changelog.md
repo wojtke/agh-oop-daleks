@@ -1,5 +1,10 @@
 # Changelog
 
+## Commit 14 - Aleksander Pytel - Wprowadzanie powerupów
+-   Poprawa wyświetlania obiektów - kożystamy z BaseObject i getImage
+-   Zmiana sposobu rozwiązywania kolizji - teraz są metody do kolizji z konkretnym obiektem
+
+
 ## Commit 13 - Aleksander Pytel - Wyszukiwanie poziomow
 -   Możliwość filtrowania poziomów
 -   Poprawa widoku poziomów
