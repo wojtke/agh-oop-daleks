@@ -5,7 +5,10 @@ import com.javable.daleks.logic.ImageLoader;
 import com.javable.daleks.logic.ViewManager;
 import com.javable.daleks.models.GameMap;
 import com.javable.daleks.models.Position;
+import javafx.scene.effect.Effect;
 import javafx.scene.image.Image;
+
+import java.util.Optional;
 
 import static java.lang.Math.abs;
 
@@ -21,27 +24,32 @@ public class Player extends ObjectBase implements Destination {
     }
 
     @Override
-    public void createCollision(GameMap map, ObjectBase other, boolean inWalk) {
-
+    public Optional<Effect> getEffect(ImageLoader loader) {
+        return Optional.empty();
     }
 
     @Override
-    public void collide(GameMap map, Player other, boolean inWalk) {
+    public void createCollision(GameMap map, ObjectBase other, boolean inWalk) {
+        other.collide(map, this, inWalk);
+    }
+
+    @Override
+    public void collide(GameMap map, Player player, boolean inWalk) {
         throw new IllegalStateException("Player can't collide with player");
     }
 
     @Override
-    public void collide(GameMap map, Scrap other, boolean inWalk) {
-
+    public void collide(GameMap map, Scrap scrap, boolean inWalk) {
+        gameOver();
     }
 
     @Override
-    public void collide(GameMap map, Dalek other, boolean inWalk) {
-
+    public void collide(GameMap map, Dalek dalek, boolean inWalk) {
+        gameOver();
     }
 
     @Override
-    public void collide(GameMap map, PowerUp other, boolean inWalk) {
+    public void collide(GameMap map, PowerUp powerUp, boolean inWalk) {
 
     }
 
@@ -54,5 +62,10 @@ public class Player extends ObjectBase implements Destination {
 
     private void gameOver() {
         ViewManager.setScene(Settings.GameOverView);
+    }
+
+    @Override
+    public Position getPosition() {
+        return position;
     }
 }

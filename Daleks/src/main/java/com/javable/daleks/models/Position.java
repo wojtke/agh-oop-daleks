@@ -20,7 +20,8 @@ public class Position {
 
     @Override
     public String toString() {
-        return '[' + x + ", " + y + ']';
+        return "[" + x + ", " + y + "]";
+
     }
 
     @Override
@@ -39,7 +40,9 @@ public class Position {
         Position pos = (Position) other;
         return x == pos.x && y == pos.y;
     }
-
+    public int distanceSqr(Position other) {
+        return (x-other.x)*(x-other.x) + (y-other.y)*(y-other.y);
+    }
     public Position add(Position other) {
         return new Position(x + other.x, y + other.y);
     }

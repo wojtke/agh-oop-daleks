@@ -19,6 +19,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 
 import java.io.FileNotFoundException;
+import java.util.Optional;
 
 public class GridManager {
     private final ImageLoader imageLoader = new ImageLoader();
@@ -43,11 +44,11 @@ public class GridManager {
 
     public void repaint() {
         clear();
-        cells[map.player.position.x][map.player.position.y]
+        cells[map.getPlayer().position.x][map.getPlayer().position.y]
                 .setImage(imageLoader.getPlayerImage());
 
         for (EDirection direction : EDirection.values()) {
-            Position playerPosition = map.player.position;
+            Position playerPosition = map.getPlayer().position;
             Position newPosition = playerPosition.add(direction.toVector());
 
             if (map.isInBounds(newPosition) && map.getObjectAtCell(newPosition).isEmpty()) {
@@ -60,6 +61,10 @@ public class GridManager {
         for (ObjectBase object : map.getObjects()){
             cells[object.position.x][object.position.y]
                     .setImage(object.getImage(imageLoader));
+
+            object.getEffect(imageLoader).ifPresent(
+                    value -> cells[object.position.x][object.position.y].setEffect(value));
+
         }
     }
 

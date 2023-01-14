@@ -3,7 +3,10 @@ package com.javable.daleks.models.objects;
 import com.javable.daleks.logic.ImageLoader;
 import com.javable.daleks.models.GameMap;
 import com.javable.daleks.models.Position;
+import javafx.scene.effect.Effect;
 import javafx.scene.image.Image;
+
+import java.util.Optional;
 
 public class Dalek extends ObjectBase {
 
@@ -14,6 +17,11 @@ public class Dalek extends ObjectBase {
     @Override
     public Image getImage(ImageLoader loader) {
         return loader.getDalekImage();
+    }
+
+    @Override
+    public Optional<Effect> getEffect(ImageLoader loader) {
+        return Optional.empty();
     }
 
     @Override
@@ -31,23 +39,23 @@ public class Dalek extends ObjectBase {
 //    }
 
     @Override
-    public void collide(GameMap map, Player other, boolean inWalk) {
+    public void collide(GameMap map, Player player, boolean inWalk) {
+
     }
 
     @Override
-    public void collide(GameMap map, Scrap other, boolean inWalk) {
+    public void collide(GameMap map, Scrap scrap, boolean inWalk) {
         map.removeDalek(this);
     }
 
     @Override
-    public void collide(GameMap map, Dalek other, boolean inWalk) {
+    public void collide(GameMap map, Dalek dalek, boolean inWalk) {
         map.removeDalek(this);
         if(inWalk)
             map.addObject(new Scrap(this.position));
     }
 
     @Override
-    public void collide(GameMap map, PowerUp other, boolean inWalk) {
-
+    public void collide(GameMap map, PowerUp powerUp, boolean inWalk) {
     }
 }

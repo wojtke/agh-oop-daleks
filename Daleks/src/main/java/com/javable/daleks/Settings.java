@@ -16,6 +16,8 @@ public class Settings  {
             DalekImage = "src/main/resources/com/javable/daleks/images/goomba.gif",
             ScrapImage = "src/main/resources/com/javable/daleks/images/brick_wall.png",
             EmptyImage = "src/main/resources/com/javable/daleks/images/tile.png",
+            AttractorImage = "src/main/resources/com/javable/daleks/images/star.png",
+            TeleporterImage = "src/main/resources/com/javable/daleks/images/pipe.png",
 
             ServiceUrl = "https://klorlik.pl/javable", // "http://localhost/javable"
             GetLevels = "/levels.php",

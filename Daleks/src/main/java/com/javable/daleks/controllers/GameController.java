@@ -23,6 +23,9 @@ public class GameController implements IController {
         GridManager gridManager = new GridManager(gameGrid, gameMap);
 
         MoveHandler moveHandler = new MoveHandler(gameMap, gridManager);
+        factory.setMoveHandler(moveHandler);
+        factory.generate();
+        gridManager.repaint();
 
         InputHandler inputHandler = new InputHandler(moveHandler);
         gameGrid.setOnMouseClicked(

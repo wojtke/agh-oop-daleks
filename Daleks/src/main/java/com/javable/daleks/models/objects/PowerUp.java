@@ -18,23 +18,4 @@ public abstract class PowerUp extends ObjectBase{
         other.collide(map, this, inWalk);
     }
 
-    @Override
-    public void collide(GameMap map, Player other, boolean inWalk) {
-
-    }
-
-    @Override
-    public void collide(GameMap map, Scrap other, boolean inWalk) {
-
-    }
-
-    @Override
-    public void collide(GameMap map, Dalek other, boolean inWalk) {
-
-    }
-
-    @Override
-    public void collide(GameMap map, PowerUp other, boolean inWalk) {
-
-    }
 }
