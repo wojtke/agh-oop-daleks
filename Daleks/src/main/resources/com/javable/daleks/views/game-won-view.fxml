@@ -16,7 +16,7 @@
         <VBox.margin>
             <Insets bottom="20.0"/>
         </VBox.margin>
-        <Image fx:id="gameWonImage" url="@../images/you_won.png"/>
+        <Image fx:id="GameWonImage" url="@../images/you_won.png"/>
     </ImageView>
-    <Button text="Return to menu" onAction="#returnToMenuBtn"/>
+    <Button text="Return to menu" onAction="#ReturnToMenuBtn"/>
 </VBox>

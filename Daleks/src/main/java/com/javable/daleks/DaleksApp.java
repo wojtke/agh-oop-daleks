@@ -1,6 +1,7 @@
 package com.javable.daleks;
 
 import com.javable.daleks.controllers.MainController;
+import com.javable.daleks.logic.CampaignManager;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -19,8 +20,8 @@ import java.io.IOException;
     - Json serializer
     - ServiceManager komunikujący się z serwisem
     - Endpoint GetLevels
-    - Endpoint uploadLevel
-    - Endpoint deleteLevel
+    - Endpoint UploadLevel
+    - Endpoint DeleteLevel
 */
 
 /* DONE Milestone 1:
@@ -33,33 +34,28 @@ import java.io.IOException;
 */
 
 public class DaleksApp extends Application {
-    private static MainController mainController;
-    private static Stage mainStage;
+    private static MainController MainController;
+    private static Stage MainStage;
+    private static final CampaignManager CampaignManager = new CampaignManager();
 
-    public static Stage getStage() {
-        return mainStage;
+    public static Stage GetStage() {
+        return MainStage;
     }
-
-    public static MainController getMainController() {
-        return mainController;
+    public static MainController GetMainController() {
+        return MainController;
     }
+    public static CampaignManager GetCampaignManager() { return CampaignManager; }
 
     public static void main(String[] args) {
-        // TODO przykłądowe wywołania, do usunięcia
-        //ServiceManager service = new ServiceManager();
-        //List<GameMapSettings> levels = service.getAllLevels();
-        //JsonResult uploadResult = service.uploadLevel(new GameMapSettings(10, 22, "test4"));
-        //JsonResult deleteResult = service.deleteLevel("test4");
-
         launch();
     }
 
     @Override
     public void start(Stage stage) throws IOException {
-        mainStage = stage;
-        mainController = new MainController();
-        mainController.initView();
-        mainStage.setTitle("Javable's Daleks");
-        mainStage.show();
+        MainStage = stage;
+        MainController = new MainController();
+        MainController.InitView();
+        MainStage.setTitle("Javable's Daleks");
+        MainStage.show();
     }
 }

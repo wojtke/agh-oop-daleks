@@ -1,8 +1,10 @@
 package com.javable.daleks.models;
 
 import com.javable.daleks.enums.EDirection;
+import org.json.JSONObject;
 
 import java.util.Objects;
+import java.util.Random;
 
 public class Position {
     public final int x;
@@ -13,15 +15,18 @@ public class Position {
         this.y = y;
     }
 
-    public Position(int range) {
-        x = (int) (Math.random() * range);
-        this.y = (int) (Math.random() * range);
+    public Position(int range, Random rand) {
+        x = rand.nextInt(range);
+        y = rand.nextInt(range);
+    }
+
+    public Position(JSONObject jsonObject) {
+        this(jsonObject.getInt("x"), jsonObject.getInt("y"));
     }
 
     @Override
     public String toString() {
-        return "[" + x + ", " + y + "]";
-
+        return '[' + x + ", " + y + ']';
     }
 
     @Override
@@ -40,9 +45,7 @@ public class Position {
         Position pos = (Position) other;
         return x == pos.x && y == pos.y;
     }
-    public int distanceSqr(Position other) {
-        return (x-other.x)*(x-other.x) + (y-other.y)*(y-other.y);
-    }
+
     public Position add(Position other) {
         return new Position(x + other.x, y + other.y);
     }

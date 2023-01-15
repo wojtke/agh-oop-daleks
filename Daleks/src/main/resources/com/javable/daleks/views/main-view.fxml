@@ -41,12 +41,17 @@
     </GridPane>
    <Text fx:id="errorText" fill="#d95454" strokeType="OUTSIDE" strokeWidth="0.0" />
     <HBox alignment="CENTER" spacing="10.0">
-    <Button onAction="#newGameBtn" text="New Game" textAlignment="CENTER" prefWidth="100">
+    <Button onAction="#NewGameBtn" text="New Game" textAlignment="CENTER" prefWidth="100">
       <font>
          <Font size="14.0" />
       </font>
     </Button>
-    <Button onAction="#levelSelectBtn" text="Select Levels" textAlignment="CENTER" prefWidth="100">
+    <Button onAction="#LevelSelectBtn" text="Select Levels" textAlignment="CENTER" prefWidth="100">
+        <font>
+            <Font size="14.0" />
+        </font>
+    </Button>
+    <Button onAction="#CampaignBtn" text="Campaign" textAlignment="CENTER" prefWidth="100">
         <font>
             <Font size="14.0" />
         </font>

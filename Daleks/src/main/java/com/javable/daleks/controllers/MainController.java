@@ -5,7 +5,7 @@ import com.google.inject.Injector;
 import com.javable.daleks.Settings;
 import com.javable.daleks.interfaces.IControllerFxmlBased;
 import com.javable.daleks.logic.ViewManager;
-import com.javable.daleks.models.GameMapSettings;
+import com.javable.daleks.models.Level;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
@@ -17,7 +17,7 @@ public class MainController implements IControllerFxmlBased {
     @FXML
     private Text errorText;
 
-    private GameMapSettings parseInput() { // TODO zastąpić exception pustym optionallem i setText
+    private Level parseInput() { // TODO zastąpić exception pustym optionallem i setText
         int map_size = Integer.parseInt(mapSizeInput.getText());
         int daleks_count = Integer.parseInt(daleksCountInput.getText());
 
@@ -30,31 +30,35 @@ public class MainController implements IControllerFxmlBased {
         if (daleks_count > map_size * map_size - 1)
             throw new IllegalArgumentException("Daleks count too large");
 
-        return new GameMapSettings(map_size, daleks_count, "name_placeholder"); // TODO wymagać imienia
+        return new Level(map_size, daleks_count, "");
     }
 
     @FXML
-    protected void newGameBtn() {
+    protected void NewGameBtn() {
         try {
-            GameMapSettings settings = parseInput();
+            Level settings = parseInput();
             startGame(settings);
         } catch (IllegalArgumentException e) {
             errorText.setText(e.getMessage());
         }
     }
 
-    public void startGame(GameMapSettings settings) {
+    public void startGame(Level settings) {
         Injector injector = Guice.createInjector(settings);
         GameController gameController = injector.getInstance(GameController.class);
-        gameController.initView();
+        gameController.InitView();
     }
 
     @Override
-    public String getViewPath() {
+    public String GetViewPath() {
         return Settings.MainView;
     }
 
-    public void levelSelectBtn() {
-        ViewManager.setScene(Settings.LevelSelectView);
+    public void LevelSelectBtn() {
+        ViewManager.SetScene(Settings.LevelSelectView);
+    }
+
+    public void CampaignBtn() {
+        ViewManager.SetScene(Settings.CampaignView);
     }
 }

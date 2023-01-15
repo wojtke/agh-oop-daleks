@@ -7,19 +7,19 @@ import javafx.scene.layout.GridPane;
 
 public class InputHandler {
 
-    public final MoveHandler moveHandler;
+    public final MoveHandler MoveHandler;
 
     public InputHandler(MoveHandler moveHandler) {
-        this.moveHandler = moveHandler;
+        this.MoveHandler = moveHandler;
     }
 
-    public void clickGrid(GridPane gameGrid, EventTarget target) {
+    public void ClickGrid(GridPane GameGrid, EventTarget target) {
         Node clickedNode = (Node) target;
-        if (clickedNode != gameGrid) {
+        if (clickedNode != GameGrid) {
             // click on descendant node
             Integer colIndex = GridPane.getColumnIndex(clickedNode);
             Integer rowIndex = GridPane.getRowIndex(clickedNode);
-            moveHandler.movePlayer(new Position(colIndex, rowIndex));
+            MoveHandler.MovePlayer(new Position(colIndex, rowIndex));
         }
     }
 

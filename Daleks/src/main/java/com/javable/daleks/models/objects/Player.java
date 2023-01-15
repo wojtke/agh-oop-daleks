@@ -1,71 +1,28 @@
 package com.javable.daleks.models.objects;
 
 import com.javable.daleks.Settings;
-import com.javable.daleks.logic.ImageLoader;
+import com.javable.daleks.enums.EObjectType;
 import com.javable.daleks.logic.ViewManager;
 import com.javable.daleks.models.GameMap;
 import com.javable.daleks.models.Position;
-import javafx.scene.effect.Effect;
-import javafx.scene.image.Image;
-
-import java.util.Optional;
 
 import static java.lang.Math.abs;
 
-public class Player extends ObjectBase implements Destination {
+public class Player extends ObjectBase {
 
     public Player(Position position) {
-        super(position);
+        super(position, EObjectType.PLAYER);
     }
 
-    @Override
-    public Image getImage(ImageLoader loader) {
-        return loader.getPlayerImage();
-    }
-
-    @Override
-    public Optional<Effect> getEffect(ImageLoader loader) {
-        return Optional.empty();
-    }
-
-    @Override
-    public void createCollision(GameMap map, ObjectBase other, boolean inWalk) {
-        other.collide(map, this, inWalk);
-    }
-
-    @Override
-    public void collide(GameMap map, Player player, boolean inWalk) {
-        throw new IllegalStateException("Player can't collide with player");
-    }
-
-    @Override
-    public void collide(GameMap map, Scrap scrap, boolean inWalk) {
-        gameOver();
-    }
-
-    @Override
-    public void collide(GameMap map, Dalek dalek, boolean inWalk) {
-        gameOver();
-    }
-
-    @Override
-    public void collide(GameMap map, PowerUp powerUp, boolean inWalk) {
-
-    }
-
-    public boolean canMove(Position newPosition) {
-        if(abs(newPosition.x - position.x) > 1 || abs(newPosition.y - position.y) > 1)
+    public boolean CanMove(Position newPosition) {
+        if(abs(newPosition.x - Position.x) > 1 || abs(newPosition.y - Position.y) > 1)
             return false;
 
-        return newPosition != position;
-    }
-
-    private void gameOver() {
-        ViewManager.setScene(Settings.GameOverView);
+        return newPosition != Position;
     }
 
     @Override
-    public Position getPosition() {
-        return position;
+    public void Collide(GameMap map, ObjectBase other, boolean inWalk) {
+        ViewManager.SetScene(Settings.GameOverView);
     }
 }

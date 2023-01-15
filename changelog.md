@@ -1,20 +1,18 @@
 # Changelog
 
-## Commit 15 - Aleksander Pytel - Dzialajace PowerUpy
--   Dodanie teleportera
-  - Dodanie attractora
+## Commit 14 - Mateusz Cyganek - Kampania gracza
 
-## Commit 14 - Aleksander Pytel - Wprowadzanie powerupów
--   Poprawa wyświetlania obiektów - kożystamy z BaseObject i getImage
--   GameMap przechowuje listę ObjectBase zamiast listy poszczegolnych klas bazowych
--   Zmiana sposobu rozwiązywania kolizji - teraz są metody do kolizji z konkretnym obiektem
-
+-   Nowy pusty widok wyboru poziomu kampanii
+-   Widok kampanii
+-   Obsługa postępu w trybie kampanii
 
 ## Commit 13 - Aleksander Pytel - Wyszukiwanie poziomow
+
 -   Możliwość filtrowania poziomów
 -   Poprawa widoku poziomów
 
 ## Commit 12 - Wojciech Jasiński - Lista poziomów z serwera
+
 -   Lista poziomów do wybrania
 -   Dodanie nowego poziomu
 -   Usunięcie poziomu

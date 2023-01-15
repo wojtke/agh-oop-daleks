@@ -58,5 +58,4 @@
          <Button fx:id="backButton" mnemonicParsing="false" onAction="#backButtonClicked" prefWidth="80.0" text="Back" />
       </children>
    </HBox>
-    <Text fx:id="errorText" fill="#d95454" strokeType="OUTSIDE" strokeWidth="0.0" />
 </VBox>

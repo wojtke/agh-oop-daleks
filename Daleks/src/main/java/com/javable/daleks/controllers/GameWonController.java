@@ -10,14 +10,14 @@ import java.io.IOException;
 
 public class GameWonController implements IControllerFxmlBased {
     @FXML
-    public Image gameWonImage;
+    public Image GameWonImage;
 
     @Override
-    public String getViewPath() {
-        return Settings.GameOverView;
+    public String GetViewPath() {
+        return Settings.GameWonView;
     }
 
-    public void returnToMenuBtn() throws IOException {
-        DaleksApp.getMainController().initView();
+    public void ReturnToMenuBtn() throws IOException {
+        DaleksApp.GetMainController().InitView();
     }
 }
