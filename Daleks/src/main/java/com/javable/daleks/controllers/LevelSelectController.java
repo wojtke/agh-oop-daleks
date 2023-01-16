@@ -3,42 +3,52 @@ package com.javable.daleks.controllers;
 import com.javable.daleks.DaleksApp;
 import com.javable.daleks.Settings;
 import com.javable.daleks.interfaces.IControllerFxmlBased;
+import com.javable.daleks.logic.RandomGameMapFactory;
 import com.javable.daleks.logic.ViewManager;
-import com.javable.daleks.models.GameMapSettings;
-import com.javable.daleks.models.JsonResult;
-import com.javable.daleks.service.ServiceManager;
+import com.javable.daleks.models.ApiResponse;
+import com.javable.daleks.models.GameMap;
+import com.javable.daleks.models.Level;
+import com.javable.daleks.logic.ServiceManager;
+import com.javable.daleks.models.Position;
+import com.javable.daleks.models.objects.Player;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.text.Text;
+import javafx.util.Pair;
 import javafx.util.converter.IntegerStringConverter;
+
+import java.io.FileNotFoundException;
 
 public class LevelSelectController implements IControllerFxmlBased{
 
 
-    private ObservableList<GameMapSettings> levels;
-    private FilteredList<GameMapSettings> filteredLevels;
+    private ObservableList<Level> levels;
+    private FilteredList<Level> filteredLevels;
     private final ServiceManager serviceManager;
 
     public LevelSelectController() {
         serviceManager = new ServiceManager();
 
         levels = FXCollections.observableArrayList(
-                serviceManager.getAllLevels()
+                serviceManager.getAllUserLevels()
         );
 
     }
 
     @FXML
-    private TableView<GameMapSettings> levelTable;
+    private TableView<Level> levelTable;
     @FXML
-    private TableColumn<GameMapSettings, String> levelNameCol;
+    private TableColumn<Level, String> levelNameCol;
     @FXML
-    private TableColumn<GameMapSettings, Integer>  mapSizeCol, daleksCountCol;
+    private TableColumn<Level, Integer>  mapSizeCol, daleksCountCol;
     @FXML
     private TextField levelNameInput, mapSizeInput, daleksCountInput;
     @FXML
@@ -64,7 +74,7 @@ public class LevelSelectController implements IControllerFxmlBased{
 
     @FXML
     private void onSelectionChanged() {
-        GameMapSettings selectedLevel = levelTable.getSelectionModel().getSelectedItem();
+        Level selectedLevel = levelTable.getSelectionModel().getSelectedItem();
         if (selectedLevel != null) {
             removeButton.setDisable(false);
             playButton.setDisable(false);
@@ -81,7 +91,7 @@ public class LevelSelectController implements IControllerFxmlBased{
 
         try{
             int mapSize = Integer.parseInt(mapSizeInput.getText());
-            filteredLevels = filteredLevels.filtered(l -> l.getGridCount() == mapSize);
+            filteredLevels = filteredLevels.filtered(l -> l.getGridSize() == mapSize);
         } catch (NumberFormatException ignored) {}
 
         try{
@@ -108,16 +118,23 @@ public class LevelSelectController implements IControllerFxmlBased{
     @FXML
     private void addButtonClicked() {
 
-        GameMapSettings newLevel = new GameMapSettings(
-                Integer.parseInt(mapSizeInput.getText()),
-                Integer.parseInt(daleksCountInput.getText()),
-                levelNameInput.getText()
+        int mapSize = Integer.parseInt(mapSizeInput.getText());
+        int daleksCount = Integer.parseInt(daleksCountInput.getText());
+        int attractorsCount = 3;
+        int teleportersCount = 3;
+        String levelName = levelNameInput.getText();
+        GameMap map = new GameMap(
+                mapSize,
+                new Player(new Position(mapSize))
         );
-        //TODO: Jakaś prosta walidacja by się przydała
+        RandomGameMapFactory factory = new RandomGameMapFactory(daleksCount, attractorsCount, teleportersCount, mapSize, map);
+        factory.generate();
+        Level newLevel = new Level(map);
+        newLevel.setLevelName(levelName);
 
-        JsonResult response = serviceManager.uploadLevel(newLevel);
-        if(response.code != 0){
-            errorText.setText(response.description);
+        ApiResponse response = serviceManager.uploadLevel(newLevel);
+        if(response.getCode() != 0){
+            errorText.setText(response.getDescription());
         } else {
             errorText.setText("");
             levels.add(newLevel);
@@ -133,11 +150,11 @@ public class LevelSelectController implements IControllerFxmlBased{
 
     @FXML
     private void removeButtonClicked() {
-        GameMapSettings selectedLevel = levelTable.getSelectionModel().getSelectedItem();
+        Level selectedLevel = levelTable.getSelectionModel().getSelectedItem();
 
-        JsonResult response = serviceManager.deleteLevel(selectedLevel.getLevelName());
-        if(response.code != 0){
-            errorText.setText(response.description);
+        ApiResponse response = serviceManager.deleteLevel(selectedLevel.getLevelName());
+        if(response.getCode() != 0){
+            errorText.setText(response.getDescription());
         } else {
             errorText.setText("");
             levels.remove(selectedLevel);
@@ -152,8 +169,12 @@ public class LevelSelectController implements IControllerFxmlBased{
 
     @FXML
     public void playButtonClicked() {
-        GameMapSettings selectedLevel = levelTable.getSelectionModel().getSelectedItem();
-        DaleksApp.getMainController().startGame(selectedLevel);
+        Level selectedLevel = levelTable.getSelectionModel().getSelectedItem();
+        try {
+            DaleksApp.getMainController().startGame(selectedLevel);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

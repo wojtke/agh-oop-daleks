@@ -8,22 +8,30 @@ import com.javable.daleks.models.objects.Player;
 import java.util.*;
 
 public class GameMap {
+
+    private final int gridSize;
     private final Player player;
     private final List<Dalek> daleks = new ArrayList<>();
 
     private final List<Destination> destinations = new ArrayList<>();
     private final Map<Position, ObjectBase> occupiedCells = new HashMap<>(); // referencje do postaci na planszy
-    public final int gridCount;
+    public Optional<Level> levelData = Optional.empty();
 
-    public GameMap(Player player, int gridCount) {
-        this.gridCount = gridCount;
+    public GameMap(Level level) {
+        gridSize = level.getGridSize();
+        this.player = new Player(level.getPlayerPosition());
+        occupiedCells.put(player.getPosition(), player);
+        destinations.add(player);
+        levelData = Optional.of(level);
+    }
+    public GameMap(int gridSize, Player player) {
+        this.gridSize = gridSize;
         this.player = player;
-        occupiedCells.put(player.position, player);
+        occupiedCells.put(player.getPosition(), player);
         destinations.add(player);
     }
-
     public boolean isInBounds(Position position) {
-        return position.x >= 0 && position.x < this.gridCount && position.y >= 0 && position.y < this.gridCount;
+        return position.x >= 0 && position.x < gridSize && position.y >= 0 && position.y < gridSize;
     }
 
     public Player getPlayer() {
@@ -40,7 +48,7 @@ public class GameMap {
     public void teleportPlayer(){
         Position newPosition;
         do
-            newPosition = new Position(this.gridCount);
+            newPosition = new Position(gridSize);
         while (!isCellEmptyAndValid(newPosition));
         moveObject(player, newPosition);
     }
@@ -93,5 +101,9 @@ public class GameMap {
 
     public Collection<ObjectBase> getObjects() {
         return occupiedCells.values();
+    }
+
+    public int getGridSize() {
+        return gridSize;
     }
 }

@@ -11,6 +11,7 @@ public class Settings  {
             GameOverView = "views/game-over-view.fxml",
             GameWonView = "views/game-won-view.fxml",
             LevelSelectView = "views/level-select-view.fxml",
+            CampaignView = "views/campaign-view.fxml",
 
             PlayerImage = "src/main/resources/com/javable/daleks/images/mario.gif",
             DalekImage = "src/main/resources/com/javable/daleks/images/goomba.gif",
@@ -20,7 +21,10 @@ public class Settings  {
             TeleporterImage = "src/main/resources/com/javable/daleks/images/pipe.png",
 
             ServiceUrl = "https://klorlik.pl/javable", // "http://localhost/javable"
-            GetLevels = "/levels.php",
+            GetUserLevels = "/levels.php",
+            GetCampaignLevels = "/campaign.php",
             PostLevel = "/upload.php",
-            DeleteLevel = "/delete.php";
+            DeleteLevel = "/delete.php",
+
+            UserCampaign = "src/main/resources/com/javable/daleks/campaign.csv";
 }

@@ -1,7 +1,5 @@
 package com.javable.daleks.logic;
 
-import com.google.inject.AbstractModule;
-import com.google.inject.Provides;
 import com.javable.daleks.Settings;
 import com.javable.daleks.controllers.GridManager;
 import com.javable.daleks.models.GameMap;
@@ -13,7 +11,7 @@ import com.javable.daleks.models.objects.ObjectBase;
 import java.util.HashMap;
 import java.util.Optional;
 
-public class MoveHandler extends AbstractModule {
+public class MoveHandler{
 
     private final GameMap map;
     private final GridManager gridManager;
@@ -27,10 +25,7 @@ public class MoveHandler extends AbstractModule {
         o1.createCollision(map, o2, true);
         o2.createCollision(map, o1, false);
     }
-    @Provides
-    public MoveHandler provideMoveHandler(){
-        return this;
-    }
+
     public void moveDaleks() {
         HashMap<Dalek, Position> daleksToMove = new HashMap<>();
 
@@ -94,6 +89,9 @@ public class MoveHandler extends AbstractModule {
 
     public boolean checkIfWon() {
         if (map.getDaleks().isEmpty()) {
+            if (map.levelData.isPresent() && map.levelData.get().isCampaign)
+                CampaignManager.IncrementMaxCampaignLvAfterBeatingLv(map.levelData.get().getCampainOrder());
+
             ViewManager.setScene(Settings.GameWonView);
             return true;
         }

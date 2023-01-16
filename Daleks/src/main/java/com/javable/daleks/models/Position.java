@@ -1,12 +1,15 @@
 package com.javable.daleks.models;
 
 import com.javable.daleks.enums.EDirection;
+import org.json.JSONObject;
 
 import java.util.Objects;
+import java.util.Random;
 
 public class Position {
     public final int x;
     public final int y;
+    private final Random random = new Random();
 
     public Position(int x, int y) {
         this.x = x;
@@ -14,8 +17,12 @@ public class Position {
     }
 
     public Position(int range) {
-        x = (int) (Math.random() * range);
-        this.y = (int) (Math.random() * range);
+        x = random.nextInt(range);
+        y = random.nextInt(range);
+    }
+
+    public Position(JSONObject jsonObject) {
+        this(jsonObject.getInt("x"), jsonObject.getInt("y"));
     }
 
     @Override

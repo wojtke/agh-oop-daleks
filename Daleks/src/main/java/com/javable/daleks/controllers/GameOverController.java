@@ -12,6 +12,7 @@ public class GameOverController implements IControllerFxmlBased {
     @FXML
     public Image gameOverImage;
 
+    @Override
     public String getViewPath() {
         return Settings.GameOverView;
     }

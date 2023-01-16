@@ -35,8 +35,8 @@ public class GridManager {
         gameGrid.setPadding(new Insets(10, 10, 10, 10));
         gameGrid.setGridLinesVisible(true);
 
-        cells = new ImageView[gameMap.gridCount][];
-        gridSize = (Settings.WindowHeight-50)/ gameMap.gridCount;
+        cells = new ImageView[gameMap.getGridSize()][];
+        gridSize = (Settings.WindowHeight-50)/ gameMap.getGridSize();
         map = gameMap;
 
         this.initialize();
@@ -69,8 +69,8 @@ public class GridManager {
     }
 
     public void clear() {
-        for (int i = 0; i < map.gridCount; i++) {
-            for (int j = 0; j < map.gridCount; j++) {
+        for (int i = 0; i < map.getGridSize(); i++) {
+            for (int j = 0; j < map.getGridSize(); j++) {
                 cells[i][j].setImage(imageLoader.getEmptyImage());
                 cells[i][j].setEffect(null);
             }
@@ -79,12 +79,12 @@ public class GridManager {
 
     public void initialize() {
 
-        for (int i = 0; i < map.gridCount; i++) {
+        for (int i = 0; i < map.getGridSize(); i++) {
             gameGrid.getColumnConstraints().add(new ColumnConstraints(gridSize));
-            cells[i] = new ImageView[map.gridCount];
+            cells[i] = new ImageView[map.getGridSize()];
 
 
-            for (int j = 0; j < map.gridCount; j++) {
+            for (int j = 0; j < map.getGridSize(); j++) {
                 if (i == 0)
                     gameGrid.getRowConstraints().add(new RowConstraints(gridSize));
 

@@ -1,6 +1,7 @@
 package com.javable.daleks;
 
 import com.javable.daleks.controllers.MainController;
+import com.javable.daleks.logic.CampaignManager;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -35,6 +36,7 @@ import java.io.IOException;
 public class DaleksApp extends Application {
     private static MainController mainController;
     private static Stage mainStage;
+    private static final CampaignManager campaignManager = new CampaignManager();
 
     public static Stage getStage() {
         return mainStage;
@@ -43,14 +45,9 @@ public class DaleksApp extends Application {
     public static MainController getMainController() {
         return mainController;
     }
+    public static CampaignManager getCampaignManager() { return campaignManager; }
 
     public static void main(String[] args) {
-        // TODO przykłądowe wywołania, do usunięcia
-        //ServiceManager service = new ServiceManager();
-        //List<GameMapSettings> levels = service.getAllLevels();
-        //JsonResult uploadResult = service.uploadLevel(new GameMapSettings(10, 22, "test4"));
-        //JsonResult deleteResult = service.deleteLevel("test4");
-
         launch();
     }
 

@@ -4,7 +4,6 @@ import com.javable.daleks.Settings;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.effect.Effect;
 import javafx.scene.image.Image;
-import kotlin.NotImplementedError;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -21,15 +20,7 @@ public class ImageLoader {
         teleporterImg = new Image(new FileInputStream(Settings.TeleporterImage));
 
     }
-//
-//    public Image GetImage(EObjectType type) {
-//        return switch (type) {
-//            case EMPTY -> emptyImg;
-//            case PLAYER -> playerImg;
-//            case DALEK -> dalekImg;
-//            case SCRAP -> scrapImg;
-//        };
-//    }
+
     public Image getPlayerImage() {
         return playerImg;
     }

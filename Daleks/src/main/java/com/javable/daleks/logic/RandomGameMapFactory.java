@@ -1,9 +1,8 @@
 package com.javable.daleks.logic;
 
 import com.google.inject.Inject;
-import com.google.inject.Injector;
 import com.javable.daleks.models.GameMap;
-import com.javable.daleks.models.GameMapSettings;
+import com.javable.daleks.models.Level;
 import com.javable.daleks.models.Position;
 import com.javable.daleks.models.objects.Dalek;
 import com.javable.daleks.models.objects.Player;
@@ -12,29 +11,26 @@ import com.javable.daleks.models.objects.powers.Teleporter;
 
 public class RandomGameMapFactory {
 
-    private final int daleksCount;
-    private final Position playerStartPosition;
+    private final int daleksCount, attractorsCount, teleportersCount;
     private final int gridCount;
-    private MoveHandler moveHandler;
-    private GameMap gameMap;
+    private MoveHandler moveHandler = null;
+    private final GameMap gameMap;
 
-    @Inject
-    public RandomGameMapFactory(GameMapSettings settings) {
-        this.gridCount = settings.getGridCount();
-        this.daleksCount = settings.getDaleksCount();
-        this.playerStartPosition = settings.getPlayerStartPosition();
+    public RandomGameMapFactory(int daleksCount, int attractorsCount, int teleportersCount, int gridCount, GameMap gameMap) {
+        this.daleksCount = daleksCount;
+        this.attractorsCount = attractorsCount;
+        this.teleportersCount = teleportersCount;
+        this.gridCount = gridCount;
+        this.gameMap = gameMap;
     }
+
     public void setMoveHandler(MoveHandler moveHandler) {
         this.moveHandler = moveHandler;
     }
-    public GameMap create() {
-        Player player = new Player(playerStartPosition);
-        gameMap = new GameMap(player, gridCount);
-        return gameMap;
-    }
-    public void generate(){
-        addAttractors(gameMap,3);
-        addTeleporters(gameMap,3);
+
+    public void generate() {
+        addAttractors(gameMap,attractorsCount);
+        addTeleporters(gameMap,teleportersCount);
         addDaleks(gameMap, daleksCount);
     }
     public void addAttractors(GameMap gameMap, int attractorsCount){
@@ -48,14 +44,18 @@ public class RandomGameMapFactory {
         }
     }
     public void addTeleporters(GameMap gameMap, int teleportersCount){
-        Position position;
-        for (int i = 0; i < teleportersCount; i++) {
-            do
-                position = new Position(gridCount);
-            while (!gameMap.isCellEmptyAndValid(position));
-
-            gameMap.addObject(new Teleporter(position, moveHandler));
-        }
+        return;
+//        if(moveHandler == null){
+//            throw new IllegalStateException("Did not recive move handler - cannot create new Teleporter");
+//        }
+//        Position position;
+//        for (int i = 0; i < teleportersCount; i++) {
+//            do
+//                position = new Position(gridCount);
+//            while (!gameMap.isCellEmptyAndValid(position));
+//
+//            gameMap.addObject(new Teleporter(position, moveHandler));
+//        }
     }
     public void addDaleks(GameMap gameMap, int count) {
         Position position;
