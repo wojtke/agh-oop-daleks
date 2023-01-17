@@ -20,8 +20,8 @@ import java.io.IOException;
     - Json serializer
     - ServiceManager komunikujący się z serwisem
     - Endpoint GetLevels
-    - Endpoint UploadLevel
-    - Endpoint DeleteLevel
+    - Endpoint uploadLevel
+    - Endpoint deleteLevel
 */
 
 /* DONE Milestone 1:
@@ -34,17 +34,18 @@ import java.io.IOException;
 */
 
 public class DaleksApp extends Application {
-    private static MainController MainController;
-    private static Stage MainStage;
-    private static final CampaignManager CampaignManager = new CampaignManager();
+    private static MainController mainController;
+    private static Stage mainStage;
+    private static final CampaignManager campaignManager = new CampaignManager();
 
-    public static Stage GetStage() {
-        return MainStage;
+    public static Stage getStage() {
+        return mainStage;
     }
-    public static MainController GetMainController() {
-        return MainController;
+
+    public static MainController getMainController() {
+        return mainController;
     }
-    public static CampaignManager GetCampaignManager() { return CampaignManager; }
+    public static CampaignManager getCampaignManager() { return campaignManager; }
 
     public static void main(String[] args) {
         launch();
@@ -52,10 +53,10 @@ public class DaleksApp extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        MainStage = stage;
-        MainController = new MainController();
-        MainController.InitView();
-        MainStage.setTitle("Javable's Daleks");
-        MainStage.show();
+        mainStage = stage;
+        mainController = new MainController();
+        mainController.initView();
+        mainStage.setTitle("Javable's Daleks");
+        mainStage.show();
     }
 }

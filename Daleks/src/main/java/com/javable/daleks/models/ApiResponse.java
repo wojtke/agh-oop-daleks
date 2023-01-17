@@ -3,11 +3,18 @@ package com.javable.daleks.models;
 import org.json.JSONObject;
 
 public class ApiResponse {
-    public final int Code;
-    public final String Description;
+    private final int code;
+    private final String description;
 
     public ApiResponse(JSONObject jsonObject) {
-        Code = jsonObject.getInt("code");
-        Description = jsonObject.getString("description");
+        code = jsonObject.getInt("code");
+        description = jsonObject.getString("description");
+    }
+
+    public int getCode() {
+        return code;
+    }
+    public String getDescription() {
+        return description;
     }
 }

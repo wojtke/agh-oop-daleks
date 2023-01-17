@@ -3,10 +3,10 @@ package com.javable.daleks.controllers;
 import com.javable.daleks.DaleksApp;
 import com.javable.daleks.Settings;
 import com.javable.daleks.interfaces.IControllerFxmlBased;
+import com.javable.daleks.logic.ServiceManager;
 import com.javable.daleks.logic.ViewManager;
 import com.javable.daleks.models.ApiResponse;
 import com.javable.daleks.models.Level;
-import com.javable.daleks.logic.ServiceManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -20,6 +20,8 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.text.Text;
 import javafx.util.converter.IntegerStringConverter;
 
+import java.io.FileNotFoundException;
+
 public class LevelSelectController implements IControllerFxmlBased{
 
 
@@ -31,7 +33,7 @@ public class LevelSelectController implements IControllerFxmlBased{
         serviceManager = new ServiceManager();
 
         levels = FXCollections.observableArrayList(
-                serviceManager.GetAllUserLevels()
+                serviceManager.getAllUserLevels()
         );
 
     }
@@ -50,9 +52,9 @@ public class LevelSelectController implements IControllerFxmlBased{
     private Button addButton, removeButton, playButton, backButton;
     @FXML
     public void initialize() {
-        levelNameCol.setCellValueFactory(new PropertyValueFactory<>("LevelName"));
-        mapSizeCol.setCellValueFactory(new PropertyValueFactory<>("GridCount"));
-        daleksCountCol.setCellValueFactory(new PropertyValueFactory<>("GridCount"));
+        levelNameCol.setCellValueFactory(new PropertyValueFactory<>("levelName"));
+        mapSizeCol.setCellValueFactory(new PropertyValueFactory<>("gridSize"));
+        daleksCountCol.setCellValueFactory(new PropertyValueFactory<>("daleksCount"));
 
         levelNameCol.setCellFactory(TextFieldTableCell.forTableColumn());
         mapSizeCol.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
@@ -84,16 +86,15 @@ public class LevelSelectController implements IControllerFxmlBased{
 
         try{
             int mapSize = Integer.parseInt(mapSizeInput.getText());
-            filteredLevels = filteredLevels.filtered(l -> l.GridCount == mapSize);
+            filteredLevels = filteredLevels.filtered(l -> l.getGridSize() == mapSize);
         } catch (NumberFormatException ignored) {}
 
-        // TODO implement filter
-        /* try{
+        try{
             int daleksCount = Integer.parseInt(daleksCountInput.getText());
             filteredLevels = filteredLevels.filtered(l -> l.getDaleksCount() == daleksCount);
-        } catch (NumberFormatException ignored) {} */
+        } catch (NumberFormatException ignored) {}
 
-        filteredLevels = filteredLevels.filtered(l -> l.LevelName.contains(levelNameInput.getText()));
+        filteredLevels = filteredLevels.filtered(l -> l.getLevelName().contains(levelNameInput.getText()));
 
         this.levelTable.setItems(filteredLevels);
 
@@ -111,17 +112,17 @@ public class LevelSelectController implements IControllerFxmlBased{
 
     @FXML
     private void addButtonClicked() {
-
         Level newLevel = new Level(
                 Integer.parseInt(mapSizeInput.getText()),
                 Integer.parseInt(daleksCountInput.getText()),
+                3 , // TODO input
+                3, // TODO input
                 levelNameInput.getText()
         );
-        //TODO: Jakaś prosta walidacja by się przydała
 
-        ApiResponse response = serviceManager.UploadLevel(newLevel);
-        if(response.Code != 0){
-            errorText.setText(response.Description);
+        ApiResponse response = serviceManager.uploadLevel(newLevel);
+        if(response.getCode() != 0){
+            errorText.setText(response.getDescription());
         } else {
             errorText.setText("");
             levels.add(newLevel);
@@ -139,9 +140,9 @@ public class LevelSelectController implements IControllerFxmlBased{
     private void removeButtonClicked() {
         Level selectedLevel = levelTable.getSelectionModel().getSelectedItem();
 
-        ApiResponse response = serviceManager.DeleteLevel(selectedLevel.LevelName);
-        if(response.Code != 0){
-            errorText.setText(response.Description);
+        ApiResponse response = serviceManager.deleteLevel(selectedLevel.getLevelName());
+        if(response.getCode() != 0){
+            errorText.setText(response.getDescription());
         } else {
             errorText.setText("");
             levels.remove(selectedLevel);
@@ -151,17 +152,21 @@ public class LevelSelectController implements IControllerFxmlBased{
     }
     @FXML
     public void backButtonClicked() {
-        ViewManager.SetScene(Settings.MainView);
+        ViewManager.setScene(Settings.MainView);
     }
 
     @FXML
     public void playButtonClicked() {
         Level selectedLevel = levelTable.getSelectionModel().getSelectedItem();
-        DaleksApp.GetMainController().startGame(selectedLevel);
+        try {
+            DaleksApp.getMainController().startGame(selectedLevel);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
-    public String GetViewPath() {
+    public String getViewPath() {
         return Settings.LevelSelectView;
     }
 }

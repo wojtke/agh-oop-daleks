@@ -8,7 +8,7 @@ import javafx.scene.Scene;
 import java.io.IOException;
 
 public class ViewManager {
-    public static void SetScene(String viewPath) {
+    public static void setScene(String viewPath) {
         Scene scene;
         try {
             scene = new Scene(
@@ -19,10 +19,10 @@ public class ViewManager {
             throw new RuntimeException(e);
         }
         scene.getRoot().setStyle("-fx-base:black");
-        SetScene(scene);
+        setScene(scene);
     }
 
-    public static void SetScene(Scene scene) {
-        DaleksApp.GetStage().setScene(scene);
+    public static void setScene(Scene scene) {
+        DaleksApp.getStage().setScene(scene);
     }
 }

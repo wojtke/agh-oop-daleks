@@ -18,6 +18,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.util.converter.IntegerStringConverter;
 
+import java.io.FileNotFoundException;
+
 public class CampaignController implements IControllerFxmlBased {
     private ObservableList<Level> levels;
     private FilteredList<Level> filteredLevels;
@@ -26,7 +28,7 @@ public class CampaignController implements IControllerFxmlBased {
     public CampaignController() {
         serviceManager = new ServiceManager();
         levels = FXCollections.observableArrayList(
-                serviceManager.GetAllCampaignLevels()
+                serviceManager.getAllCampaignLevels()
         );
     }
 
@@ -41,7 +43,7 @@ public class CampaignController implements IControllerFxmlBased {
     @FXML
     public void initialize() {
         levelNameCol.setCellValueFactory(new PropertyValueFactory<>("levelName"));
-        mapSizeCol.setCellValueFactory(new PropertyValueFactory<>("gridCount"));
+        mapSizeCol.setCellValueFactory(new PropertyValueFactory<>("gridSize"));
 
         levelNameCol.setCellFactory(TextFieldTableCell.forTableColumn());
         mapSizeCol.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
@@ -54,7 +56,7 @@ public class CampaignController implements IControllerFxmlBased {
     @FXML
     private void onSelectionChanged() {
         Level selectedLevel = levelTable.getSelectionModel().getSelectedItem();
-        if (selectedLevel != null && selectedLevel.CampaignOrder <= CampaignManager.GetCurrentMaxLv()) {
+        if (selectedLevel != null && selectedLevel.getCampainOrder() <= CampaignManager.GetCurrentMaxLv()) {
             playButton.setDisable(false);
         } else {
             playButton.setDisable(true);
@@ -63,17 +65,21 @@ public class CampaignController implements IControllerFxmlBased {
 
     @FXML
     public void backButtonClicked() {
-        ViewManager.SetScene(Settings.MainView);
+        ViewManager.setScene(Settings.MainView);
     }
 
     @FXML
     public void playButtonClicked() {
         Level selectedLevel = levelTable.getSelectionModel().getSelectedItem();
-        DaleksApp.GetMainController().startGame(selectedLevel);
+        try {
+            DaleksApp.getMainController().startGame(selectedLevel);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
-    public String GetViewPath() {
+    public String getViewPath() {
         return Settings.CampaignView;
     }
 

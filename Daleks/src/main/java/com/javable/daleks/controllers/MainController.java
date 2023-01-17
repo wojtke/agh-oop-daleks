@@ -1,7 +1,5 @@
 package com.javable.daleks.controllers;
 
-import com.google.inject.Guice;
-import com.google.inject.Injector;
 import com.javable.daleks.Settings;
 import com.javable.daleks.interfaces.IControllerFxmlBased;
 import com.javable.daleks.logic.ViewManager;
@@ -9,6 +7,8 @@ import com.javable.daleks.models.Level;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
+
+import java.io.FileNotFoundException;
 
 public class MainController implements IControllerFxmlBased {
     @FXML
@@ -30,35 +30,34 @@ public class MainController implements IControllerFxmlBased {
         if (daleks_count > map_size * map_size - 1)
             throw new IllegalArgumentException("Daleks count too large");
 
-        return new Level(map_size, daleks_count, "");
+        return new Level(map_size, daleks_count, 3, 3, "");
     }
 
     @FXML
-    protected void NewGameBtn() {
+    protected void newGameBtn() {
         try {
             Level settings = parseInput();
             startGame(settings);
-        } catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException | FileNotFoundException e) {
             errorText.setText(e.getMessage());
         }
     }
 
-    public void startGame(Level settings) {
-        Injector injector = Guice.createInjector(settings);
-        GameController gameController = injector.getInstance(GameController.class);
-        gameController.InitView();
+    public void startGame(Level level) throws FileNotFoundException {
+        GameController gameController = new GameController(level);
+        gameController.initView();
     }
 
     @Override
-    public String GetViewPath() {
+    public String getViewPath() {
         return Settings.MainView;
     }
 
-    public void LevelSelectBtn() {
-        ViewManager.SetScene(Settings.LevelSelectView);
+    public void levelSelectBtn() {
+        ViewManager.setScene(Settings.LevelSelectView);
     }
 
-    public void CampaignBtn() {
-        ViewManager.SetScene(Settings.CampaignView);
+    public void campaignBtn() {
+        ViewManager.setScene(Settings.CampaignView);
     }
 }

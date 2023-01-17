@@ -1,5 +1,16 @@
 # Changelog
 
+## Commit 16 - Aleksander Pytel - Dzialajace PowerUpy
+
+-   Dodanie teleportera
+-   Dodanie attractora
+
+## Commit 15 - Aleksander Pytel - Wprowadzanie powerupów
+
+-   Poprawa wyświetlania obiektów - kożystamy z BaseObject i getImage
+-   GameMap przechowuje listę ObjectBase zamiast listy poszczegolnych klas bazowych
+-   Zmiana sposobu rozwiązywania kolizji - teraz są metody do kolizji z konkretnym obiektem
+
 ## Commit 14 - Mateusz Cyganek - Kampania gracza
 
 -   Nowy pusty widok wyboru poziomu kampanii

@@ -1,64 +1,101 @@
 package com.javable.daleks.models;
 
 import com.javable.daleks.models.objects.Dalek;
+import com.javable.daleks.models.objects.Destination;
 import com.javable.daleks.models.objects.ObjectBase;
 import com.javable.daleks.models.objects.Player;
-import com.javable.daleks.models.objects.Scrap;
 
 import java.util.*;
 
 public class GameMap {
-    public final Level levelData;
-    public final Player player;
-    public final List<Dalek> daleks = new ArrayList<>();
-    public final List<Scrap> scraps = new ArrayList<>();
-    private final Map<Position, ObjectBase> occupiedCells = new HashMap<>(); // referencje do postaci na planszy
+    private final Player player;
+    private final List<Dalek> daleks = new ArrayList<>();
 
-    public GameMap(Level settings) {
-        this.levelData = settings;
-        this.player = new Player(settings.PlayerPosition);
-        occupiedCells.put(player.Position, player);
+    private final List<Destination> destinations = new ArrayList<>();
+    private final Map<Position, ObjectBase> occupiedCells = new HashMap<>(); // referencje do postaci na planszy
+    public final Level levelData;
+
+    public GameMap(Level level) {
+        this.player = new Player(level.getPlayerPosition());
+        occupiedCells.put(player.getPosition(), player);
+        destinations.add(player);
+        levelData = level;
     }
 
     public boolean isInBounds(Position position) {
-        return position.x >= 0 && position.x < this.levelData.GridCount && position.y >= 0 && position.y < this.levelData.GridCount;
+        return position.x >= 0 && position.x < levelData.getGridSize() && position.y >= 0 && position.y < levelData.getGridSize();
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public List<Dalek> getDaleks() {
+        return daleks;
     }
 
     public boolean playerCanMoveTo(Position position) {
-        return IsCellEmptyAndValid(position) && player.CanMove(position);
+        return isInBounds(position) && player.canMove(position);
+    }
+    public void teleportPlayer(){
+        Position newPosition;
+        do
+            newPosition = new Position(levelData.getGridSize());
+        while (!isCellEmptyAndValid(newPosition));
+        moveObject(player, newPosition);
     }
 
-    public boolean IsCellEmptyAndValid(Position position) {
+    public boolean isCellEmptyAndValid(Position position) {
         return isInBounds(position) && !occupiedCells.containsKey(position);
     }
 
-    public void AddDalek(Dalek newDalek) {
+    public void addDalek(Dalek newDalek) {
+        if (occupiedCells.containsKey(newDalek.position))
+            throw new IllegalStateException("Cell is not empty");
         daleks.add(newDalek);
-        occupiedCells.put(newDalek.Position, newDalek);
+        occupiedCells.put(newDalek.position, newDalek);
     }
 
-    public void AddScrap(Scrap newScrap) {
-        if (occupiedCells.containsKey(newScrap.Position))
-            return;
-        scraps.add(newScrap);
-        occupiedCells.put(newScrap.Position, newScrap);
+    public List<Destination> getDestinations(){
+        return destinations;
     }
-
-    public void MoveObject(ObjectBase object, Position newPosition) {
-        Position oldPosition = object.Position;
-        object.Position = newPosition;
+    public void addDestination(Destination newDestination) {
+        destinations.add(newDestination);
+    }
+    public void removeDestination(Destination destination) {
+        destinations.remove(destination);
+    }
+    public void addObject(ObjectBase newObject) {
+        if (occupiedCells.containsKey(newObject.position))
+            throw new IllegalStateException("Cell is not empty");
+        occupiedCells.put(newObject.position, newObject);
+    }
+    public void removeObject(ObjectBase object) {
+        occupiedCells.remove(object.position);
+    }
+    public void moveObject(ObjectBase object, Position newPosition) {
+        Position oldPosition = object.position;
+        object.position = newPosition;
         occupiedCells.remove(oldPosition);
-        occupiedCells.put(object.Position, object);
+        occupiedCells.put(object.position, object);
     }
 
-    public Optional<ObjectBase> GetObjectAtCell(Position position) {
+    public Optional<ObjectBase> getObjectAtCell(Position position) {
         return occupiedCells.containsKey(position)
                 ? Optional.of(occupiedCells.get(position))
                 : Optional.empty();
     }
 
-    public void RemoveDalek(Dalek dalek) {
+    public void removeDalek(Dalek dalek) {
         this.daleks.remove(dalek);
-        this.occupiedCells.remove(dalek.Position);
+        this.occupiedCells.remove(dalek.position);
+    }
+
+    public Collection<ObjectBase> getObjects() {
+        return occupiedCells.values();
+    }
+
+    public int getGridSize() {
+        return levelData.getGridSize();
     }
 }
