@@ -47,7 +47,7 @@ public class GameController implements IController {
 
         MoveHandler moveHandler = new MoveHandler(gameMap, gridManager);
         RandomGameMapFactory factory = new RandomGameMapFactory(gameMap);
-        //todo factory.setMoveHandler(moveHandler);
+        factory.setMoveHandler(moveHandler);
         factory.generate();
         gridManager.repaint();
 
