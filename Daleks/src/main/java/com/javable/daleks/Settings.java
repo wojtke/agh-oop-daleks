@@ -20,11 +20,11 @@ public class Settings  {
             AttractorImage = "src/main/resources/com/javable/daleks/images/star.png",
             TeleporterImage = "src/main/resources/com/javable/daleks/images/pipe.png",
 
-            ServiceUrl = "https://klorlik.pl/javable", // "http://localhost/javable"
-            GetUserLevels = "/levels.php",
-            GetCampaignLevels = "/campaign.php",
-            PostLevel = "/upload.php",
-            DeleteLevel = "/delete.php",
+            ServiceUrl = "http://localhost:8080", // "http://localhost/javable"
+            GetUserLevels = "/levels",
+            GetCampaignLevels = "/levels/campaign",
+            PostLevel = "/levels",
+            DeleteLevel = "/levels",
 
             UserCampaign = "src/main/resources/com/javable/daleks/campaign.csv";
 }

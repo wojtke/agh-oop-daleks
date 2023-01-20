@@ -14,10 +14,9 @@ public class LevelsController {
     public List<Level> getLevels() {
         return levelsRepository.findAll();
     }
-
-    @GetMapping("/levels/{name}")
-    public Level getLevel(@PathVariable String name) {
-        return levelsRepository.findItemByName(name);
+    @GetMapping("/levels/campaign")
+    public List<Level> getCampaignLevels() {
+        return levelsRepository.findAllByIsCampaign(true);
     }
 
     @PostMapping("/levels")

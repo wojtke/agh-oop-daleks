@@ -56,7 +56,7 @@ public class CampaignController implements IControllerFxmlBased {
     @FXML
     private void onSelectionChanged() {
         Level selectedLevel = levelTable.getSelectionModel().getSelectedItem();
-        if (selectedLevel != null && selectedLevel.getCampainOrder() <= CampaignManager.GetCurrentMaxLv()) {
+        if (selectedLevel != null && selectedLevel.getCampaignOrder() <= CampaignManager.GetCurrentMaxLv()) {
             playButton.setDisable(false);
         } else {
             playButton.setDisable(true);

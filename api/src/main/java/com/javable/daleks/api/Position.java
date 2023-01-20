@@ -6,8 +6,6 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
-@JsonFormat(shape= JsonFormat.Shape.ARRAY)
-@JsonPropertyOrder({ "x", "y" })
 public class Position {
     @NotNull
     @Positive
@@ -17,6 +15,7 @@ public class Position {
         this.x = x;
         this.y = y;
     }
+
 
 
     public int getX() {

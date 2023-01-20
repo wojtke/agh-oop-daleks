@@ -29,13 +29,7 @@ public class ServiceManager {
             levels = new Level[jsonArray.length()];
 
             for (int i = 0; i < jsonArray.length(); i++) {
-                JSONObject jsonObject = jsonArray.getJSONObject(i);
-                levels[i] = new Level(
-                       jsonObject.getInt("gridCount"),
-                       5, // todo powoduje blad ??? jsonObject.getInt("daleksCount"),
-                        3, //todo json content
-                        3, //todo json content
-                        jsonObject.getString("lvName"));
+                levels[i] = new Level(jsonArray.getJSONObject(i));
             }
         }
         catch (Exception ex) {
@@ -46,70 +40,11 @@ public class ServiceManager {
     }
 
     public Level[] getAllCampaignLevels() {
-        // TODO implement
-
-        String DEMO_JSON = """
-            [
-                {
-                    "lvId": 1,
-                    "lvName": "campaign lv 1",
-                    "gridCount": 10,
-                    "player": { "x": 7, "y": 7 },
-                    "daleks": [
-                        { "x": 1, "y": 1 },
-                        { "x": 2, "y": 2 }
-                    ],
-                    "teleporters": [
-                        { "x": 6, "y": 6 }
-                    ],
-                    "attractors": [
-                        { "x": 6, "y": 1 }
-                    ]
-                },
-                {
-                    "lvId": 2,
-                    "lvName": "campaign lv 2",
-                    "gridCount": 10,
-                    "player": { "x": 7, "y": 7 },
-                    "daleks": [
-                        { "x": 1, "y": 1 },
-                        { "x": 2, "y": 2 },
-                        { "x": 3, "y": 3 }
-                    ],
-                    "teleporters": [
-                        { "x": 6, "y": 6 }
-                    ],
-                    "attractors": [
-                        { "x": 6, "y": 1 }
-                    ]
-                },
-                {
-                    "lvId": 3,
-                    "lvName": "campaign lv 3",
-                    "gridCount": 10,
-                    "player": { "x": 7, "y": 7 },
-                    "daleks": [
-                        { "x": 1, "y": 1 },
-                        { "x": 2, "y": 2 },
-                        { "x": 3, "y": 3 },
-                        { "x": 4, "y": 4 }
-                    ],
-                    "teleporters": [
-                        { "x": 6, "y": 6 }
-                    ],
-                    "attractors": [
-                        { "x": 6, "y": 1 }
-                    ]
-                }
-            ]
-        """;
-
         Level[] levels;
 
         try {
-            // TODO HttpURLConnection http = getConnection(Settings.GetCampaignLevels, ERequestMethod.GET);
-            // TODO JSONArray jsonArray = new JSONArray(getResponse(http));
-            JSONArray jsonArray = new JSONArray(DEMO_JSON);
+            HttpURLConnection http = getConnection(Settings.GetCampaignLevels, ERequestMethod.GET);
+            JSONArray jsonArray = new JSONArray(getResponse(http));
             levels = new Level[jsonArray.length()];
 
             for (int i = 0; i < jsonArray.length(); i++)

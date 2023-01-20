@@ -90,7 +90,7 @@ public class MoveHandler{
     public boolean checkIfWon() {
         if (map.getDaleks().isEmpty()) {
             if (map.levelData.isCampaign())
-                CampaignManager.IncrementMaxCampaignLvAfterBeatingLv(map.levelData.getCampainOrder());
+                CampaignManager.IncrementMaxCampaignLvAfterBeatingLv(map.levelData.getCampaignOrder());
 
             ViewManager.setScene(Settings.GameWonView);
             return true;

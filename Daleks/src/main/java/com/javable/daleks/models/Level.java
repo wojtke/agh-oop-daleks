@@ -6,11 +6,11 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class Level extends AbstractModule {
-    private final int campainOrder, gridSize;
+    private final int campaignOrder, gridSize;
     private final Position playerPosition;
 
-    public int getCampainOrder() {
-        return campainOrder;
+    public int getCampaignOrder() {
+        return campaignOrder;
     }
 
     public int getGridSize() {
@@ -37,12 +37,21 @@ public class Level extends AbstractModule {
     }
 
     public String levelName;
-    public final Position[] daleksPositions, attractorsPositions, teleportersPositions;
+
+    public Position[] getAttractorsPositions() {
+        return attractorsPositions;
+    }
+
+    public Position[] getTeleportersPositions() {
+        return teleportersPositions;
+    }
+
+    final Position[] daleksPositions, attractorsPositions, teleportersPositions;
     public final boolean isCampaign;
 
     public Level(int gridSize, int daleksCount, int attractorsCount, int teleportersCount, String levelName){
         isCampaign = false;
-        campainOrder = -1;
+        campaignOrder = -1;
         this.gridSize = gridSize;
         this.levelName = levelName;
         playerPosition = new Position(gridSize);
@@ -63,22 +72,22 @@ public class Level extends AbstractModule {
     public Level(JSONObject jsonObject)
     {
         isCampaign = true;
-        campainOrder = jsonObject.getInt("lvId");
-        levelName = jsonObject.getString("lvName");
+        campaignOrder = jsonObject.getInt("campaignOrder");
+        levelName = jsonObject.getString("name");
         gridSize = jsonObject.getInt("gridCount");
-        playerPosition = new Position(jsonObject.getJSONObject("player"));
+        playerPosition = new Position(jsonObject.getJSONObject("playerPosition"));
 
-        JSONArray daleksJsonArray = new JSONArray(jsonObject.getJSONArray("daleks"));
+        JSONArray daleksJsonArray = new JSONArray(jsonObject.getJSONArray("dalekPositions"));
         daleksPositions = new Position[daleksJsonArray.length()];
         for (int i = 0; i < daleksJsonArray.length(); i++)
             daleksPositions[i] = new Position(daleksJsonArray.getJSONObject(i));
 
-        JSONArray teleportersJsonArray = new JSONArray(jsonObject.getJSONArray("teleporters"));
+        JSONArray teleportersJsonArray = new JSONArray(jsonObject.getJSONArray("teleporterPositions"));
         teleportersPositions = new Position[teleportersJsonArray.length()];
         for (int i = 0; i < teleportersJsonArray.length(); i++)
             teleportersPositions[i] = new Position(teleportersJsonArray.getJSONObject(i));
 
-        JSONArray attractorsJsonArray = new JSONArray(jsonObject.getJSONArray("attractors"));
+        JSONArray attractorsJsonArray = new JSONArray(jsonObject.getJSONArray("attractorPositions"));
         attractorsPositions = new Position[attractorsJsonArray.length()];
         for (int i = 0; i < attractorsJsonArray.length(); i++)
             attractorsPositions[i] = new Position(attractorsJsonArray.getJSONObject(i));

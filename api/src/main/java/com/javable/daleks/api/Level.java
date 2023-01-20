@@ -1,6 +1,6 @@
 package com.javable.daleks.api;
 
-import org.hibernate.validator.constraints.UniqueElements;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -13,24 +13,30 @@ import javax.validation.constraints.Size;
 public class Level {
     @Id
     private String id;
+
     @NotNull
     private String name;
     @NotNull
     @Positive
-    private int mapSize;
+    private int gridCount;
     @NotNull
-    @Size.List({
-            @Size(min = 1, message = "At least one dalek is required"),
-    })
-    private Position[] dalekPositions;
+    private Position[] dalekPositions, teleporterPositions, attractorPositions;
     @NotNull
-    private Position doctorPosition;
+    private Position playerPosition;
 
-    public Level(String name, int mapSize, Position[] dalekPositions, Position doctorPosition) {
+    private boolean isCampaign;
+    private int campaignOrder;
+
+    public Level(String id, String name, int gridCount, Position[] dalekPositions, Position[] teleporterPositions, Position[] attractorPositions, Position playerPosition, boolean isCampaign, int campaignOrder) {
+        this.id = id;
         this.name = name;
-        this.mapSize = mapSize;
+        this.gridCount = gridCount;
         this.dalekPositions = dalekPositions;
-        this.doctorPosition = doctorPosition;
+        this.teleporterPositions = teleporterPositions;
+        this.attractorPositions = attractorPositions;
+        this.playerPosition = playerPosition;
+        this.isCampaign = isCampaign;
+        this.campaignOrder = campaignOrder;
     }
 
     public String getId() {
@@ -49,12 +55,12 @@ public class Level {
         this.name = name;
     }
 
-    public int getMapSize() {
-        return mapSize;
+    public int getGridCount() {
+        return gridCount;
     }
 
-    public void setMapSize(int mapSize) {
-        this.mapSize = mapSize;
+    public void setGridCount(int gridCount) {
+        this.gridCount = gridCount;
     }
 
     public Position[] getDalekPositions() {
@@ -65,11 +71,43 @@ public class Level {
         this.dalekPositions = dalekPositions;
     }
 
-    public Position getDoctorPosition() {
-        return doctorPosition;
+    public Position[] getTeleporterPositions() {
+        return teleporterPositions;
     }
 
-    public void setDoctorPosition(Position doctorPosition) {
-        this.doctorPosition = doctorPosition;
+    public void setTeleporterPositions(Position[] teleporterPositions) {
+        this.teleporterPositions = teleporterPositions;
+    }
+
+    public Position[] getAttractorPositions() {
+        return attractorPositions;
+    }
+
+    public void setAttractorPositions(Position[] attractorPositions) {
+        this.attractorPositions = attractorPositions;
+    }
+
+    public Position getPlayerPosition() {
+        return playerPosition;
+    }
+
+    public void setPlayerPosition(Position playerPosition) {
+        this.playerPosition = playerPosition;
+    }
+
+    public boolean isCampaign() {
+        return isCampaign;
+    }
+
+    public void setCampaign(boolean campaign) {
+        isCampaign = campaign;
+    }
+
+    public int getCampaignOrder() {
+        return campaignOrder;
+    }
+
+    public void setCampaignOrder(int campaignOrder) {
+        this.campaignOrder = campaignOrder;
     }
 }
