@@ -1,6 +1,5 @@
 package com.javable.daleks.controllers;
 
-import com.javable.daleks.DaleksApp;
 import com.javable.daleks.Settings;
 import com.javable.daleks.interfaces.IControllerFxmlBased;
 import com.javable.daleks.logic.CampaignManager;
@@ -17,8 +16,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.util.converter.IntegerStringConverter;
-
-import java.io.FileNotFoundException;
 
 public class CampaignController implements IControllerFxmlBased {
     private ObservableList<Level> levels;
@@ -56,11 +53,7 @@ public class CampaignController implements IControllerFxmlBased {
     @FXML
     private void onSelectionChanged() {
         Level selectedLevel = levelTable.getSelectionModel().getSelectedItem();
-        if (selectedLevel != null && selectedLevel.getCampaignOrder() <= CampaignManager.GetCurrentMaxLv()) {
-            playButton.setDisable(false);
-        } else {
-            playButton.setDisable(true);
-        }
+        playButton.setDisable(selectedLevel == null || selectedLevel.getCampaignOrder() > CampaignManager.GetCurrentMaxLv());
     }
 
     @FXML
@@ -71,11 +64,7 @@ public class CampaignController implements IControllerFxmlBased {
     @FXML
     public void playButtonClicked() {
         Level selectedLevel = levelTable.getSelectionModel().getSelectedItem();
-        try {
-            DaleksApp.getMainController().startGame(selectedLevel);
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
+        GameController.startGame(selectedLevel);
     }
 
     @Override

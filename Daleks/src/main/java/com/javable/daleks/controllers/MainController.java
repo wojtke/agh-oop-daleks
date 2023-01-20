@@ -8,8 +8,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 
-import java.io.FileNotFoundException;
-
 public class MainController implements IControllerFxmlBased {
     @FXML
     private TextField daleksCountInput, mapSizeInput;
@@ -37,15 +35,10 @@ public class MainController implements IControllerFxmlBased {
     protected void newGameBtn() {
         try {
             Level settings = parseInput();
-            startGame(settings);
-        } catch (IllegalArgumentException | FileNotFoundException e) {
+            GameController.startGame(settings);
+        } catch (IllegalArgumentException e) {
             errorText.setText(e.getMessage());
         }
-    }
-
-    public void startGame(Level level) throws FileNotFoundException {
-        GameController gameController = new GameController(level);
-        gameController.initView();
     }
 
     @Override

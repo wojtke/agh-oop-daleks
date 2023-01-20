@@ -1,6 +1,5 @@
 package com.javable.daleks.controllers;
 
-import com.javable.daleks.DaleksApp;
 import com.javable.daleks.Settings;
 import com.javable.daleks.interfaces.IControllerFxmlBased;
 import com.javable.daleks.logic.ServiceManager;
@@ -19,8 +18,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.text.Text;
 import javafx.util.converter.IntegerStringConverter;
-
-import java.io.FileNotFoundException;
 
 public class LevelSelectController implements IControllerFxmlBased{
 
@@ -158,11 +155,7 @@ public class LevelSelectController implements IControllerFxmlBased{
     @FXML
     public void playButtonClicked() {
         Level selectedLevel = levelTable.getSelectionModel().getSelectedItem();
-        try {
-            DaleksApp.getMainController().startGame(selectedLevel);
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
+        GameController.startGame(selectedLevel);
     }
 
     @Override

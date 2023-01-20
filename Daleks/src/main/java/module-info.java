@@ -22,4 +22,8 @@ module com.javable.daleks {
     exports com.javable.daleks.enums;
     exports com.javable.daleks.interfaces;
     opens com.javable.daleks.interfaces to javafx.fxml;
+    exports com.javable.daleks.logic.gameMapFactory;
+    opens com.javable.daleks.logic.gameMapFactory to javafx.fxml;
+    exports com.javable.daleks.models.objects.powersUps;
+    exports com.javable.daleks.models.objects.characters;
 }

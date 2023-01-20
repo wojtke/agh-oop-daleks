@@ -1,5 +1,10 @@
 # Changelog
 
+## Commit 18 - Mateusz Cyganek - Poprawa tworzenia kampanii
+
+-   Dodanie campainGameMapFactory
+-   poprawki w kodzie i struktury projektu
+
 ## Commit 16 - Aleksander Pytel - Dzialajace PowerUpy
 
 -   Dodanie teleportera

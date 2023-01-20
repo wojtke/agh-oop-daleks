@@ -1,11 +1,10 @@
-package com.javable.daleks.models.objects;
+package com.javable.daleks.models.objects.powersUps;
 
-import com.javable.daleks.logic.ImageLoader;
 import com.javable.daleks.models.GameMap;
 import com.javable.daleks.models.Position;
-import javafx.scene.image.Image;
+import com.javable.daleks.models.objects.ObjectBase;
 
-public abstract class PowerUp extends ObjectBase{
+public abstract class PowerUp extends ObjectBase {
 
     public PowerUp(Position position) {
         super(position);

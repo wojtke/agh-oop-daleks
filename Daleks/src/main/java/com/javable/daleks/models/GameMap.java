@@ -1,9 +1,9 @@
 package com.javable.daleks.models;
 
-import com.javable.daleks.models.objects.Dalek;
-import com.javable.daleks.models.objects.Destination;
+import com.javable.daleks.models.objects.characters.Dalek;
+import com.javable.daleks.interfaces.Destination;
 import com.javable.daleks.models.objects.ObjectBase;
-import com.javable.daleks.models.objects.Player;
+import com.javable.daleks.models.objects.characters.Player;
 
 import java.util.*;
 

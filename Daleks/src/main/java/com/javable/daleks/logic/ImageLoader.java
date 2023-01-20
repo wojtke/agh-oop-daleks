@@ -11,14 +11,18 @@ import java.io.FileNotFoundException;
 public class ImageLoader {
     private final Image playerImg, emptyImg, dalekImg, scrapImg, attractorImg, teleporterImg;
 
-    public ImageLoader() throws FileNotFoundException {
-        playerImg = new Image(new FileInputStream(Settings.PlayerImage));
-        emptyImg = new Image(new FileInputStream(Settings.EmptyImage));
-        dalekImg = new Image(new FileInputStream(Settings.DalekImage));
-        scrapImg = new Image(new FileInputStream(Settings.ScrapImage));
-        attractorImg = new Image(new FileInputStream(Settings.AttractorImage));
-        teleporterImg = new Image(new FileInputStream(Settings.TeleporterImage));
-
+    public ImageLoader() {
+        try {
+            playerImg = new Image(new FileInputStream(Settings.PlayerImage));
+            emptyImg = new Image(new FileInputStream(Settings.EmptyImage));
+            dalekImg = new Image(new FileInputStream(Settings.DalekImage));
+            scrapImg = new Image(new FileInputStream(Settings.ScrapImage));
+            attractorImg = new Image(new FileInputStream(Settings.AttractorImage));
+            teleporterImg = new Image(new FileInputStream(Settings.TeleporterImage));
+        }
+        catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public Image getPlayerImage() {

@@ -1,9 +1,12 @@
-package com.javable.daleks.models.objects.powers;
+package com.javable.daleks.models.objects.powersUps;
 
+import com.javable.daleks.interfaces.Destination;
 import com.javable.daleks.logic.ImageLoader;
 import com.javable.daleks.models.GameMap;
 import com.javable.daleks.models.Position;
-import com.javable.daleks.models.objects.*;
+import com.javable.daleks.models.objects.characters.Dalek;
+import com.javable.daleks.models.objects.characters.Player;
+import com.javable.daleks.models.objects.characters.Scrap;
 import javafx.scene.effect.Effect;
 import javafx.scene.image.Image;
 

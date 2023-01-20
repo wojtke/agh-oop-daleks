@@ -4,8 +4,8 @@ import com.javable.daleks.Settings;
 import com.javable.daleks.controllers.GridManager;
 import com.javable.daleks.models.GameMap;
 import com.javable.daleks.models.Position;
-import com.javable.daleks.models.objects.Dalek;
-import com.javable.daleks.models.objects.Destination;
+import com.javable.daleks.models.objects.characters.Dalek;
+import com.javable.daleks.interfaces.Destination;
 import com.javable.daleks.models.objects.ObjectBase;
 
 import java.util.HashMap;

@@ -5,9 +5,7 @@ import com.javable.daleks.enums.EDirection;
 import com.javable.daleks.logic.ImageLoader;
 import com.javable.daleks.models.GameMap;
 import com.javable.daleks.models.Position;
-import com.javable.daleks.models.objects.Dalek;
 import com.javable.daleks.models.objects.ObjectBase;
-import com.javable.daleks.models.objects.Scrap;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -19,7 +17,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 
 import java.io.FileNotFoundException;
-import java.util.Optional;
 
 public class GridManager {
     private final ImageLoader imageLoader = new ImageLoader();
@@ -29,7 +26,7 @@ public class GridManager {
     private final int gridSize;
 
 
-    public GridManager(GridPane gameGrid, GameMap gameMap) throws FileNotFoundException {
+    public GridManager(GridPane gameGrid, GameMap gameMap) {
         this.gameGrid = gameGrid;
         gameGrid.setAlignment(Pos.CENTER);
         gameGrid.setPadding(new Insets(10, 10, 10, 10));

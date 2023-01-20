@@ -1,4 +1,4 @@
-package com.javable.daleks.models.objects;
+package com.javable.daleks.interfaces;
 
 import com.javable.daleks.models.Position;
 
