@@ -5,6 +5,10 @@
 -   Dodanie campainGameMapFactory
 -   poprawki w kodzie i struktury projektu
 
+## Commit 17 - Wojciech Jasiński - Spring Boot REST API
+-   Dodanie REST API w Spring Boot
+-   Aktualizacje ServiceManagera
+
 ## Commit 16 - Aleksander Pytel - Dzialajace PowerUpy
 
 -   Dodanie teleportera
