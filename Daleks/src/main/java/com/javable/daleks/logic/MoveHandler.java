@@ -37,6 +37,7 @@ public class MoveHandler{
                     () -> map.moveObject(dalek, newPosition)
             );
         }
+        
         for (Dalek dalek : daleksToMove.keySet()) {
             Position newPosition = daleksToMove.get(dalek);
             map.getObjectAtCell(newPosition).ifPresentOrElse(
@@ -55,20 +56,23 @@ public class MoveHandler{
                 closestDistance = destination.getPosition().distanceSqr(dalek.position);
             }
         }
-        if(closest == null){
+        if(closest == null)
             throw new IllegalStateException("No closest destination");
-        }
+
         return closest;
     }
 
     public void movePlayer(Position newPosition) {
+
+        /* stara teloportacja poprzez klikanie gracza, teraz tylko przez teleportery
         if (newPosition.equals(map.getPlayer().position)) {
             this.teleportPlayer();
             return;
-        }
-        if(!map.playerCanMoveTo(newPosition)){
+        }*/
+
+        if(!map.playerCanMoveTo(newPosition))
             return;
-        }
+
         Optional<ObjectBase> objectAtCell = map.getObjectAtCell(newPosition);
 
         if (objectAtCell.isPresent())
@@ -77,24 +81,23 @@ public class MoveHandler{
             map.moveObject(map.getPlayer(), newPosition);
         moveDaleks();
 
-
-        if (!checkIfWon())
+        if (checkIfLost())
             gridManager.repaint();
     }
     public void teleportPlayer(){
         map.teleportPlayer();
-        if (!checkIfWon())
+        if (checkIfLost())
             gridManager.repaint();
     }
 
-    public boolean checkIfWon() {
+    public boolean checkIfLost() {
         if (map.getDaleks().isEmpty()) {
             if (map.levelData.isCampaign())
                 CampaignManager.IncrementMaxCampaignLvAfterBeatingLv(map.levelData.getCampaignOrder());
 
             ViewManager.setScene(Settings.GameWonView);
-            return true;
+            return false;
         }
-        return false;
+        return true;
     }
 }

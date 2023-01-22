@@ -1,5 +1,6 @@
 package com.javable.daleks.controllers;
 
+import com.javable.daleks.DaleksApp;
 import com.javable.daleks.Settings;
 import com.javable.daleks.interfaces.IControllerFxmlBased;
 import com.javable.daleks.logic.ViewManager;
@@ -8,37 +9,44 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 
+import java.util.Optional;
+
 public class MainController implements IControllerFxmlBased {
     @FXML
-    private TextField daleksCountInput, mapSizeInput;
+    private TextField daleksCountInput, mapSizeInput, attractorsCountInput, teleportersCountInput;
 
     @FXML
     private Text errorText;
 
-    private Level parseInput() { // TODO zastąpić exception pustym optionallem i setText
+    private Optional<Level> parseInput() {
         int map_size = Integer.parseInt(mapSizeInput.getText());
         int daleks_count = Integer.parseInt(daleksCountInput.getText());
+        int attractorsCount = Integer.parseInt(attractorsCountInput.getText());
+        int teleportersCount = Integer.parseInt(teleportersCountInput.getText());
+        StringBuilder sb = new StringBuilder();
 
         if (daleks_count < 1)
-            throw new IllegalArgumentException("Daleks count must be greater than 0");
-
+            sb.append("Daleks count must be greater than 0\n");
+        if (attractorsCount < 1)
+            sb.append("Daleks count must be greater than 0\n");
+        if (teleportersCount < 1)
+            sb.append("Daleks count must be greater than 0\n");
         if (map_size < 3)
-            throw new IllegalArgumentException("Map size must be greater than 2");
+            sb.append("Map size must be greater than 2\n");
+        if ((daleks_count + attractorsCount + teleportersCount) > map_size * map_size - 1)
+            sb.append("Props count too large\n");
 
-        if (daleks_count > map_size * map_size - 1)
-            throw new IllegalArgumentException("Daleks count too large");
+        if (sb.isEmpty())
+            return Optional.of(new Level(map_size, daleks_count, attractorsCount, teleportersCount, ""));
 
-        return new Level(map_size, daleks_count, 3, 3, "");
+        errorText.setText(sb.toString());
+        return Optional.empty();
     }
 
     @FXML
     protected void newGameBtn() {
-        try {
-            Level settings = parseInput();
-            GameController.startGame(settings);
-        } catch (IllegalArgumentException e) {
-            errorText.setText(e.getMessage());
-        }
+        Optional<Level> settings = parseInput();
+        settings.ifPresent(GameController::startGame);
     }
 
     @Override
@@ -52,5 +60,9 @@ public class MainController implements IControllerFxmlBased {
 
     public void campaignBtn() {
         ViewManager.setScene(Settings.CampaignView);
+    }
+
+    public void exitBtn() {
+        DaleksApp.QuitGame();
     }
 }

@@ -1,11 +1,18 @@
 # Changelog
 
+## Commit 19 - Mateusz Cyganek - Poprawki przy podawaniu parametrów poziomu
+
+-   Dodanie miejsc na wprowadzenie parametrów ilości powerup'ów
+-   Usunięcię starej możliwości uruchomienia teleportacji gracza po kliknięciu gracza
+-   Poprawa walidacji parametrów poziomu
+
 ## Commit 18 - Mateusz Cyganek - Poprawa tworzenia kampanii
 
 -   Dodanie campainGameMapFactory
 -   poprawki w kodzie i struktury projektu
 
 ## Commit 17 - Wojciech Jasiński - Spring Boot REST API
+
 -   Dodanie REST API w Spring Boot
 -   Aktualizacje ServiceManagera
 

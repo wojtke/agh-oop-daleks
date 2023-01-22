@@ -51,6 +51,8 @@ public class DaleksApp extends Application {
         launch();
     }
 
+    public static void QuitGame() { System.exit(0); }
+
     @Override
     public void start(Stage stage) throws IOException {
         mainStage = stage;

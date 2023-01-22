@@ -42,7 +42,7 @@ public class LevelSelectController implements IControllerFxmlBased{
     @FXML
     private TableColumn<Level, Integer>  mapSizeCol, daleksCountCol;
     @FXML
-    private TextField levelNameInput, mapSizeInput, daleksCountInput;
+    private TextField levelNameInput, mapSizeInput, daleksCountInput, attractorsCountInput, teleportersCountInput;
     @FXML
     private Text errorText;
     @FXML
@@ -84,11 +84,13 @@ public class LevelSelectController implements IControllerFxmlBased{
         try{
             int mapSize = Integer.parseInt(mapSizeInput.getText());
             filteredLevels = filteredLevels.filtered(l -> l.getGridSize() == mapSize);
-        } catch (NumberFormatException ignored) {}
 
-        try{
             int daleksCount = Integer.parseInt(daleksCountInput.getText());
             filteredLevels = filteredLevels.filtered(l -> l.getDaleksCount() == daleksCount);
+
+            int attractorsCount = Integer.parseInt(attractorsCountInput.getText());
+
+            int teleporters = Integer.parseInt(teleportersCountInput.getText());
         } catch (NumberFormatException ignored) {}
 
         filteredLevels = filteredLevels.filtered(l -> l.getLevelName().contains(levelNameInput.getText()));
@@ -97,14 +99,15 @@ public class LevelSelectController implements IControllerFxmlBased{
 
         boolean isInputValid =
                 !levelNameInput.getText().isBlank() &&
-                        !mapSizeInput.getText().isBlank() &&
-                        !daleksCountInput.getText().isBlank();
+                !mapSizeInput.getText().isBlank() &&
+                !daleksCountInput.getText().isBlank() &&
+                !attractorsCountInput.getText().isBlank() &&
+                !teleportersCountInput.getText().isBlank();
         addButton.setDisable(
                 !filteredLevels.isEmpty() && !isInputValid
         );
 
         addButton.setText(filteredLevels.isEmpty() && !isInputValid ? "Generate" : "Add");
-
     }
 
     @FXML
@@ -112,8 +115,8 @@ public class LevelSelectController implements IControllerFxmlBased{
         Level newLevel = new Level(
                 Integer.parseInt(mapSizeInput.getText()),
                 Integer.parseInt(daleksCountInput.getText()),
-                3 , // TODO input
-                3, // TODO input
+                Integer.parseInt(attractorsCountInput.getText()),
+                Integer.parseInt(teleportersCountInput.getText()),
                 levelNameInput.getText()
         );
 
