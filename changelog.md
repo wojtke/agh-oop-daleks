@@ -1,5 +1,10 @@
 # Changelog
 
+## Commit 20 - Mateusz Cyganek - Poprawki przy inicjalizacji poziomów
+
+-   Dodanie statycznych serializatoró w klasie Level
+-   Możliwość określenia czy poziom jest z kampanii
+
 ## Commit 19 - Mateusz Cyganek - Poprawki przy podawaniu parametrów poziomu
 
 -   Dodanie miejsc na wprowadzenie parametrów ilości powerup'ów

@@ -25,7 +25,7 @@ public class CampaignController implements IControllerFxmlBased {
     public CampaignController() {
         serviceManager = new ServiceManager();
         levels = FXCollections.observableArrayList(
-                serviceManager.getAllCampaignLevels()
+                serviceManager.getLevels(Settings.GetCampaignLevels)
         );
     }
 

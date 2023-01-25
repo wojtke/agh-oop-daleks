@@ -30,7 +30,7 @@ public class LevelSelectController implements IControllerFxmlBased{
         serviceManager = new ServiceManager();
 
         levels = FXCollections.observableArrayList(
-                serviceManager.getAllUserLevels()
+                serviceManager.getLevels(Settings.GetUserLevels)
         );
 
     }

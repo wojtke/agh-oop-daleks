@@ -17,44 +17,26 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 public class ServiceManager {
-    public Level[] getAllUserLevels() {
+    public Level[] getLevels(String endpoint) {
         Level[] levels;
 
         try {
-            HttpURLConnection http = getConnection(Settings.GetUserLevels, ERequestMethod.GET);
+            HttpURLConnection http = getConnection(endpoint, ERequestMethod.GET);
             JSONArray jsonArray = new JSONArray(getResponse(http));
             levels = new Level[jsonArray.length()];
 
-            for (int i = 0; i < jsonArray.length(); i++) {
-                levels[i] = new Level(jsonArray.getJSONObject(i));
-            }
+            for (int i = 0; i < jsonArray.length(); i++)
+                levels[i] = Level.ParseLevelJson(jsonArray.getJSONObject(i), Objects.equals(endpoint, Settings.GetCampaignLevels));
         }
         catch (Exception ex) {
             throw new RuntimeException(ex);
         }
 
        return levels;
-    }
-
-    public Level[] getAllCampaignLevels() {
-        Level[] levels;
-
-        try {
-            HttpURLConnection http = getConnection(Settings.GetCampaignLevels, ERequestMethod.GET);
-            JSONArray jsonArray = new JSONArray(getResponse(http));
-            levels = new Level[jsonArray.length()];
-
-            for (int i = 0; i < jsonArray.length(); i++)
-                levels[i] = new Level(jsonArray.getJSONObject(i));
-        }
-        catch (Exception ex) {
-            throw new RuntimeException(ex);
-        }
-
-        return levels;
     }
 
     public ApiResponse uploadLevel(Level level) {
