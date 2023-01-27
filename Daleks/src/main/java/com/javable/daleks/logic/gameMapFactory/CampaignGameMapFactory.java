@@ -28,6 +28,6 @@ public class CampaignGameMapFactory extends GameMapFactoryBase {
     @Override
     protected void addDaleks() {
         for (Position dalek : gameMap.levelData.getDaleksPositions())
-            gameMap.addObject(new Dalek(dalek));
+            gameMap.addDalek(new Dalek(dalek));
     }
 }

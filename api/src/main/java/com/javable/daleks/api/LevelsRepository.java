@@ -10,7 +10,7 @@ public interface LevelsRepository extends MongoRepository<Level, String> {
     @Query("{ 'name' : ?0 }")
     Level findItemByName(String name);
 
-    @Query("{ 'isCampaign' : ?0 }")
+    @Query(value="{ 'isCampaign' : ?0}", sort = "{ 'campaignOrder' : 1 }")
     List<Level> findAllByIsCampaign(boolean isCampaign);
 
 }
